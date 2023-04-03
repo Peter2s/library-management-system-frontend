@@ -10,8 +10,7 @@ import { BooksModule } from './books/books.module';
 import { MembersModule } from './members/members.module';
 import { AdminRoutingModule } from './administration-routing.module';
 import { EmployeesModule } from './employees/employees.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './services/api.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -22,14 +21,15 @@ import { ApiService } from './services/api.service';
     BooksModule,
     MembersModule,
     EmployeesModule,
-    
+   
   ],
   declarations: [
     HeaderComponent,
     FooterComponent,
+    SidebarComponent,
     Error404Component,
     DashboardComponent,
     AdministrationMainLayoutComponent,
-  ]
+  ],
 })
 export class administrationModule {}

@@ -1,3 +1,50 @@
-<p>
-  login works!
-</p>
+<div class="text-center mt-5">
+  <div class="form-signin">
+    <form [formGroup]="loginForm">
+      <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
+      <h1 class="h3 mb-3 fs-3 fw-normal">Please sign in</h1>
+      <div class="form-floating">
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="email"
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          name="password"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <!-- <div *ngIf="password?.invalid && password?.touched">
+          <div *ngIf="password?.errors?.['required']">
+            Please enter a value for My Input.
+          </div>
+        </div> -->
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me" /> Remember me
+        </label>
+      </div>
+      <button
+        class="w-100 btn btn-lg btn-primary"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        Sign in
+      </button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+    </form>
+  </div>
+</div>
+<h3>{{ password?.valid| json }}</h3>
