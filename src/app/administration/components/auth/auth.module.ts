@@ -4,9 +4,23 @@ import { ActivationComponent } from './activation/activation.component';
 import { LoginComponent } from './login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from "primeng/api";
+import { MessagesModule } from 'primeng/messages';
+
+
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, FormsModule,ReactiveFormsModule],
+  imports: [
+  CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    MessagesModule
+    
+  ],
   declarations: [ActivationComponent, LoginComponent],
+  providers: [MessageService],
 })
 export class AuthModule {}

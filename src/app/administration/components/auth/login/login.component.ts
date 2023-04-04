@@ -1,38 +1,74 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
 
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../services/auth.service";
 import {} from "@angular/forms";
 import { ILogin } from "../../../../models/ILogin";
-import { Observer, PartialObserver, Subscription } from "rxjs";
+import {  PartialObserver, Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { IAuthResponse } from "src/app/models/IAuthResponse";
+import { Message, MessageService } from "primeng/api";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"],
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   // loginForm: FormGroup;
   faBookOpenReader = faBookOpenReader;
   loginForm: any;
   serverError: any = null;
+  validationErrors: Message[] = [];
   subscription: Subscription[] = [];
+  @ViewChild('passwordInput') passwordInput:ElementRef | null = null;
 
   constructor(
     private AuthService: AuthService,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private messageService: MessageService
+  ) { }
+
+
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(8)]],
     });
+     this.loginForm.valueChanges.subscribe((value: any) => {
+       if (this.loginForm.invalid ) {
+         if (this.email?.errors?.required) {
+           console.log(this.email.errors);
+           this.validationErrors = [
+             {
+               key: "email",
+               severity: "error",
+               detail: "email required ",
+               life: 3000,
+             },
+           ];
+         } else if (this.email?.errors?.email) {
+           this.validationErrors = [
+             {
+               key: "email",
+               severity: "error",
+               detail: "invalid email format ",
+             },
+           ];
+         } else if ((this.email.errors = null)) {
+           this.validationErrors = [];
+         }
+           
+       }
+     });
+    
   }
+
+
 
   get email() {
     return this.loginForm.get("email");
@@ -54,14 +90,20 @@ export class LoginComponent implements OnInit, OnDestroy {
           console.log(result);
           this.AuthService.storeTokens(result);
           this.router.navigate(["/admin/dashboard"]);
-         
         },
         error: (err) => {
           this.serverError = err;
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: err.message,
+            life: 5000,
+          });
         },
       };
       if (this.loginForm.valid) {
-        const sub =this.AuthService.login(LoginCredentials).subscribe(loginObserver);
+        const sub =
+          this.AuthService.login(LoginCredentials).subscribe(loginObserver);
         this.subscription.push(sub);
       }
     }

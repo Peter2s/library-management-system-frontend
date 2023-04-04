@@ -1,6 +1,6 @@
 <div class="text-center mt-5">
   <div class="form-signin">
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (submit)="onSubmit()">
       <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
       <h1 class="h3 mb-3 fs-3 fw-normal">Please sign in</h1>
       <!-- email input -->
@@ -9,12 +9,20 @@
           type="email"
           name="email"
           formControlName="email"
-          class="form-control"
+          class="form-control ng-dirty ng-invalid"
           id="floatingInput"
           placeholder="email"
           [class.is-valid]="email?.valueChanges && email?.valid"
         />
+
+        {{validationErrors |json}}
         <ng-container *ngIf="email?.invalid && email?.touched">
+          
+          <p-messages key="email" showTransitionOptions="500ms"[value]="validationErrors" [enableService]="false" ></p-messages>
+          
+        </ng-container> -->
+        <!-- email validation
+        <!-- <ng-container *ngIf="email?.invalid && email?.touched">
           <ng-container *ngIf="email?.errors?.['required']">
             <div class="alert alert-danger fade show">Email is required</div>
           </ng-container>
@@ -23,13 +31,14 @@
               Invalid email format for
             </div>
           </ng-container>
-        </ng-container>
+        </ng-container> -->
         <!-- email validation -->
         <label for="floatingInput">Email address</label>
       </div>
       <!-- password input -->
       <div class="form-floating">
         <input
+        #passwordInput
           type="password"
           class="form-control"
           formControlName="password"
@@ -52,9 +61,11 @@
 
         <label for="floatingPassword">Password</label>
       </div>
-      <div *ngIf="serverError" class="alert alert-danger">
-        {{ serverError?.message }}
-      </div>
+    
+        <p-toast position="top-left"  >   </p-toast>
+
+      
+ 
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me" /> Remember me
@@ -63,7 +74,7 @@
       <button
         class="w-100 btn btn-lg btn-primary"
         type="submit"
-        (click)="onSubmit()"
+         [disabled]="loginForm.invalid"
       >
         Sign in
       </button>
