@@ -4,9 +4,10 @@ import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../services/auth.service";
 import {} from "@angular/forms";
-import { async } from "@angular/core/testing";
 import { ILogin } from "../../../../models/ILogin";
-import { Subscription } from "rxjs";
+import { Observer, PartialObserver, Subscription } from "rxjs";
+import { Router } from "@angular/router";
+import { IAuthResponse } from "src/app/models/IAuthResponse";
 
 @Component({
   selector: "app-login",
@@ -17,10 +18,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   // loginForm: FormGroup;
   faBookOpenReader = faBookOpenReader;
   loginForm: any;
-  serverError: any =null;
+  serverError: any = null;
   subscription: Subscription[] = [];
 
-  constructor(private AuthService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private AuthService: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -40,20 +45,24 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     let email = this.email?.value;
     let password = this.password?.value;
+
     if (email && password) {
       let LoginCredentials: ILogin = { email, password };
+
+      let loginObserver: PartialObserver<IAuthResponse> = {
+        next: (result) => {
+          console.log(result);
+          this.AuthService.storeTokens(result);
+          this.router.navigate(["/admin/dashboard"]);
+         
+        },
+        error: (err) => {
+          this.serverError = err;
+        },
+      };
       if (this.loginForm.valid) {
-        const sub = this.AuthService.login(LoginCredentials).subscribe({
-          next: (result) => {
-            console.log(result);
-            localStorage.setItem("accessToken", result.accessToken);
-            localStorage.setItem("refreshToken", result.refreshToken);
-             this.subscription.push(sub);
-          },
-          error:(err)=> {
-            this.serverError = err;
-          },
-        });
+        const sub =this.AuthService.login(LoginCredentials).subscribe(loginObserver);
+        this.subscription.push(sub);
       }
     }
   }

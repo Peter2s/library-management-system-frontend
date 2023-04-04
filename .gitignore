@@ -1,6 +1,6 @@
 # dependencies
 /node_modules
-.angular/cache
+.angular/*
 
 # compiled output
 /dist

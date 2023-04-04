@@ -10,22 +10,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(private api:ApiService ) { }
 
-  ngOnInit() {
-    this.api.get<string>("/products").subscribe({
-      next: (res) => {
-        console.log(res);
-      }
-    });
-
-    this.api.delete<string>("/products/1").subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
-
-
-
-
-  }
+  ngOnInit() {  }
 
 }

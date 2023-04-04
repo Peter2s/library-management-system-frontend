@@ -6,11 +6,14 @@ import { BooksComponent } from './books/books.component';
 import { MembersComponent } from './members/members.component';
 import { ActivationComponent } from './components/auth/activation/activation.component';
 import { AdministrationMainLayoutComponent } from './components/administrationMainLayout/administrationMainLayout.component';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
     path: "",
     component: AdministrationMainLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "books", component: BooksComponent },
@@ -19,7 +22,7 @@ const routes: Routes = [
     }
     ],
   },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponent ,canActivate:[LoginGuard]},
   { path: "activation", component: ActivationComponent },
 ];
 
