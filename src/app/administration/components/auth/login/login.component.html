@@ -3,6 +3,7 @@
     <form [formGroup]="loginForm">
       <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
       <h1 class="h3 mb-3 fs-3 fw-normal">Please sign in</h1>
+      <!-- email input -->
       <div class="form-floating">
         <input
           type="email"
@@ -11,9 +12,22 @@
           class="form-control"
           id="floatingInput"
           placeholder="email"
+          [class.is-valid]="email?.valueChanges && email?.valid"
         />
+        <ng-container *ngIf="email?.invalid && email?.touched">
+          <ng-container *ngIf="email?.errors?.['required']">
+            <div class="alert alert-danger fade show">Email is required</div>
+          </ng-container>
+          <ng-container *ngIf="email?.errors?.['email']">
+            <div class="alert alert-danger fade show">
+              Invalid email format for
+            </div>
+          </ng-container>
+        </ng-container>
+        <!-- email validation -->
         <label for="floatingInput">Email address</label>
       </div>
+      <!-- password input -->
       <div class="form-floating">
         <input
           type="password"
@@ -22,15 +36,25 @@
           name="password"
           id="floatingPassword"
           placeholder="Password"
+          [class.is-valid]="password?.valueChanges && password?.valid"
         />
-        <!-- <div *ngIf="password?.invalid && password?.touched">
-          <div *ngIf="password?.errors?.['required']">
-            Please enter a value for My Input.
-          </div>
-        </div> -->
+        <!-- password validation -->
+        <ng-container *ngIf="password?.invalid && password?.touched">
+          <ng-container *ngIf="password?.errors?.['required']">
+            <div class="alert alert-danger fade show">Password is required</div>
+          </ng-container>
+          <ng-container *ngIf="password?.errors?.['minlength']">
+            <div class="alert alert-danger fade show">
+              Password must be 8 or more characters
+            </div>
+          </ng-container>
+        </ng-container>
+
         <label for="floatingPassword">Password</label>
       </div>
-
+      <div *ngIf="serverError" class="alert alert-danger">
+        {{ serverError?.message }}
+      </div>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me" /> Remember me
@@ -47,4 +71,3 @@
     </form>
   </div>
 </div>
-<h3>{{ password?.valid| json }}</h3>

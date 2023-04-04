@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { HttpOptions } from "src/app/models/IHttp-options";
+import { IServerError } from '../../models/IServerError';
 @Injectable({
   providedIn: "root",
 })
@@ -22,11 +23,11 @@ export class ApiService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
+  put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T>{
     const url = this.baseUrl + endpoint;
     return this.http
       .put<T>(url, data)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(retry(2),  catchError(this.handleError));
   }
 
   delete<T>(endpoint: string, options?: HttpOptions): Observable<T> {
@@ -43,9 +44,10 @@ export class ApiService {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       // Server-side error
-      errorMessage = `Error Code: ${error.status}\n Message: ${error.message}`;
+      errorMessage = `Error Code: ${error.status} \n  Message: ${error.error.message}`;
     }
+     console.error(error);
     console.error(errorMessage);
-    return throwError(errorMessage);
+    return throwError({ statusCode: error.status, message: error.error.message });
   }
 }

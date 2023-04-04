@@ -11,6 +11,6 @@ export class AuthService {
   constructor(private api: ApiService) {}
 
   public login(credentials:ILogin): Observable<IAuthResponse> {
-    return this.api.post("administration/login",credentials);
+    return this.api.post("/login/administration", credentials);
   }
 }
