@@ -16,8 +16,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: "dashboard", component: DashboardComponent },
-      { path: "books", component: BooksComponent },
-      { path: "members", component: MembersComponent },
+      { path: "books", loadChildren: () => import('../administration/books/books.module').then(mod => mod.BooksModule) },
+      { path: "admins", loadChildren: () => import('../administration/Admin/Admin.module').then(mod => mod.AdminModule)},
+      { path: "members", loadChildren: () => import('./members/members.module').then(mod => mod.MembersModule) },
       { path: "employees",loadChildren: () => import('./employees/employees.module').then(mod => mod.EmployeesModule),
     }
     ],

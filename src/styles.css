@@ -2,3 +2,17 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+/* them css */
+@import url("./assets/css/icomoon.css");
+@import url("./assets/css/jquery-ui.css");
+@import url("./assets/css/owl.carousel.css");
+@import url("./assets/css/transitions.css");
+@import url("./assets/css/main.css");
+@import url("./assets/css/color.css");
+@import url("./assets/css/responsive.css");
+@import url("./assets/css/bootstrap.min.css");
+
+li{
+    list-style: none !important;
+}
+
