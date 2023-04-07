@@ -18,13 +18,10 @@ export class LoadingInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
       this.loadingService.showLoading();
-      console.log("req");
 
     return next.handle(request).pipe(
       finalize(() => {
           this.loadingService.hideLoading();
-                console.log("res");
-
       })
     );
   }

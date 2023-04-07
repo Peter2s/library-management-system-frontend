@@ -10,8 +10,7 @@ import { LoadingService } from '../../shared/services/loading.service';
   templateUrl: "./books.component.html",
   styleUrls: ["./books.component.css"],
 })
-  
-export class BooksComponent implements OnInit,OnDestroy {
+export class BooksComponent implements OnInit, OnDestroy {
   /** book model */
   books: IBooks[] = [];
   /** Pagination */
@@ -20,8 +19,11 @@ export class BooksComponent implements OnInit,OnDestroy {
   totalRecords: number;
   rowsPerPageOptions: number[];
   /** Observable */
-  subscription:Subscription[] = [];
-  constructor(private booksService: BooksService,public loadingService:LoadingService) {
+  subscription: Subscription[] = [];
+  constructor(
+    private booksService: BooksService,
+    public loadingService: LoadingService
+  ) {
     this.first = 1;
     this.rows = 8;
     this.totalRecords = 0;
@@ -32,7 +34,7 @@ export class BooksComponent implements OnInit,OnDestroy {
       this.rows * 10,
     ];
   }
-  
+
   ngOnInit() {
     const sub = this.booksService.getBooks().subscribe((data) => {
       this.books = data.data;
@@ -41,11 +43,12 @@ export class BooksComponent implements OnInit,OnDestroy {
       console.log(data);
     });
   }
-  
-  onPageChange(event: Event) {
-    
+
+  onPageChange(event: Event) {}
+  getNumbersArray(start: number, end: number): number[] {
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
