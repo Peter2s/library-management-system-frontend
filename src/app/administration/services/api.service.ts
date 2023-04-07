@@ -3,6 +3,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpInterceptor,
+  HttpParams,
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
@@ -18,7 +19,7 @@ export class ApiService {
 
   get<T>(endpoint: string, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
-    return this.http.get<T>(url).pipe(retry(2), catchError(this.handleError));
+    return this.http.get<T>(url,options={}).pipe(retry(2), catchError(this.handleError));
   }
   post<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;

@@ -44,7 +44,14 @@ export class BooksComponent implements OnInit, OnDestroy {
     });
   }
 
-  onPageChange(event: Event) {}
+  onPageChange(event: any) {
+    console.log(event);
+    this.booksService.getBooks(event.page+1,this.rows).subscribe((books) => {
+      this.books = books.data;
+      console.log(books);
+    });
+  }
+
   getNumbersArray(start: number, end: number): number[] {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }

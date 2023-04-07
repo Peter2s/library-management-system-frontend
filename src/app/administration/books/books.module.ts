@@ -7,6 +7,7 @@ import { PaginatorModule } from "primeng/paginator";
 import { SkeletonModule } from "primeng/skeleton";
 
 
+
 @NgModule({
   imports: [CommonModule, BooksRoutes, PaginatorModule, SkeletonModule],
   declarations: [BooksComponent, BookItemComponent],
