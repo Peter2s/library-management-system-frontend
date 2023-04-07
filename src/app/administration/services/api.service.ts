@@ -27,11 +27,11 @@ export class ApiService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T>{
+  put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
     return this.http
       .put<T>(url, data)
-      .pipe(retry(2),  catchError(this.handleError));
+      .pipe(retry(2), catchError(this.handleError));
   }
 
   delete<T>(endpoint: string, options?: HttpOptions): Observable<T> {
@@ -50,8 +50,11 @@ export class ApiService {
       // Server-side error
       errorMessage = `Error Code: ${error.status} \n  Message: ${error.error.message}`;
     }
-     console.error(error);
+    console.error(error);
     console.error(errorMessage);
-    return throwError({ statusCode: error.status, message: error.error.message });
+    return throwError({
+      statusCode: error.status,
+      message: error.error.message,
+    });
   }
 }
