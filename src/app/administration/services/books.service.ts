@@ -11,11 +11,15 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: "root",
 })
 export class BooksService implements OnInit {
-
+  httpHeaders: any = {};
   constructor(
     private ApiService: ApiService,
     private authService: AuthService
-  ) {  }
+  ) { 
+    this.httpHeaders = {
+      Authorization: "Bearer " + this.authService.token(),
+    };
+   }
 
   ngOnInit(): void {}
 
@@ -30,6 +34,7 @@ export class BooksService implements OnInit {
 
   getBooks(page?: number, limit?: number): Observable<IBooksResponse> {
     const options: HttpOptions = {
+      headers: this.httpHeaders,
       params: {
         page: page?.toString() ?? "",
         limit: limit?.toString() ?? "",
@@ -38,8 +43,10 @@ export class BooksService implements OnInit {
     return this.ApiService.get<IBooksResponse>("/books", options);
   }
   addBook(book: IBooks) {
-    
-    return this.ApiService.post<IBooksResponse>("/books", book);
+    const options: HttpOptions = {
+      headers: this.httpHeaders,
+    };
+    return this.ApiService.post<IBooksResponse>("/books", book,options);
   }
   bookCategories() {
     this.ApiService.get<any>("/categories");
