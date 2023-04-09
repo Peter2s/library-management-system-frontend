@@ -11,6 +11,6 @@ export interface IBooks {
   available: number;
   borrowedCopies: number;
   //image: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }

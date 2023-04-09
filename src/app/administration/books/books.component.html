@@ -6,19 +6,17 @@
       width="25rm"
       height="50rem"
       borderRadius="16px"
-      styleClass="col-xs-5 col-sm-5 col-md-3 col-lg-2 p-6 m-4 "
+      styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
     ></p-skeleton>
   </ng-container>
   <!-- end loading -->
   <ng-container *ngFor="let book of books; index as i">
     <app-bookItem
-      class="col-xs-6 col-sm-6 col-md-4 col-lg-3"
+      class="col-s-6 col-sm-6 col-md-4 col-xl-3"
       [bookItem]="book"
     ></app-bookItem>
   </ng-container>
 </div>
-
-<h1>{{ loadingService.isLoading$.value }}</h1>
 <div class="row">
   <div class="card flex justify-content-center col-12">
     <p-paginator

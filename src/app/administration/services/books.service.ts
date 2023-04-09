@@ -4,14 +4,21 @@ import { Observable } from 'rxjs';
 import { IBooksResponse } from "src/app/models/IBooksResponse";
 import { HttpOptions } from 'src/app/models/IHttp-options';
 import { IBooks } from 'src/app/models/IBooks';
+import { AuthService } from './auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: "root",
 })
 export class BooksService implements OnInit {
-  constructor(private ApiService: ApiService) {}
+
+  constructor(
+    private ApiService: ApiService,
+    private authService: AuthService
+  ) {  }
 
   ngOnInit(): void {}
+
 
   getCategories(){
     return this.ApiService.get('/categories');
@@ -22,13 +29,20 @@ export class BooksService implements OnInit {
   }
 
   getBooks(page?: number, limit?: number): Observable<IBooksResponse> {
-    let options: HttpOptions = {
+    const options: HttpOptions = {
       params: {
-        page: page?.toString() ?? '',
-        limit: limit?.toString() ?? '',
+        page: page?.toString() ?? "",
+        limit: limit?.toString() ?? "",
       },
-    }
-    return this.ApiService.get<IBooksResponse>("/books");
+    };
+    return this.ApiService.get<IBooksResponse>("/books", options);
+  }
+  addBook(book: IBooks) {
+    
+    return this.ApiService.post<IBooksResponse>("/books", book);
+  }
+  bookCategories() {
+    this.ApiService.get<any>("/categories");
   }
   
   getBookById(id:number):Observable<IBooks>{
@@ -40,12 +54,9 @@ export class BooksService implements OnInit {
     return this.ApiService.get<IBooks>(`/books/${id}`);
   }
 
-  addBook(book: IBooks): Observable<IBooks> {
-    return this.ApiService.post<IBooks>("/books", book);
-  }
-  
+
   updateBook(book: IBooks): Observable<IBooks> {
-    return this.ApiService.put<IBooks>(`/books/${book._id}`, book);
+    return this.ApiService.patch<IBooks>(`/books/${book._id}`, book);
   }
 
   deleteBook(id: number): Observable<IBooks> {

@@ -15,14 +15,8 @@
           [class.is-valid]="email?.valueChanges && email?.valid"
         />
 
-        {{validationErrors |json}}
+        <!-- email validation-->
         <ng-container *ngIf="email?.invalid && email?.touched">
-          
-          <p-messages key="email" showTransitionOptions="500ms"[value]="validationErrors" [enableService]="false" ></p-messages>
-          
-        </ng-container> -->
-        <!-- email validation
-        <!-- <ng-container *ngIf="email?.invalid && email?.touched">
           <ng-container *ngIf="email?.errors?.['required']">
             <div class="alert alert-danger fade show">Email is required</div>
           </ng-container>
@@ -31,7 +25,7 @@
               Invalid email format for
             </div>
           </ng-container>
-        </ng-container> -->
+        </ng-container>
         <!-- email validation -->
         <label for="floatingInput">Email address</label>
       </div>
