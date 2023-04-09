@@ -11,11 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: "root",
 })
 export class BooksService implements OnInit {
-
-  constructor(
-    private ApiService: ApiService,
-    private authService: AuthService
-  ) {  }
+  constructor(private ApiService: ApiService) {}
 
   ngOnInit(): void {}
 
@@ -29,10 +25,9 @@ export class BooksService implements OnInit {
     return this.ApiService.get<IBooksResponse>("/books", options);
   }
   addBook(book: IBooks) {
-    
     return this.ApiService.post<IBooksResponse>("/books", book);
   }
-  bookCategories() {
-    this.ApiService.get<any>("/categories");
+  bookCategories(): Observable<any> {
+    return this.ApiService.get<any>("/categories");
   }
 }

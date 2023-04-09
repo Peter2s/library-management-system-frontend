@@ -10,6 +10,7 @@ import { FormService } from '../../../shared/services/Form.service';
 })
 export class CreateBookComponent implements OnInit {
   createBook: FormGroup;
+  categories  :string[]= [];
   constructor(
     private fb: FormBuilder,
     private booksService: BooksService,
@@ -46,6 +47,8 @@ export class CreateBookComponent implements OnInit {
       noOfCopies: ["", [Validators.required, Validators.min(1)]],
       shelfNo: ["", [Validators.required, Validators.min(0)]],
       image: ["", Validators.required],
+
+    
     });
   }
   get title() {
@@ -76,7 +79,13 @@ export class CreateBookComponent implements OnInit {
     return this.createBook.get("image");
   }
 
-  ngOnInit() {}
+
+  ngOnInit() {
+    this.booksService.bookCategories().subscribe(categories => {
+      this.categories = categories;
+      console.log(this.categories);
+    });
+  }
 
   onSubmit() {
     if (this.createBook.valid) {
