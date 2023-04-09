@@ -1,15 +1,13 @@
 <div class="container-fluid">
   <!-- loading -->
-  <ng-container *ngFor="let number of getNumbersArray(1,12); index as i">
-   
-      <p-skeleton
-        *ngIf="loadingService.isLoading$.value"
-        width="25rm"
-        height="50rem"
-        borderRadius="16px"
-        styleClass="col-xs-5 col-sm-5 col-md-3 col-lg-2 p-6 m-4 "
-      ></p-skeleton>
-    
+  <ng-container *ngFor="let number of getNumbersArray(1, 12); index as i">
+    <p-skeleton
+      *ngIf="loadingService.isLoading$.value"
+      width="25rm"
+      height="50rem"
+      borderRadius="16px"
+      styleClass="col-xs-5 col-sm-5 col-md-3 col-lg-2 p-6 m-4 "
+    ></p-skeleton>
   </ng-container>
   <!-- end loading -->
   <ng-container *ngFor="let book of books; index as i">

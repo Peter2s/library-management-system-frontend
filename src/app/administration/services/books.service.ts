@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { IBooksResponse } from "src/app/models/IBooksResponse";
 import { HttpOptions } from 'src/app/models/IHttp-options';
+import { IBooks } from 'src/app/models/IBooks';
 
 @Injectable({
   providedIn: "root",
@@ -19,5 +20,13 @@ export class BooksService implements OnInit {
       },
     }
     return this.ApiService.get<IBooksResponse>("/books");
+  }
+  getBookById(id:number):Observable<IBooks>{
+    let options: HttpOptions = {
+      params: {
+        id: id?.toString() ?? '',
+      },
+    }
+    return this.ApiService.get<IBooks>(`/books/${id}`);
   }
 }

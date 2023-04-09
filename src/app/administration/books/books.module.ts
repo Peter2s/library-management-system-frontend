@@ -5,12 +5,13 @@ import { BooksRoutes } from "./books.routing";
 import { BookItemComponent } from "./bookItem/bookItem.component";
 import { PaginatorModule } from "primeng/paginator";
 import { SkeletonModule } from "primeng/skeleton";
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 
 
 @NgModule({
   imports: [CommonModule, BooksRoutes, PaginatorModule, SkeletonModule],
-  declarations: [BooksComponent, BookItemComponent],
+  declarations: [BooksComponent, BookItemComponent, BookDetailsComponent],
   
 })
 export class BooksModule {}
