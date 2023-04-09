@@ -39,33 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(8)]],
     });
-     this.loginForm.valueChanges.subscribe((value: any) => {
-       if (this.loginForm.invalid ) {
-         if (this.email?.errors?.required) {
-           console.log(this.email.errors);
-           this.validationErrors = [
-             {
-               key: "email",
-               severity: "error",
-               detail: "email required ",
-               life: 3000,
-             },
-           ];
-         } else if (this.email?.errors?.email) {
-           this.validationErrors = [
-             {
-               key: "email",
-               severity: "error",
-               detail: "invalid email format ",
-             },
-           ];
-         } else if ((this.email.errors = null)) {
-           this.validationErrors = [];
-         }
-           
-       }
-     });
-    
   }
 
 

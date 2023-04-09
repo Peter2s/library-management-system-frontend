@@ -1,0 +1,153 @@
+<div class="container">
+  <form [formGroup]="createBook" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+        required
+      />
+
+      <!-- title validation  -->
+      <ng-container *ngIf="title?.errors && title?.touched">
+        <div *ngIf="title?.hasError('required')">
+          <div class="alert alert-danger" role="alert">
+            title is required
+          </div>
+        </div>
+
+        <div *ngIf="title?.hasError('minlength')">
+          <div class="alert alert-danger" role="alert">
+            title should have at least 3 characters
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        formControlName="author"
+        required
+      />
+    </div>
+          <!-- author validation  -->
+      <ng-container *ngIf="author?.errors && author?.touched">
+        <div *ngIf="author?.hasError('required')">
+          <div class="alert alert-danger" role="alert">
+            author is required
+          </div>
+        </div>
+
+        <div *ngIf="author?.hasError('minlength')">
+          <div class="alert alert-danger" role="alert">
+            author should have at least 3 characters
+          </div>
+        </div>
+      </ng-container>
+   
+
+    <div class="mb-3">
+      <label for="publisher" class="form-label">Publisher</label>
+      <input
+        type="text"
+        class="form-control"
+        id="publisher"
+        formControlName="publisher"
+        required
+      />
+    </div>
+
+            <!-- publisher validation  -->
+      <ng-container *ngIf="publisher?.errors && publisher?.touched">
+        <div *ngIf="publisher?.hasError('required')">
+          <div class="alert alert-danger" role="alert">
+            publisher is required
+          </div>
+        </div>
+
+        <div *ngIf="publisher?.hasError('minlength')">
+          <div class="alert alert-danger" role="alert">
+            publisher should have at least 3 characters
+          </div>
+        </div>
+      </ng-container>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <input
+        type="text"
+        class="form-control"
+        id="category"
+        formControlName="category"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="publishingDate" class="form-label">Publishing Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="publishingDate"
+        formControlName="publishingDate"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="pages" class="form-label">Pages</label>
+      <input
+        type="number"
+        class="form-control"
+        id="pages"
+        formControlName="pages"
+        required
+        min="1"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="noOfCopies" class="form-label">Number of Copies</label>
+      <input
+        type="number"
+        class="form-control"
+        id="noOfCopies"
+        formControlName="noOfCopies"
+        required
+        min="1"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="shelfNo" class="form-label">Shelf Number</label>
+      <input
+        type="number"
+        class="form-control"
+        id="shelfNo"
+        formControlName="shelfNo"
+        required
+        min="0"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label"> Book cover image </label>
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        formControlName="image"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <input type="submit" class="btn btn-success" id="submit" [disabled]="createBook.invalid"/>
+    </div>
+  </form>
+</div>
