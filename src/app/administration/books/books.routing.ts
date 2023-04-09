@@ -8,11 +8,16 @@ const routes: Routes = [
   { 
     path:"", component:BooksComponent
   },
-   {
+   
+  {path:'create',component:CreateBookComponent},
+
+
+
+  
+  {
     path: ':id',
     component: BookDetailsComponent
   },
-  {path:'create',component:CreateBookComponent}
 ];
 
 export const BooksRoutes = RouterModule.forChild(routes);
