@@ -12,12 +12,13 @@
 
   </ng-container>
   <!-- end loading -->
-  <ng-container *ngFor="let member of members; index as i">
-    <app-members-item
-            class="col-s-6 col-sm-6 col-md-4 col-xl-3"
-            [memberItem]="member"
-    ></app-members-item>
-  </ng-container>
+
+    <ng-container *ngFor="let member of members; index as i">
+        <app-members-item
+                [memberItem]="member"
+        ></app-members-item>
+    </ng-container>
+
 </div>
 <div class="row">
   <div class="card flex justify-content-center col-12">

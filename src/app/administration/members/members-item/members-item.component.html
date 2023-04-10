@@ -1,84 +1,103 @@
-<div class="">
-    <div class="tg-postbook">
-        <figure class="tg-featureimg">
-            <div class="tg-bookimg">
-                <div class="tg-frontcover">
-                    <img
-                            ngSrc="../../../../assets/images/users/img-01.jpg"
-                            alt="image description"
-                            height="30" width="30"/>
-                </div>
-                <div class="tg-backcover">
-                    <img
-                            ngSrc="../../../../assets/images/users/img-01.jpg"
-                            alt="image description"
-                            height="30" width="30"/>
-                </div>
-            </div>
-        </figure>
-        <div class="tg-postbookcontent">
-            <!-- book category -->
-            <ul class="tg-bookscategories">
-                <li>
-                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>
-                </li>
-            </ul>
+<!--<div class="">-->
+<!--    <div class="tg-postbook">-->
+<!--        <figure class="tg-featureimg">-->
+<!--            <div class="tg-bookimg">-->
+<!--                <div class="tg-frontcover">-->
+<!--                    <img-->
+<!--                            ngSrc="../../../../assets/images/users/img-01.jpg"-->
+<!--                            alt="image description"-->
+<!--                            height="30" width="30"/>-->
+<!--                </div>-->
+<!--                <div class="tg-backcover">-->
+<!--                    <img-->
+<!--                            ngSrc="../../../../assets/images/users/img-01.jpg"-->
+<!--                            alt="image description"-->
+<!--                            height="30" width="30"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </figure>-->
+<!--        <div class="tg-postbookcontent">-->
+<!--            &lt;!&ndash; book category &ndash;&gt;-->
+<!--            <ul class="tg-bookscategories">-->
+<!--                <li>-->
+<!--                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>-->
+<!--                </li>-->
+<!--            </ul>-->
 
-            <!-- book title -->
-            <div class="tg-booktitle">
-                <h2>
-                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>
-                </h2>
-            </div>
+<!--            &lt;!&ndash; book title &ndash;&gt;-->
+<!--            <div class="tg-booktitle">-->
+<!--                <h2>-->
+<!--                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>-->
+<!--                </h2>-->
+<!--            </div>-->
 
-            <!-- Available -->
-            <div class="tg-themetagbox">
-        <span class="tg-themetag bg">
-          Available {{ this.memberItem.email }}</span
-        >
-            </div>
+<!--            &lt;!&ndash; Available &ndash;&gt;-->
+<!--            <div class="tg-themetagbox">-->
+<!--        <span class="tg-themetag bg">-->
+<!--          Available {{ this.memberItem.email }}</span-->
+<!--        >-->
+<!--            </div>-->
 
-            <!-- Borrowed Copies -->
-            <div class="mt-3">
-      <span class="badge rounded-pill bg-primary position-relative">
-        Borrowed Copies
-        <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-        >
-          {{ this.memberItem.email }}
-            <span class="visually-hidden">unread messages</span>
-        </span>
-      </span>
-            </div>
+<!--            &lt;!&ndash; Borrowed Copies &ndash;&gt;-->
+<!--            <div class="mt-3">-->
+<!--      <span class="badge rounded-pill bg-primary position-relative">-->
+<!--        Borrowed Copies-->
+<!--        <span-->
+<!--                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"-->
+<!--        >-->
+<!--          {{ this.memberItem.email }}-->
+<!--            <span class="visually-hidden">unread messages</span>-->
+<!--        </span>-->
+<!--      </span>-->
+<!--            </div>-->
 
-            <!-- Number of Copies -->
-            <div class="mt-3">
-      <span class="badge rounded-pill bg-info position-relative">
-        Number of copies
-        <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-        >
-          {{ this.memberItem.email }}
-            <span class="visually-hidden">unread messages</span>
-        </span>
-      </span>
-            </div>
+<!--            &lt;!&ndash; Number of Copies &ndash;&gt;-->
+<!--            <div class="mt-3">-->
+<!--      <span class="badge rounded-pill bg-info position-relative">-->
+<!--        Number of copies-->
+<!--        <span-->
+<!--                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"-->
+<!--        >-->
+<!--          {{ this.memberItem.email }}-->
+<!--            <span class="visually-hidden">unread messages</span>-->
+<!--        </span>-->
+<!--      </span>-->
+<!--            </div>-->
 
-            <!-- book author -->
-            <div class="mt-2">
-                <span class="tg-bookwriter">By : <a href="javascript:void(0);">{{ this.memberItem.email }}</a></span>
-            </div>
+<!--            &lt;!&ndash; book author &ndash;&gt;-->
+<!--            <div class="mt-2">-->
+<!--                <span class="tg-bookwriter">By : <a href="javascript:void(0);">{{ this.memberItem.email }}</a></span>-->
+<!--            </div>-->
 
-            <!-- book Publisher -->
-            <div class="mt-2">
-                <span class="tg-bookwriter">Publisher: {{ this.memberItem.email }}</span>
-            </div>
+<!--            &lt;!&ndash; book Publisher &ndash;&gt;-->
+<!--            <div class="mt-2">-->
+<!--                <span class="tg-bookwriter">Publisher: {{ this.memberItem.email }}</span>-->
+<!--            </div>-->
 
-            <!-- book shelfNo. -->
-            <div class="mt-2">
-                <span class="tg-bookwriter">shelfNo :{{ this.memberItem.email }}</span>
-            </div>
+<!--            &lt;!&ndash; book shelfNo. &ndash;&gt;-->
+<!--            <div class="mt-2">-->
+<!--                <span class="tg-bookwriter">shelfNo :{{ this.memberItem.email }}</span>-->
+<!--            </div>-->
 
-        </div>
-    </div>
-</div>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<ol>
+    <li>{{this.memberItem.id}}</li>
+    <li>{{this.memberItem.full_name}}</li>
+    <li>{{this.memberItem.email}}</li>
+    <li>{{this.memberItem.password}}</li>
+    <li>{{this.memberItem?.phone_number}}</li>
+    <li>{{this.memberItem?.birth_date}}</li>
+    <li>{{this.memberItem.activated}}</li>
+    <li>{{this.memberItem?.ban_date}}</li>
+    <li>{{this.memberItem?.last_login}}</li>
+    <li>{{this.memberItem.created_at}}</li>
+    <li>{{this.memberItem.updated_at}}</li>
+    <li>{{ this.memberItem?.address?.city }}</li>
+    <li>{{ this.memberItem?.address?.street }}</li>
+    <li>{{ this.memberItem?.address?.building }}</li>
+</ol>
+<br>

@@ -23,7 +23,7 @@ export class MembersComponent implements OnInit {
       public route: ActivatedRoute
   ) {
     this.currentPage = 1;
-    this.itemsPerPage = 8;
+    this.itemsPerPage = 4;
     this.totalRecords = 0;
     this.rowsPerPageOptions = [
       this.itemsPerPage,
@@ -47,6 +47,8 @@ export class MembersComponent implements OnInit {
       this.totalRecords = data.pagination.total_members_count;
     });
   }
+
+
 
   onPageChange(event: any) {
     this.currentPage = event.page + 1;

@@ -5,6 +5,10 @@ import {MembersRoute} from "./members.routing";
 import {PaginatorModule} from "primeng/paginator";
 import {SkeletonModule} from "primeng/skeleton";
 import { MembersItemComponent } from './members-item/members-item.component';
+import { MemberDetailsComponent } from './member-details/member-details.component';
+import { MemberAddComponent } from './member-add/member-add.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
@@ -12,8 +16,11 @@ import { MembersItemComponent } from './members-item/members-item.component';
         MembersRoute,
         PaginatorModule,
         SkeletonModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        ProgressSpinnerModule,
+        ReactiveFormsModule,
+
     ],
-  declarations: [MembersComponent, MembersItemComponent]
+  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent]
 })
 export class MembersModule { }
