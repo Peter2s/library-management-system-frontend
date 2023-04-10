@@ -1,0 +1,84 @@
+<div class="">
+    <div class="tg-postbook">
+        <figure class="tg-featureimg">
+            <div class="tg-bookimg">
+                <div class="tg-frontcover">
+                    <img
+                            ngSrc="../../../../assets/images/users/img-01.jpg"
+                            alt="image description"
+                            height="30" width="30"/>
+                </div>
+                <div class="tg-backcover">
+                    <img
+                            ngSrc="../../../../assets/images/users/img-01.jpg"
+                            alt="image description"
+                            height="30" width="30"/>
+                </div>
+            </div>
+        </figure>
+        <div class="tg-postbookcontent">
+            <!-- book category -->
+            <ul class="tg-bookscategories">
+                <li>
+                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>
+                </li>
+            </ul>
+
+            <!-- book title -->
+            <div class="tg-booktitle">
+                <h2>
+                    <a href="javascript:void(0);">{{ this.memberItem.email }}</a>
+                </h2>
+            </div>
+
+            <!-- Available -->
+            <div class="tg-themetagbox">
+        <span class="tg-themetag bg">
+          Available {{ this.memberItem.email }}</span
+        >
+            </div>
+
+            <!-- Borrowed Copies -->
+            <div class="mt-3">
+      <span class="badge rounded-pill bg-primary position-relative">
+        Borrowed Copies
+        <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+        >
+          {{ this.memberItem.email }}
+            <span class="visually-hidden">unread messages</span>
+        </span>
+      </span>
+            </div>
+
+            <!-- Number of Copies -->
+            <div class="mt-3">
+      <span class="badge rounded-pill bg-info position-relative">
+        Number of copies
+        <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+        >
+          {{ this.memberItem.email }}
+            <span class="visually-hidden">unread messages</span>
+        </span>
+      </span>
+            </div>
+
+            <!-- book author -->
+            <div class="mt-2">
+                <span class="tg-bookwriter">By : <a href="javascript:void(0);">{{ this.memberItem.email }}</a></span>
+            </div>
+
+            <!-- book Publisher -->
+            <div class="mt-2">
+                <span class="tg-bookwriter">Publisher: {{ this.memberItem.email }}</span>
+            </div>
+
+            <!-- book shelfNo. -->
+            <div class="mt-2">
+                <span class="tg-bookwriter">shelfNo :{{ this.memberItem.email }}</span>
+            </div>
+
+        </div>
+    </div>
+</div>
