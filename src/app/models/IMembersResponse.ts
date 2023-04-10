@@ -1,9 +1,9 @@
-import { IBooks } from "./IBooks";
+import { IMembers } from "./IMembers";
 
-export interface IBooksResponse {
-  data: Array<IBooks>;
+export interface IMembersResponse {
+  data: Array<IMembers>;
   pagination: {
-    total_books_count:number;
+    total_members_count:number;
     pages: number;
     current: number;
     limit: number;
