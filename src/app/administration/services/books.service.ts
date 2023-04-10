@@ -35,7 +35,7 @@ export class BooksService implements OnInit {
 
   getBooks(url:string): Observable<IBooksResponse> {
      
-    return this.ApiService.get<IBooksResponse>(url,);
+    return this.ApiService.get<IBooksResponse>(url);
   }
 
   addBook(book: IBooks) {
