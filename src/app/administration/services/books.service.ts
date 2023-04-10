@@ -15,14 +15,9 @@ export class BooksService implements OnInit {
 
   ngOnInit(): void {}
 
-  getBooks(page?: number, limit?: number): Observable<IBooksResponse> {
-    const options: HttpOptions = {
-      params: {
-        page: page?.toString() ?? "",
-        limit: limit?.toString() ?? "",
-      },
-    };
-    return this.ApiService.get<IBooksResponse>("/books", options);
+  getBooks(url:string): Observable<IBooksResponse> {
+   
+    return this.ApiService.get<IBooksResponse>(url);
   }
   addBook(book: IBooks) {
     return this.ApiService.post<IBooksResponse>("/books", book);

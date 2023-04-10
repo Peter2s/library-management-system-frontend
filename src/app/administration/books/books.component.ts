@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ApiService } from "../services/api.service";
 import { IBooks } from "src/app/models/IBooks";
 import { BooksService } from "../services/books.service";
-import { Subscription } from 'rxjs';
-import { LoadingService } from '../../shared/services/loading.service';
+import { Subscription } from "rxjs";
+import { LoadingService } from "../../shared/services/loading.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Action } from "rxjs/internal/scheduler/Action";
 
 @Component({
   selector: "app-books",
@@ -14,29 +16,37 @@ export class BooksComponent implements OnInit, OnDestroy {
   /** book model */
   books: IBooks[] = [];
   /** Pagination */
-  first: number;
-  rows: number;
+  currentPage: number;
+  itemsPerPage: number;
   totalRecords: number;
   rowsPerPageOptions: number[];
   /** Observable */
   subscription: Subscription[] = [];
   constructor(
     private booksService: BooksService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    public route: ActivatedRoute
   ) {
-    this.first = 1;
-    this.rows = 8;
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
     this.totalRecords = 0;
     this.rowsPerPageOptions = [
-      this.rows,
-      this.rows * 2,
-      this.rows * 5,
-      this.rows * 10,
+      this.itemsPerPage,
+      this.itemsPerPage * 2,
+      this.itemsPerPage * 5,
+      this.itemsPerPage * 10,
     ];
   }
 
   ngOnInit() {
-    const sub = this.booksService.getBooks().subscribe((data) => {
+    this.currentPage = this.route.snapshot.queryParams["page"] || 1;
+    this.itemsPerPage = this.route.snapshot.queryParams["limit"] || 8;
+    this.loadBooks();
+  }
+
+  loadBooks() {
+    const url = `/books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
+    const sub = this.booksService.getBooks(url).subscribe((data) => {
       this.books = data.data;
       this.subscription.push(sub);
       this.totalRecords = data.pagination.total_books_count;
@@ -46,10 +56,9 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   onPageChange(event: any) {
     console.log(event);
-    this.booksService.getBooks(event.page+1,this.rows).subscribe((books) => {
-      this.books = books.data;
-      console.log(books);
-    });
+    this.currentPage = event.page + 1;
+    this.itemsPerPage = event.rows
+    this.loadBooks();
   }
 
   getNumbersArray(start: number, end: number): number[] {
