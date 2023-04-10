@@ -5,12 +5,13 @@ export interface IBooks {
   publisher: string;
   category: string;
   publishingDate: Date;
+  edition: number;
   pages: number;
   noOfCopies: number;
   shelfNo: number;
   available: number;
   borrowedCopies: number;
-  //image: string;
+  image: string;
   created_at?: Date;
   updated_at?: Date;
 }

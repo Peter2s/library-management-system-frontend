@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BooksService } from '../../services/books.service';
-import { FormService } from '../../../shared/services/Form.service';
+import { BooksService } from "../../services/books.service";
+import { FormService } from "../../../shared/services/Form.service";
+import { Router } from "@angular/router";
+import { LoadingService } from '../../../shared/services/loading.service';
 
 @Component({
   selector: "app-CreateBook",
@@ -10,11 +12,13 @@ import { FormService } from '../../../shared/services/Form.service';
 })
 export class CreateBookComponent implements OnInit {
   createBook: FormGroup;
-  categories  :string[]= [];
+  categories: string[] = [];
   constructor(
     private fb: FormBuilder,
     private booksService: BooksService,
-    private formService: FormService
+    private formService: FormService,
+    public loadingService:LoadingService,
+    private router: Router
   ) {
     this.createBook = this.fb.group({
       title: [
@@ -43,13 +47,13 @@ export class CreateBookComponent implements OnInit {
       ],
       category: ["", Validators.required],
       publishingDate: ["", [Validators.required]],
+      edition: ["", [Validators.required, Validators.min(1)]],
       pages: ["", [Validators.required, Validators.min(1)]],
       noOfCopies: ["", [Validators.required, Validators.min(1)]],
       shelfNo: ["", [Validators.required, Validators.min(0)]],
       image: ["", Validators.required],
-
-    
     });
+    /** getter for form control */
   }
   get title() {
     return this.createBook.get("title");
@@ -66,6 +70,9 @@ export class CreateBookComponent implements OnInit {
   get publishingDate() {
     return this.createBook.get("publishingDate");
   }
+  get edition() {
+    return this.createBook.get("edition");
+  }
   get category() {
     return this.createBook.get("category");
   }
@@ -79,19 +86,20 @@ export class CreateBookComponent implements OnInit {
     return this.createBook.get("image");
   }
 
-
   ngOnInit() {
-    this.booksService.bookCategories().subscribe(categories => {
-      this.categories = categories;
-      console.log(this.categories);
+    /** get categories from api  */
+    this.booksService.bookCategories().subscribe((categories) => {
+      this.categories = categories.data;
     });
   }
 
   onSubmit() {
     if (this.createBook.valid) {
-      console.log(this.createBook.value);
+      this.booksService.addBook(this.createBook.value).subscribe((book) => {
+        this.router.navigateByUrl('admin/books');
+      });
     } else {
-      // get all errors
+      // get all errors and print it in consoles
       this.formService.handelError(this.createBook);
     }
   }
