@@ -5,7 +5,6 @@ import { IBooksResponse } from "src/app/models/IBooksResponse";
 import { HttpOptions } from 'src/app/models/IHttp-options';
 import { IBooks } from 'src/app/models/IBooks';
 import { AuthService } from './auth.service';
-import { HttpHeaders } from '@angular/common/http';
 import { BookResponse } from 'src/app/models/book-response';
 
 @Injectable({
@@ -16,11 +15,7 @@ export class BooksService implements OnInit {
   constructor(
     private ApiService: ApiService,
     private authService: AuthService
-  ) { 
-    this.httpHeaders = {
-      Authorization: "Bearer " + this.authService.token(),
-    };
-   }
+  ) { }
 
   ngOnInit(): void {}
 
@@ -39,10 +34,7 @@ export class BooksService implements OnInit {
   }
 
   addBook(book: IBooks) {
-    const options: HttpOptions = {
-      headers: this.httpHeaders,
-    };
-    return this.ApiService.post<IBooksResponse>("/books", book,options);
+    return this.ApiService.post<IBooksResponse>("/books", book);
   }
 
   bookCategories(): Observable<any> {
@@ -61,66 +53,47 @@ export class BooksService implements OnInit {
   }
 
   deleteBook(id: number): Observable<IBooks> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+ 
     return this.ApiService.delete<IBooks>(`/books/${id}`);
   }
 
   getBooksByAuthor(author: string): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+
     return this.ApiService.get<IBooksResponse>(`/books/author/${author}`);
   }
 
   getBooksByPublisher(publisher: string): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+ 
     return this.ApiService.get<IBooksResponse>(
       `/books/publisher/${publisher}`
     );
   }
 
   getBooksByTitle(title: string): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+    
     return this.ApiService.get<IBooksResponse>(`/books/title/${title}`);
   }
 
   getAvailabileBooks(): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+
     return this.ApiService.get<IBooksResponse>(
       `/books/available/`
     );
   }
   
   getBorrwingBooks(): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.get<IBooksResponse>(
       `/books/borrowing/`
     );
   }
   
   getNewBooks(): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.get<IBooksResponse>(
       `/books/new/`
     );
   }
 
   getMostBorrowed(year:number|string=''): Observable<IBooksResponse> {
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     let url = `/books/mostborrowed/`;
     if (Number(year))
       url = `/books/mostborrowed/${year}`;
@@ -142,30 +115,19 @@ export class BooksService implements OnInit {
   }
 
   borrowBook(data:any){
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.post('/books/borrow',data);
   }
 
   returnBorrowBook(data:any){
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.delete('/books/borrow',data);
   }
 
   readBook(data:any){
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
+  
     return this.ApiService.post('/books/read',data);
   }
 
   returnReadBook(data:any){
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.delete('/books/read',data);
   }
 
@@ -177,23 +139,14 @@ export class BooksService implements OnInit {
   }
 
   getCurrentBorrow(): Observable<IBooksResponse>{
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.get(`/books/currentborrow`);
   }
 
   search(): Observable<IBooksResponse>{
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     return this.ApiService.get('/books/search');
   }
 
   borrowHistory(year:number|string='' ,month:number|string=''): Observable<IBooksResponse>{
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     let url = `/books/history/borrowed/`;
     if(Number(year) && Number(month))
       url = `/books/mostborrowed/${year}/${month}`;
@@ -205,9 +158,6 @@ export class BooksService implements OnInit {
   }
 
   readHistory(year:number|string='' ,month:number|string=''): Observable<IBooksResponse>{
-    let options: HttpOptions = {
-      headers: this.httpHeaders,
-    }
     let url = `/books/history/reading/`;
     if(Number(year) && Number(month))
       url = `/books/mostborrowed/${year}/${month}`;
