@@ -26,7 +26,7 @@ export class BooksListComponent implements OnInit{
     
   }
   ngOnInit(): void {
-    const sub = this.bookService.getBooks().subscribe((data) => {
+    const sub = this.bookService.getBooks('/books').subscribe((data) => {
       this.books = data.data;
       this.totalRecords = data.pagination.total_books_count;
       this.current = data.pagination.current;
@@ -38,7 +38,7 @@ export class BooksListComponent implements OnInit{
   }
   onPageChange(event: any) {
     console.log(event);
-    this.bookService.getBooks(event.page+1,this.rows).subscribe((data) => {
+    this.bookService.getBooks('/books').subscribe((data) => {
       this.books = data.data;
       this.totalRecords = data.pagination.total_books_count;
       this.current = data.pagination.current;
