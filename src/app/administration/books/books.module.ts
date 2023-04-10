@@ -10,12 +10,19 @@ import { CreateBookComponent } from "./CreateBook/CreateBook.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BooksListComponent } from './books-list/books-list.component';
 import { TableModule } from 'primeng/table';
-
-
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { AvatarModule } from "primeng/avatar";
 
 @NgModule({
-  imports: [CommonModule, BooksRoutes, ReactiveFormsModule,PaginatorModule, SkeletonModule,TableModule],
-  declarations: [BooksComponent, BookItemComponent, BookDetailsComponent,CreateBookComponent, BooksListComponent],
-  
+  imports: [
+    CommonModule,
+    BooksRoutes,
+    ReactiveFormsModule,
+    PaginatorModule,
+    SkeletonModule,
+    ProgressSpinnerModule,
+    AvatarModule,
+  ,TableModule],
+  declarations: [BooksComponent, BookItemComponent,  BookDetailsComponent,CreateBookComponent, BooksListComponent],
 })
 export class BooksModule {}

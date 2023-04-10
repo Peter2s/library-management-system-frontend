@@ -33,24 +33,28 @@ export class BooksService implements OnInit {
     return this.ApiService.get('/reports');
   }
 
-  getBooks(page?: number, limit?: number): Observable<IBooksResponse> {
-    const options: HttpOptions = {
-      headers: this.httpHeaders,
-      params: {
-        page: page?.toString() ?? "",
-        limit: limit?.toString() ?? "",
-      },
-    };
-    return this.ApiService.get<IBooksResponse>("/books", options);
+  // getBooks(page?: number, limit?: number): Observable<IBooksResponse> {
+  //   const options: HttpOptions = {
+  //     headers: this.httpHeaders,
+  //     params: {
+  //       page: page?.toString() ?? "",
+  //       limit: limit?.toString() ?? "",
+  //     },
+  //   };
+  //   return this.ApiService.get<IBooksResponse>("/books", options);
+  getBooks(url:string): Observable<IBooksResponse> {
+   
+    return this.ApiService.get<IBooksResponse>(url);
   }
   addBook(book: IBooks) {
-    const options: HttpOptions = {
-      headers: this.httpHeaders,
-    };
-    return this.ApiService.post<IBooksResponse>("/books", book,options);
+    // const options: HttpOptions = {
+    //   headers: this.httpHeaders,
+    // };
+    // return this.ApiService.post<IBooksResponse>("/books", book,options);
+    return this.ApiService.post<IBooksResponse>("/books", book);
   }
-  bookCategories() {
-    this.ApiService.get<any>("/categories");
+  bookCategories(): Observable<any> {
+    return this.ApiService.get<any>("/categories");
   }
   
   getBookById(id:number):Observable<BookResponse>{
