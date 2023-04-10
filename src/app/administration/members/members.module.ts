@@ -9,6 +9,10 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
 import { MemberAddComponent } from './member-add/member-add.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ReactiveFormsModule} from "@angular/forms";
+import {TableModule} from "primeng/table";
+import {ButtonModule} from "primeng/button";
+import {SelectButtonModule} from "primeng/selectbutton";
+import {CardModule} from "primeng/card";
 
 @NgModule({
     imports: [
@@ -19,6 +23,10 @@ import {ReactiveFormsModule} from "@angular/forms";
         NgOptimizedImage,
         ProgressSpinnerModule,
         ReactiveFormsModule,
+        TableModule,
+        ButtonModule,
+        SelectButtonModule,
+        CardModule,
 
     ],
   declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent]

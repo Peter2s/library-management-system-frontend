@@ -84,20 +84,27 @@
 <!--</div>-->
 
 
-<ol>
-    <li>{{this.memberItem.id}}</li>
-    <li>{{this.memberItem.full_name}}</li>
-    <li>{{this.memberItem.email}}</li>
-    <li>{{this.memberItem.password}}</li>
-    <li>{{this.memberItem?.phone_number}}</li>
-    <li>{{this.memberItem?.birth_date}}</li>
-    <li>{{this.memberItem.activated}}</li>
-    <li>{{this.memberItem?.ban_date}}</li>
-    <li>{{this.memberItem?.last_login}}</li>
-    <li>{{this.memberItem.created_at}}</li>
-    <li>{{this.memberItem.updated_at}}</li>
-    <li>{{ this.memberItem?.address?.city }}</li>
-    <li>{{ this.memberItem?.address?.street }}</li>
-    <li>{{ this.memberItem?.address?.building }}</li>
-</ol>
-<br>
+<!--<ol>-->
+<!--    <li>{{this.memberItem.id}}</li>-->
+<!--    <li>{{this.memberItem.full_name}}</li>-->
+<!--    <li>{{this.memberItem.email}}</li>-->
+<!--    <li>{{this.memberItem.password}}</li>-->
+<!--    <li>{{this.memberItem?.phone_number}}</li>-->
+<!--    <li>{{this.memberItem?.birth_date}}</li>-->
+<!--    <li>{{this.memberItem.activated}}</li>-->
+<!--    <li>{{this.memberItem?.ban_date}}</li>-->
+<!--    <li>{{this.memberItem?.last_login}}</li>-->
+<!--    <li>{{this.memberItem.created_at}}</li>-->
+<!--    <li>{{this.memberItem.updated_at}}</li>-->
+<!--    <li>{{ this.memberItem?.address?.city }}</li>-->
+<!--    <li>{{ this.memberItem?.address?.street }}</li>-->
+<!--    <li>{{ this.memberItem?.address?.building }}</li>-->
+<!--</ol>-->
+<!--<br>-->
+
+<div class="member-item">
+    <div class="member-item__name">Name: {{ memberItem._id }}</div>
+    <div class="member-item__name">Name: {{ memberItem.full_name }}</div>
+    <div class="member-item__email">Email: {{ memberItem.email }}</div>
+    <div class="member-item__activated">Activated: {{ memberItem.activated }}</div>
+</div>

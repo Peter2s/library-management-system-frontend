@@ -6,7 +6,7 @@ export interface Address {
 }
 
 export interface IMembers {
-    id?: number,
+    _id: number,
     full_name: string,
     email: string,
     password: string,

@@ -8,4 +8,5 @@ import {IMembers} from "../../../models/IMembers";
 })
 export class MembersItemComponent {
   @Input() memberItem!: IMembers;
+
 }

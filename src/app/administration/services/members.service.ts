@@ -3,7 +3,7 @@ import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMembers} from "../../models/IMembers";
-import { IMemberResponse } from 'src/app/models/imember-response';
+import { IMemberResponse } from 'src/app/models/IMemberResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,4 @@ export class MembersService implements OnInit{
   getMemberById(id: string | null): Observable<IMemberResponse> {
     return this.apiService.get<IMemberResponse>(`/members/${id}`);
   }
-
-
-
 }

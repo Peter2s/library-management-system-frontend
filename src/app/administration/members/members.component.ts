@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IMembers} from "../../models/IMembers";
 import {MembersService} from "../services/members.service";
 import {LoadingService} from "../../shared/services/loading.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -20,7 +20,7 @@ export class MembersComponent implements OnInit {
   constructor(
       private membersService: MembersService,
       public loadingService: LoadingService,
-      public route: ActivatedRoute
+      public route: ActivatedRoute,
   ) {
     this.currentPage = 1;
     this.itemsPerPage = 4;
@@ -48,8 +48,6 @@ export class MembersComponent implements OnInit {
     });
   }
 
-
-
   onPageChange(event: any) {
     this.currentPage = event.page + 1;
     this.itemsPerPage = event.rows
@@ -58,6 +56,10 @@ export class MembersComponent implements OnInit {
 
   getNumbersArray(start: number, end: number): number[] {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
 }

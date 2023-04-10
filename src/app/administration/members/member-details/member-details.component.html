@@ -1,1 +1,17 @@
-{{member|json}}
+<p-card>
+    <ng-template pTemplate="title">
+        <img ngSrc="/assets/images/users/img-01.jpg" alt="{{member?.image}}" srcset="" height="100" width="100">
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="member-details">
+            <p><strong>Member Name:</strong>{{ member?.full_name }}</p>
+            <p><strong>Password:</strong> {{ member?.password }}</p>
+            <p><strong>Email:</strong> {{ member?.email }}</p>
+            <ul><strong>Address:</strong>
+                <li><strong>City:</strong>{{member?.address?.city}}</li>
+                <li><strong>Street:</strong>{{member?.address?.street}}</li>
+                <li><strong>Buliding:</strong>{{member?.address?.building}}</li>
+            </ul>
+        </div>
+    </ng-template>
+</p-card>

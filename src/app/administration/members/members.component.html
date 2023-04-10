@@ -12,12 +12,27 @@
 
   </ng-container>
   <!-- end loading -->
+  <p-table [value]="members" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header" let-member let-columns="columns">
+      <tr>
+        <th>Member Details</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-member>
+      <tr class="member-item">
+        <td>
+          <app-members-item [memberItem]="member"></app-members-item>
+        </td>
+        <td>
+          <button pButton type="submit" routerLink="{{member._id}}"  icon="pi pi-eye" class="p-button-secondary"></button>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-warning"></button>
+          <button pButton type="button" routerLink="{{member._id}}/delete" icon="pi pi-trash" class="p-button-danger"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
-    <ng-container *ngFor="let member of members; index as i">
-        <app-members-item
-                [memberItem]="member"
-        ></app-members-item>
-    </ng-container>
 
 </div>
 <div class="row">
