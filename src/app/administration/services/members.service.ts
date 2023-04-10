@@ -3,6 +3,7 @@ import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMembers} from "../../models/IMembers";
+import { IMemberResponse } from 'src/app/models/imember-response';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class MembersService implements OnInit{
     return this.apiService.post<IMembersResponse>("/members", member);
   }
 
-  getMemberById(id: string | null): Observable<IMembers> {
-    return this.apiService.get<IMembers>(`/members/${id}`);
+  getMemberById(id: string | null): Observable<IMemberResponse> {
+    return this.apiService.get<IMemberResponse>(`/members/${id}`);
   }
 
 
