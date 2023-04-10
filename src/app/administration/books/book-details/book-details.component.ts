@@ -13,29 +13,11 @@ export class BookDetailsComponent implements OnInit {
   @Input() public bookItem!: IBooks;
   
   constructor(private bookApi: BooksService,private link:ActivatedRoute) 
-  {
-    this.bookItem = {
-        _id: 5,
-        title: 'string',
-        author: 'string',
-        publisher: 'string',
-        category: 'string',
-        publishingDate:  new Date(),
-        pages: 5,
-        noOfCopies: 6,
-        shelfNo: 6,
-        available: 4,
-        borrowedCopies: 5,
-        created_at:  new Date(),
-        updated_at:  new Date(),
-      }
-      
+  { 
   }
   ngOnInit() {
     this.bookApi.getBookById(this.link.snapshot.params['id']).subscribe((data) => {
-      console.log('getBookById',data);
-      this.bookItem = data;
-      console.log(this.bookItem);
+      this.bookItem = data.data;
     });
   }
 

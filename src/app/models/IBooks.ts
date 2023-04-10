@@ -10,7 +10,7 @@ export interface IBooks {
   shelfNo: number;
   available: number;
   borrowedCopies: number;
-  //image: string;
-  created_at?: Date;
-  updated_at?: Date;
+  image?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
