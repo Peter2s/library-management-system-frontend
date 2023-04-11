@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormService} from "../../../shared/services/Form.service";
 import {LoadingService} from "../../../shared/services/loading.service";
@@ -48,7 +48,7 @@ export class MemberAddComponent {
 
   onSubmit(){
     if (this.addMember.valid) {
-      this.membersService.addMember(this.addMember.value).subscribe((book) => {
+      this.membersService.addMember(this.addMember.value).subscribe((member) => {
         this.router.navigateByUrl('admin/members');
       });
     } else {

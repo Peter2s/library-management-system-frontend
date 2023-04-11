@@ -5,6 +5,7 @@ import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMembers} from "../../models/IMembers";
 import { IMemberResponse } from 'src/app/models/IMemberResponse';
 import {IDeleteMessage} from "../../models/IDeleteMessage";
+import {IUpdateMessage} from "../../models/IUpdateMessage";
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,10 @@ export class MembersService implements OnInit{
 
   deleteMemberById(id: string | null): Observable<IDeleteMessage>{
     return this.apiService.delete<IDeleteMessage>(`/members/${id}`);
+  }
+
+
+  updateMember(id: number|undefined, member: IMembers):Observable<IUpdateMessage> {
+    return this.apiService.patch<IUpdateMessage>(`/members/${id}`, member)
   }
 }

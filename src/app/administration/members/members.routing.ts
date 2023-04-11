@@ -3,6 +3,7 @@ import {MembersComponent} from "./members.component";
 import {MemberDetailsComponent} from "./member-details/member-details.component";
 import {MemberAddComponent} from "./member-add/member-add.component";
 import {MemberDeleteComponent} from "./member-delete/member-delete.component";
+import {MemberUpdateComponent} from "./member-update/member-update.component";
 
 const routes: Routes = [
     {
@@ -13,6 +14,9 @@ const routes: Routes = [
     },
     {
         path: ':id/delete', component: MemberDeleteComponent
+    },
+    {
+        path: ':id/edit', component: MemberUpdateComponent
     },
     {
         path: ':id', component: MemberDetailsComponent
