@@ -8,9 +8,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LoadingInterceptor } from "./shared/services/LoadingInterceptor";
 import { AuthInterceptor } from "./shared/services/authInterceptor.service";
+import { LangingPageComponent } from './langing-page/langing-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LangingPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
