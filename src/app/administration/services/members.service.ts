@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMembers} from "../../models/IMembers";
 import { IMemberResponse } from 'src/app/models/IMemberResponse';
+import {IDeleteMessage} from "../../models/IDeleteMessage";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class MembersService implements OnInit{
 
   getMemberById(id: string | null): Observable<IMemberResponse> {
     return this.apiService.get<IMemberResponse>(`/members/${id}`);
+  }
+
+  deleteMemberById(id: string | null): Observable<IDeleteMessage>{
+    return this.apiService.delete<IDeleteMessage>(`/members/${id}`);
   }
 }

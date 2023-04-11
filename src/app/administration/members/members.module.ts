@@ -13,6 +13,7 @@ import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {CardModule} from "primeng/card";
+import { MemberDeleteComponent } from './member-delete/member-delete.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,6 @@ import {CardModule} from "primeng/card";
         CardModule,
 
     ],
-  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent]
+  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent]
 })
 export class MembersModule { }
