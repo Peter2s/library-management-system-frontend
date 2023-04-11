@@ -1,91 +1,137 @@
-
 <p-toast></p-toast>
 <p-toolbar styleClass="mb-4 gap-2">
-    <ng-template pTemplate="left">
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedBooks()" [disabled]="!selectedBooks || !selectedBooks.length"></button>
-    </ng-template>
-
-
+  <ng-template pTemplate="left">
+    <button
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      class="p-button-success mr-2"
+      (click)="openNew()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Delete"
+      icon="pi pi-trash"
+      class="p-button-danger"
+      (click)="deleteSelectedBooks()"
+      [disabled]="!selectedBooks || !selectedBooks.length"
+    ></button>
+  </ng-template>
 </p-toolbar>
 
 <p-table
-    #dt
-    [value]="books"
-    [rows]="13"
-     [rowsPerPageOptions]="rowsPerPageOptions"
-    [globalFilterFields]="['title', 'author', 'publisher', 'category']"
-    [resizableColumns]="true"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [(selection)]="selectedBooks"
-    [rowHover]="true"
-    dataKey="_id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
+  #dt
+  [value]="books"
+  [rows]="13"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  [globalFilterFields]="['title', 'author', 'publisher', 'category']"
+  [resizableColumns]="true"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [(selection)]="selectedBooks"
+  [rowHover]="true"
+  dataKey="_id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
 >
-    <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
-            <h5 class="m-0">Books</h5>
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
-            </span>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th pSortableColumn="title">title <p-sortIcon field="title"></p-sortIcon></th>
-            <th>Image</th>
-            <th pSortableColumn="category" >Category <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="author">author <p-sortIcon field="author"></p-sortIcon></th>
-            <th pSortableColumn="publisher">publisher <p-sortIcon field="publisher"></p-sortIcon></th>
-            <th>publishingDate</th>
-            <th>edition</th>
-            <th>pages</th>
-            <th>copies</th>
-            <th>shelf-No</th>
-            <th>available</th>
-            <th>borrowed</th>
-            <th> </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-book>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="book"></p-tableCheckbox>
-            </td>
-            <td>{{ book.title }}</td>
-            <td><img [src]="book.image" [alt]="book.title" width="50" class="shadow-4" /></td>
-            <td>{{ book.category }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.publisher }}</td>
-            <td>{{ book.publishingDate | date}}</td>
-            <td>{{ book.edition }}</td>
-            <td>{{ book.pages }}</td>
-            <td>{{ book.noOfCopies }}</td>
-            <td>{{ book.shelfNo }}</td>
-            <td>{{ book.available }}</td>
-            <td>{{ book.borrowedCopies }}</td>
-            <td>
-                <button  id="rowEdit" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 " (click)="editbook(book)"></button>
-                <button id="rowDelete"pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletebook(book)"></button>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template>
-
-      <p-paginator
-        (onPageChange)="onPageChange($event)"
-        [rows]="itemsPerPage"
-        [totalRecords]="totalRecords"
-        [rowsPerPageOptions]="rowsPerPageOptions"
-      ></p-paginator>
-    </ng-template>
-
-    <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">In total there are {{ books ? books.length : 0 }} books.</div>
-    </ng-template>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Books</h5>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($event.target, 'contains')"
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th pSortableColumn="title">
+        title <p-sortIcon field="title"></p-sortIcon>
+      </th>
+      <th>Image</th>
+      <th pSortableColumn="category">
+        Category <p-sortIcon field="category"></p-sortIcon>
+      </th>
+      <th pSortableColumn="author">
+        author <p-sortIcon field="author"></p-sortIcon>
+      </th>
+      <th pSortableColumn="publisher">
+        publisher <p-sortIcon field="publisher"></p-sortIcon>
+      </th>
+      <th>publishingDate</th>
+      <th>edition</th>
+      <th>pages</th>
+      <th>copies</th>
+      <th>shelf-No</th>
+      <th>available</th>
+      <th>borrowed</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="book"></p-tableCheckbox>
+      </td>
+      <td>{{ book.title }}</td>
+      <td>
+        <img
+          [src]="book.image"
+          [alt]="book.title"
+          width="50"
+          class="shadow-4"
+        />
+      </td>
+      <td>{{ book.category }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.publishingDate | date }}</td>
+      <td>{{ book.edition }}</td>
+      <td>{{ book.pages }}</td>
+      <td>{{ book.noOfCopies }}</td>
+      <td>{{ book.shelfNo }}</td>
+      <td>{{ book.available }}</td>
+      <td>{{ book.borrowedCopies }}</td>
+      <td>
+        <button
+          id="rowEdit"
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="editbook(book)"
+        ></button>
+        <button
+          id="rowDelete"
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="deletebook(book)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
+
+<p-paginator
+  (onPageChange)="onPageChange($event)"
+  [rows]="itemsPerPage"
+  [totalRecords]="totalRecords"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+></p-paginator>
+
+<ng-template pTemplate="summary">
+  <div class="flex align-items-center justify-content-between">
+    In total there are {{ books ? books.length : 0 }} books.
+  </div>
+</ng-template>
