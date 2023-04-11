@@ -12,6 +12,12 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { AvatarModule } from "primeng/avatar";
 import { BooksListComponent } from './books-list/books-list.component';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from "primeng/toast";
+import { ToolbarModule } from "primeng/toolbar";
+import { TagModule } from "primeng/tag";
+import { ButtonModule } from "primeng/button";
+import { MessagesModule } from "primeng/messages";
+import { MessageService } from "primeng/api";
 
 @NgModule({
   imports: [
@@ -22,9 +28,20 @@ import { TableModule } from 'primeng/table';
     SkeletonModule,
     ProgressSpinnerModule,
     AvatarModule,
-    TableModule
+    TableModule,
+    MessagesModule,
+    ToastModule,
+    ToolbarModule,
+    TagModule,
+    ButtonModule,
   ],
-  declarations: [BooksComponent, BookItemComponent, BookDetailsComponent, CreateBookComponent, BooksListComponent],
+  declarations: [
+    BooksComponent,
+    BookItemComponent,
+    BookDetailsComponent,
+    CreateBookComponent,
+    BooksListComponent,
+  ],
+  providers:[MessageService]
 })
-
 export class BooksModule {}

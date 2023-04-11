@@ -1,0 +1,9 @@
+th{
+    font-size: x-small;
+}
+td{
+    font-size: xx-small;
+}
+#rowEdit,#rowDelete{
+    max-width: 5rm;
+}

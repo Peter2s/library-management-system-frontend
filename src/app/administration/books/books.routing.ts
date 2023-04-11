@@ -6,19 +6,15 @@ import { BooksListComponent } from './books-list/books-list.component';
 
 
 const routes: Routes = [
-  { 
-    path:"", component:BooksComponent
-  },
-   
-  {path:'create',component:CreateBookComponent},
-  {path:'list',component:BooksListComponent},
-
-
-
-  
   {
-    path: ':id',
-    component: BookDetailsComponent
+    path: "",
+    component: BooksListComponent,
+  },
+
+  { path: "create", component: CreateBookComponent },
+  {
+    path: ":id",
+    component: BookDetailsComponent,
   },
 ];
 
