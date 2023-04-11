@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { LoadingService } from "../../shared/services/loading.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Action } from "rxjs/internal/scheduler/Action";
+import { AuthorizationService } from './../services/Authorization.service';
 
 @Component({
   selector: "app-books",
@@ -25,7 +26,8 @@ export class BooksComponent implements OnInit, OnDestroy {
   constructor(
     private booksService: BooksService,
     public loadingService: LoadingService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private authorization: AuthorizationService
   ) {
     this.currentPage = 1;
     this.itemsPerPage = 8;
@@ -57,7 +59,7 @@ export class BooksComponent implements OnInit, OnDestroy {
   onPageChange(event: any) {
     console.log(event);
     this.currentPage = event.page + 1;
-    this.itemsPerPage = event.rows
+    this.itemsPerPage = event.rows;
     this.loadBooks();
   }
 
