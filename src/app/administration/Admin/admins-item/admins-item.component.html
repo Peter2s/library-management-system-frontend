@@ -1,0 +1,30 @@
+
+    <div class="card mb-4" >
+<!--        <img src="https://node.tamayouz-lab.com/images/{{this.adminItem.image}}" class="card-img-top" alt="{{this.adminItem.firstName}}">-->
+        <div class="card-body">
+            <span class="badge bg-success text-white">Admin</span>
+            <h3 class="card-title text-center text-bg-success">
+
+                {{this.adminItem.firstName[0]}}.{{this.adminItem.lastName}}
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="list-group-item text-center">
+                First Name : <span class="text-success ">{{this.adminItem.firstName}}</span>
+            </p>
+            <p class="list-group-item text-center">
+                Last Name : <span class="text-success">{{this.adminItem.lastName}}</span>
+            </p>
+            <p class="list-group-item text-center">
+                Email : <span class="text-success">{{this.adminItem.email}}</span>
+            </p>
+        </div>
+        <div class="card-footer text-center">
+            <button pButton type="submit" routerLink="{{adminItem._id}}"  icon="pi pi-eye" class="p-button-secondary mx-1">
+            </button>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-warning mx-1"></button>
+            <button pButton type="button" routerLink="{{adminItem._id}}/delete" icon="pi pi-trash" class="p-button-danger mx-1">
+
+            </button>
+        </div>
+    </div>

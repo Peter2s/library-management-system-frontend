@@ -40,9 +40,10 @@ export class AdminComponent implements OnInit {
   }
 
   private loadAdmins() {
-    const url = `/admins?page=${this.currentPage}&limit=${this.itemsPerPage}`;
+    const url = `/admin?page=${this.currentPage}&limit=${this.itemsPerPage}`;
     const sub = this.adminsService.getAdmins(url).subscribe((data) => {
       this.admins = data.data;
+      console.log(this.admins);
       this.subscription.push(sub);
       this.totalRecords = data.pagination.total_managers_count;
     });

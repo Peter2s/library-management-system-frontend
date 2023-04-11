@@ -1,2 +1,42 @@
 <!--Bind Admins Data-->
-{{admins|json}}
+<!--{{admins|json}}-->
+<!--HTML to Show Admins Using Boot Strap-->
+<div class="container">
+    <!-- loading -->
+    <ng-container *ngFor="let number of getNumbersArray(1,12); index as i">
+
+        <p-skeleton
+                *ngIf="loadingService.isLoading$.value"
+                width="25rm"
+                height="50rem"
+                borderRadius="16px"
+                styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
+        ></p-skeleton>
+    </ng-container>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center text-success">All Admins Data</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <ng-container *ngFor="let admin of admins; index as i">
+                <app-admins-item [adminItem]="admin" class="col-3">
+                </app-admins-item>
+        </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="card flex justify-content-center col-12">
+        <p-paginator
+                (onPageChange)="onPageChange($event)"
+                [rows]="itemsPerPage"
+                [totalRecords]="totalRecords"
+                [rowsPerPageOptions]="rowsPerPageOptions"
+        ></p-paginator>
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,1 +1,121 @@
-<p>add-admin works!</p>
+<div class="container">
+    <div class="h1 text-center text-capitalize text-success"> Add New Admin </div>
+    <hr>
+    <form class="col-8 offset-2" [formGroup]="addAdmin" (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    formControlName="firstName"
+                    [class.is-valid]="firstName?.valueChanges && firstName?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="firstName?.errors && firstName?.touched">
+                <div *ngIf="firstName?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the First Name
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    formControlName="lastName"
+                    [class.is-valid]="lastName?.valueChanges && lastName?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="lastName?.errors && lastName?.touched">
+                <div *ngIf="lastName?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Last Name
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    [class.is-valid]="email?.valueChanges && email?.valid"
+                    required
+            />
+        </div>
+
+        <ng-container *ngIf="email?.errors && email?.touched">
+            <div *ngIf="email?.hasError('required')">
+                <div class="alert alert-danger mt-1" role="alert">
+                    Please Enter The Email
+                </div>
+            </div>
+
+        </ng-container>
+
+        <div class="mb-3">
+            <label for="hireDate" class="form-label">Hire Date</label>
+            <input
+                    type="date"
+                    class="form-control"
+                    id="hireDate"
+                    formControlName="hireDate"
+                    [class.is-valid]="hireDate?.valueChanges && hireDate?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="hireDate?.errors && hireDate?.touched">
+                <div *ngIf="hireDate?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Hire Date
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input
+                    type="number"
+                    class="form-control"
+                    id="salary"
+                    formControlName="salary"
+                    [class.is-valid]="salary?.valueChanges && salary?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="salary?.errors && salary?.touched">
+                <div *ngIf="salary?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Salary
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+
+        <div class="mb-3">
+            <input
+                    type="submit"
+                    class="btn btn-success"
+                    id="submit"
+                    [disabled]="addAdmin.invalid"
+            />
+        </div>
+    </form>
+    <p-progressSpinner *ngIf="loadingService.isLoading$.value" styleClass="w-50  h-50 col-12"></p-progressSpinner>
+</div>
