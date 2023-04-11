@@ -34,6 +34,7 @@
   dataKey="_id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
+  editMode="row"
 >
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
@@ -78,11 +79,20 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-book>
-    <tr>
+    <tr [pEditableRow]="book">
       <td>
         <p-tableCheckbox [value]="book"></p-tableCheckbox>
       </td>
-      <td>{{ book.title }}</td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="book.title">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{book.title}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
       <td>
         <img
           [src]="book.image"
@@ -102,22 +112,11 @@
       <td>{{ book.available }}</td>
       <td>{{ book.borrowedCopies }}</td>
       <td>
-        <button
-          id="rowEdit"
-          pButton
-          pRipple
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success mr-2"
-          (click)="editbook(book)"
-        ></button>
-        <button
-          id="rowDelete"
-          pButton
-          pRipple
-          icon="pi pi-trash"
-          class="p-button-rounded p-button-warning"
-          (click)="deletebook(book)"
-        ></button>
+       <div class="flex align-items-center justify-content-center gap-2">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(book)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(book)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(book)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </div>
       </td>
     </tr>
   </ng-template>

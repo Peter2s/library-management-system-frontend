@@ -24,12 +24,8 @@ export class BooksListComponent implements OnInit, OnDestroy {
 
   selectedBooks: IBooks[] = [];
 
-  statuses: any[] = [];
-
   loading: boolean = true;
-
-  activityValues: number[] = [0, 100];
-  representatives: any;
+  editing: boolean = false;
 
   constructor(
     private booksService: BooksService,
@@ -51,18 +47,6 @@ export class BooksListComponent implements OnInit, OnDestroy {
     this.currentPage = this.route.snapshot.queryParams["page"] || 1;
     this.itemsPerPage = this.route.snapshot.queryParams["limit"] || 8;
     this.loadBooks();
-    this.representatives = [
-      { name: "Amy Elsner", image: "amyelsner.png" },
-      { name: "Anna Fali", image: "annafali.png" },
-      { name: "Asiya Javayant", image: "asiyajavayant.png" },
-      { name: "Bernardo Dominic", image: "bernardodominic.png" },
-      { name: "Elwin Sharvill", image: "elwinsharvill.png" },
-      { name: "Ioni Bowcher", image: "ionibowcher.png" },
-      { name: "Ivan Magalhaes", image: "ivanmagalhaes.png" },
-      { name: "Onyama Limba", image: "onyamalimba.png" },
-      { name: "Stephen Shaw", image: "stephenshaw.png" },
-      { name: "Xuxue Feng", image: "xuxuefeng.png" },
-    ];
   }
   loadBooks() {
     const url = `/books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
@@ -73,9 +57,15 @@ export class BooksListComponent implements OnInit, OnDestroy {
       console.log(data);
     });
   }
+  onRowEditInit(book: any) {
+    // Perform any initialization logic before editing the row, if needed
+    console.log(`Editing book: ${book.title}`);
+  }
+  onRowEditSave(book:any) {}
+  onRowEditCancel(book:any){}
   deletebook(event: any) {}
-  editbook(event: any) { }
-  
+  editbook(event: any) {}
+
   onPageChange(event: any) {
     console.log(event);
     this.currentPage = event.page + 1;
