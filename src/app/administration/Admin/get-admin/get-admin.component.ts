@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { IManagers } from "../../../models/IManagers";
 import { AdminsService } from "../../services/admins.service";
 import { LoadingService } from "../../../shared/services/loading.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 @Component({
   selector: "app-get-admin",
@@ -16,7 +16,8 @@ export class GetAdminComponent {
   constructor(
     private adminsService: AdminsService,
     public loadingService: LoadingService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public router: Router
   ) {}
   ngOnInit() {
     const id = this.route.snapshot.params["id"];
@@ -29,5 +30,16 @@ export class GetAdminComponent {
       console.log(this.admin.birthDate);
       this.subscription.push(sub);
     });
+  }
+
+  deleteAdmin(id: any) {
+    this.adminsService.deleteAdminById(id).subscribe(
+      (msg) => {
+        this.router.navigateByUrl("admin/admins");
+      },
+      () => {
+        this.router.navigateByUrl("admin/admins");
+      }
+    );
   }
 }

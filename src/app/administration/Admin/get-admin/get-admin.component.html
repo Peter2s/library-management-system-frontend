@@ -45,7 +45,7 @@
         </div>
         <div class="card-footer text-center">
             <button pButton type="button" icon="pi pi-pencil" class="p-button-warning mx-1"></button>
-            <button pButton type="button" routerLink="{{admin?._id}}/delete" icon="pi pi-trash" class="p-button-danger mx-1">
+            <button pButton type="button" (click)="deleteAdmin(admin?._id)" icon="pi pi-trash" class="p-button-danger mx-1">
 
             </button>
         </div>
