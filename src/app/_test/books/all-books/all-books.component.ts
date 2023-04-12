@@ -6,6 +6,7 @@ import {BooksService} from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
 
+
 @Component({
     selector: 'app-books',
     templateUrl: './all-books.component.html',
@@ -25,6 +26,7 @@ export class AllBooksComponent implements OnInit {
     currentPage: number = 1;
     booksPerPage: number = 10;
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
+    public validationErros?: { [p: string]: string };
     protected readonly console = console;
 
     constructor(private booksService: BooksService,
@@ -157,6 +159,7 @@ export class AllBooksComponent implements OnInit {
     }
 
     saveBook(): void {
+        this.validationErros = {};
         if (this.book._id) {
             this.booksService.updateBook(this.book).subscribe(
                 (response: IBooks) => {
@@ -172,6 +175,7 @@ export class AllBooksComponent implements OnInit {
                     this.displayDialog = false;
                 },
                 (error) => {
+
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
@@ -194,6 +198,20 @@ export class AllBooksComponent implements OnInit {
                 },
                 (error) => {
                     console.log(error.message)
+                    this.validationErros = this.formatError(error.message)
+                    console.log(this.formatError(error.message));
+                    console.log(this.validationErros['title']);
+                    let keys = Object.keys(this.validationErros);
+                    for (let key of keys) {
+                        console.log(key);
+                        this.messageService.add({
+                            key: key,
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: this.validationErros[key],
+                            // life: 5000
+                        });
+                    }
                     // for (let e of error.error){
                     this.messageService.add({
                         severity: 'error',
@@ -258,6 +276,18 @@ export class AllBooksComponent implements OnInit {
         }
         return index;
     }
+
+    formatError(error: string): { [key: string]: string } {
+        const errors: { [key: string]: string } = {};
+        error = error.replace("Error: ", "");
+        error.split(",").forEach((error) => {
+            let [key, ...value] = error.split(":");
+            key = key.substring(key.indexOf("[") + 1, key.indexOf("]"))
+            errors[key.trim()] = value.join(":").split("==>")[1].trim();
+        });
+        return errors;
+    }
+
 }
 
 

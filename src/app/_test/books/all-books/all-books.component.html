@@ -5,7 +5,8 @@
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
             <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
-            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add" pButton
+            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+                    pButton
                     type="button"></button>
 
         </div>
@@ -66,15 +67,16 @@
                     <div *ngIf="title.invalid && (title.dirty || title.touched)" class="p-error">Title is required and
                         should be at least 3 characters
                     </div>
-
+                    <p-messages key="title"></p-messages>
                 </div>
+
                 <div class="p-col-12">
                     <label for="author">Author</label>
                     <input #author="ngModel" [(ngModel)]="book.author" id="author" name="author" required type="text">
                     <div *ngIf="author.invalid && (author.dirty || author.touched)" class="p-error">Author is required
                         and should be at least 3 characters
                     </div>
-
+                    <p-messages key="author"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="publisher">Publisher</label>
@@ -83,12 +85,14 @@
                     <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="p-error">Publisher
                         is required and should be at least 3 characters
                     </div>
+                    <p-messages key="publisher"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="category">Category</label>
                     <!--                    <p-dropdown #category="ngModel"  id="category" [required]="true" [options]="categories" [(ngModel)]="book.category" name="category" *ngIf="(this.book._id)" [filterValue]="this.book.category"></p-dropdown>-->
                     <ng-container *ngIf="this.book._id">
-                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [filterValue]="this.book.category" [options]="categories"
+                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [filterValue]="this.book.category"
+                                    [options]="categories"
                                     [required]="true" id="category"
                                     name="category"></p-dropdown>
                         <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category
@@ -96,20 +100,24 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="!this.book._id">
-                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [options]="categories" [required]="true"
+                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [options]="categories"
+                                    [required]="true"
                                     id="category" name="category"></p-dropdown>
                         <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category
                             is required
                         </div>
                     </ng-container>
+                    <p-messages key="category"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="publishingDate">Publishing Date</label>
-                    <p-calendar #publishingDate="ngModel" [(ngModel)]="book.publishingDate" [required]="true" dateFormat="yy-mm-dd"
+                    <p-calendar #publishingDate="ngModel" [(ngModel)]="book.publishingDate" [required]="true"
+                                dateFormat="yy-mm-dd"
                                 id="publishingDate" name="publishingDate"></p-calendar>
                     <div *ngIf="publishingDate.invalid && (publishingDate.dirty || publishingDate.touched)"
                          class="p-error">Publishing Date is required and should be a valid date
                     </div>
+                    <p-messages key="publishingDate"></p-messages>
                 </div>
 
                 <div class="p-col-12">
@@ -119,6 +127,7 @@
                     <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is
                         required and should be a number
                     </div>
+                    <p-messages key="edition"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="pages">Pages</label>
@@ -127,6 +136,7 @@
                     <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and
                         should be a number
                     </div>
+                    <p-messages key="pages"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="noOfCopies">No. of Copies</label>
@@ -135,6 +145,7 @@
                     <div *ngIf="noOfCopies.invalid && (noOfCopies.dirty || noOfCopies.touched)" class="p-error">No. of
                         Copies is required and should be a number
                     </div>
+                    <p-messages key="noOfCopies"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="shelfNo">Shelf No.</label>
@@ -143,6 +154,7 @@
                     <div *ngIf="shelfNo.invalid && (shelfNo.dirty || shelfNo.touched)" class="p-error">Shelf No. is
                         required and should be a number
                     </div>
+                    <p-messages key="shelfNo"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="image">Image URL</label>
@@ -151,6 +163,7 @@
                     <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
                     <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
                     <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
+                    <p-messages key="image"></p-messages>
                 </div>
                 <div class="p-dialog-footer">
                     <button (click)="saveBook()" [disabled]="!bookForm.valid" label="Save" pButton
@@ -161,54 +174,7 @@
 
         </form>
     </ng-container>
-    <!--
-    <form #bookForm="ngForm" (ngSubmit)="saveBook()">
-        <div class="p-grid">
-            <div class="p-col-12">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" [(ngModel)]="book.title" required #title="ngModel">
-                <div *ngIf="title.invalid && (title.dirty || title.touched)" class="p-error">Title is required and should be at least 3 characters</div>
-            </div>
-            <div class="p-col-12">
-                <label for="author">Author</label>
-                <input type="text" id="author" name="author" [(ngModel)]="book.author" required #author="ngModel">
-                <div *ngIf="author.invalid && (author.dirty || author.touched)" class="p-error">Author is required and should be at least 3 characters</div>
-            </div>
-            <div class="p-col-12">
-                <label for="publisher">Publisher</label>
-                <input type="text" id="publisher" name="publisher" [(ngModel)]="book.publisher" required #publisher="ngModel">
-                <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="p-error">Publisher is required and should be at least 3 characters</div>
-            </div>
-            <div class="p-col-12">
-                <label for="category">Category</label>
-                <select id="category" name="category" [(ngModel)]="book.category" required #category="ngModel">
-                    <option value="">-- Select Category --</option>
-                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                </select>
-                <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category is required and should be one of the provided options</div>
-            </div>
-            <div class="p-col-12">
-                <label for="publishingDate">Publishing Date</label>
-                <p-calendar [required]="true" id="publishingDate" name="publishingDate" [(ngModel)]="book.publishingDate" #publishingDate="ngModel"></p-calendar>
-                <div *ngIf="publishingDate.invalid && (publishingDate.dirty || publishingDate.touched)" class="p-error">Publishing Date is required</div>
-            </div>
-            <div class="p-col-12">
-                <label for="edition">Edition</label>
-                <input type="number" id="edition" name="edition" [(ngModel)]="book.edition" required #edition="ngModel">
-                <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is required and should be a number greater than 0</div>
-            </div>
-            <div class="p-col-12">
-                <label for="pages">Pages</label>
-                <input type="number" id="pages" name="pages" [(ngModel)]="book.pages" required #pages="ngModel">
-                <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and should be a number greater than 0</div>
-            </div>
-        </div>
-        <div class="p-dialog-footer">
-            <button pButton type="submit" label="Save" [disabled]="bookForm.invalid"></button>
-            <button pButton type="button" label="Cancel" (click)="cancel()"></button>
-        </div>
-    </form>
-    -->
+
 
 </p-dialog>
 <p-paginator
