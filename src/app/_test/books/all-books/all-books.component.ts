@@ -39,12 +39,13 @@ export class AllBooksComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+      const trim = (str: string) => str.trim();
     this.getBooks();
     this.getCategories();
       this.bookForm = this.formBuilder.group({
-          title: ['', Validators.required],
-          author: ['', Validators.required],
-          publisher: ['', Validators.required],
+          title: [trim, Validators.required],
+          author: [trim, Validators.required],
+          publisher: [trim, Validators.required],
           category: ['', Validators.compose([
               // Validators.required,
               value => {
@@ -64,7 +65,7 @@ export class AllBooksComponent implements OnInit  {
           pages: ['', Validators.compose([Validators.required, Validators.min(1)])],
           noOfCopies: ['', Validators.compose([Validators.required, Validators.min(1)])],
           shelfNo: ['', Validators.compose([Validators.required, Validators.min(1)])],
-          // image: ['', Validators.required],
+          image: ['', Validators.required],
       });
   }
   getBooks(): void {
@@ -187,12 +188,15 @@ onPageChange(event: any): void {
             this.displayDialog = false;
           },
           (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Failed to add book.',
-                life: 5000
-            });
+              console.log(error.message)
+              // for (let e of error.error){
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: error.message,
+                        // life: 5000
+                    });
+              // }
           }
       );
     }

@@ -56,7 +56,7 @@
 <p-dialog header="Add/Edit Book" [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}">
 
     <ng-container *ngIf="book">
-        <form #bookForm="ngForm">
+        <form #bookForm="ngForm" enctype="multipart/form-data">
             <div class="p-grid">
                 <div class="p-col-12">
                     <label for="title">Title</label>
@@ -95,27 +95,29 @@
 
                 <div class="p-col-12">
                     <label for="edition">Edition</label>
-                    <input type="number" id="edition" name="edition" [(ngModel)]="book.edition" required #edition="ngModel">
+                    <input min="1" type="number" id="edition" name="edition" [(ngModel)]="book.edition" required #edition="ngModel">
                     <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is required and should be a number</div>
                 </div>
                 <div class="p-col-12">
                     <label for="pages">Pages</label>
-                    <input type="number" id="pages" name="pages" [(ngModel)]="book.pages" required #pages="ngModel">
+                    <input min="1"  type="number" id="pages" name="pages" [(ngModel)]="book.pages" required #pages="ngModel">
                     <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and should be a number</div>
                 </div>
                 <div class="p-col-12">
                     <label for="noOfCopies">No. of Copies</label>
-                    <input type="number" id="noOfCopies" name="noOfCopies" [(ngModel)]="book.noOfCopies" required #noOfCopies="ngModel">
+                    <input min="1"  type="number" id="noOfCopies" name="noOfCopies" [(ngModel)]="book.noOfCopies" required #noOfCopies="ngModel">
                     <div *ngIf="noOfCopies.invalid && (noOfCopies.dirty || noOfCopies.touched)" class="p-error">No. of Copies is required and should be a number</div>
                 </div>
                 <div class="p-col-12">
                     <label for="shelfNo">Shelf No.</label>
-                    <input type="number" id="shelfNo" name="shelfNo" [(ngModel)]="book.shelfNo" required #shelfNo="ngModel">
+                    <input min="1"  type="number" id="shelfNo" name="shelfNo" [(ngModel)]="book.shelfNo" required #shelfNo="ngModel">
                     <div *ngIf="shelfNo.invalid && (shelfNo.dirty || shelfNo.touched)" class="p-error">Shelf No. is required and should be a number</div>
                 </div>
                 <div class="p-col-12">
                     <label for="image">Image URL</label>
-                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>
+                    <input type="file" id="image" name="image" [(ngModel)]="book.image" required accept="image/*" #image="ngModel">
+                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
+<!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
 <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                 </div>
                 <div class="p-dialog-footer">
