@@ -1,0 +1,194 @@
+<div class="container">
+    <div class="h1 text-center text-capitalize text-secondary"> Activate Member </div>
+    <form class="col-8 offset-2" [formGroup]="activateMember" (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value">
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    [class.is-valid]="email?.valueChanges && email?.valid"
+                    required
+            />
+            <ng-container *ngIf="email?.errors && email?.touched">
+                <div *ngIf="email?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter Your Email
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    formControlName="password"
+                    [class.is-valid]="password?.valueChanges && password?.valid"
+                    required
+            />
+            <ng-container *ngIf="password?.errors && password?.touched">
+                <div *ngIf="password?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter Your Password
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="newpassword" class="form-label">New Password</label>
+            <input
+                    type="password"
+                    class="form-control"
+                    id="newpassword"
+                    formControlName="newpassword"
+                    [class.is-valid]="newpassword?.valueChanges && newpassword?.valid"
+                    required
+            />
+            <ng-container *ngIf="newpassword?.errors && newpassword?.touched">
+                <div *ngIf="newpassword?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter Your New Password
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input
+                    type="file"
+                    class="form-control"
+                    id="image"
+                    formControlName="image"
+                    [class.is-valid]="image?.valueChanges && image?.valid"
+                    required
+            />
+            <ng-container *ngIf="image?.errors && image?.touched">
+                <div *ngIf="image?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Upload Your Image
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input
+                    type="string"
+                    class="form-control"
+                    id="phone_number"
+                    formControlName="phone_number"
+                    [class.is-valid]="phone_number?.valueChanges && phone_number?.valid"
+                    required
+            />
+            <ng-container *ngIf="phone_number?.errors && phone_number?.touched">
+                <div *ngIf="phone_number?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter Phone Number
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="birth_date" class="form-label">Birth Date</label>
+            <input
+                    type="date"
+                    class="form-control"
+                    id="birth_date"
+                    max='2008-01-01'
+                    formControlName="birth_date"
+                    [class.is-valid]="birth_date?.valueChanges && birth_date?.valid"
+                    required
+            />
+            <ng-container *ngIf="birth_date?.errors && birth_date?.touched">
+                <div *ngIf="birth_date?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Choose Your Birth Date
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+
+        <div class="mb-3" formGroupName="address">
+            <label for="city" class="form-label">City</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    formControlName="city"
+                    [class.is-valid]="city?.valueChanges && city?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="city?.errors && city?.touched">
+                <div *ngIf="city?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        City is missing
+                    </div>
+                </div>
+            </ng-container>
+
+            <label for="street" class="form-label">Street</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="street"
+                    formControlName="street"
+                    [class.is-valid]="street?.valueChanges && street?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="street?.errors && street?.touched">
+                <div *ngIf="street?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        street is missing
+                    </div>
+                </div>
+            </ng-container>
+
+            <label for="building" class="form-label">Building</label>
+            <input
+                    type="number"
+                    class="form-control"
+                    id="building"
+                    formControlName="building"
+                    [class.is-valid]="building?.valueChanges && building?.valid"
+                    required
+            />
+            <ng-container *ngIf="building?.errors && building?.touched">
+                <div *ngIf="building?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Choose Your Birth Date
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <input
+                    type="submit"
+                    class="btn btn-success"
+                    id="submit"
+                    [disabled]="activateMember.invalid"
+            />
+        </div>
+    </form>
+    <p-progressSpinner *ngIf="loadingService.isLoading$.value" styleClass="w-50  h-50 col-12"></p-progressSpinner>
+</div>
