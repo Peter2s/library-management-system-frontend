@@ -1,6 +1,6 @@
 <div class="container">
     <div class="h1 text-center text-capitalize text-secondary"> Add new Member </div>
-    <form class="col-8 offset-2" [formGroup]="addMember" (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value">
+    <form class="col-6 offset-3" [formGroup]="addMember" (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value">
         <div class="mb-3">
             <label for="full_name" class="form-label">Fullname</label>
             <input
@@ -43,29 +43,29 @@
 
         </ng-container>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    formControlName="password"
-                    [class.is-valid]="password?.valueChanges && password?.valid"
-                    required
-            />
-        </div>
+<!--        <div class="mb-3">-->
+<!--            <label for="password" class="form-label">Password</label>-->
+<!--            <input-->
+<!--                    type="password"-->
+<!--                    class="form-control"-->
+<!--                    id="password"-->
+<!--                    formControlName="password"-->
+<!--                    [class.is-valid]="password?.valueChanges && password?.valid"-->
+<!--                    required-->
+<!--            />-->
+<!--        </div>-->
 
-        <!-- publisher validation  -->
-        <ng-container *ngIf="password?.errors && password?.touched">
-            <div *ngIf="password?.hasError('required')">
-                <div class="alert alert-danger mt-1" role="alert">
-                   Please Enter Your Password
-                </div>
-            </div>
+<!--        &lt;!&ndash; publisher validation  &ndash;&gt;-->
+<!--        <ng-container *ngIf="password?.errors && password?.touched">-->
+<!--            <div *ngIf="password?.hasError('required')">-->
+<!--                <div class="alert alert-danger mt-1" role="alert">-->
+<!--                   Please Enter Your Password-->
+<!--                </div>-->
+<!--            </div>-->
 
-        </ng-container>
+<!--        </ng-container>-->
 
-        <div class="mb-3">
+        <div class="mb-3  form-control">
             <input
                     type="submit"
                     class="btn btn-success"

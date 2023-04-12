@@ -6,6 +6,7 @@ import {IMembers} from "../../models/IMembers";
 import { IMemberResponse } from 'src/app/models/IMemberResponse';
 import {IDeleteMessage} from "../../models/IDeleteMessage";
 import {IUpdateMessage} from "../../models/IUpdateMessage";
+import {IMemberActivation} from "../../models/IMemberActivation";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,9 @@ export class MembersService implements OnInit{
 
   updateMember(id: number|undefined, member: IMembers):Observable<IUpdateMessage> {
     return this.apiService.patch<IUpdateMessage>(`/members/${id}`, member)
+  }
+
+  activateMember(member: IMemberActivation):Observable<IUpdateMessage> {
+    return this.apiService.post<IUpdateMessage>(`/activation`, member)
   }
 }

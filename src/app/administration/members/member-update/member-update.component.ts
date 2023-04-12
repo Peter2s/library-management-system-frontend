@@ -33,7 +33,6 @@ export class MemberUpdateComponent {
         street: ['', Validators.required],
         building: ['', Validators.required],
       }),
-
     })
   }
 
@@ -78,7 +77,8 @@ export class MemberUpdateComponent {
   ngOnInit() {
     const id:string | null = this.route.snapshot.paramMap.get('id');
     this.membersService.getMemberById(id).subscribe(member => {
-      this.member = member.data;
+      this.member = member.data
+      this.updateMember.patchValue(this.member);
     });
   }
 

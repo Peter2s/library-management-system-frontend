@@ -15,6 +15,7 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {CardModule} from "primeng/card";
 import { MemberDeleteComponent } from './member-delete/member-delete.component';
 import { MemberUpdateComponent } from './member-update/member-update.component';
+import { MemberActivationComponent } from './member-activation/member-activation.component';
 
 @NgModule({
     imports: [
@@ -31,6 +32,6 @@ import { MemberUpdateComponent } from './member-update/member-update.component';
         CardModule,
 
     ],
-  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent, MemberUpdateComponent]
+  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent, MemberUpdateComponent, MemberActivationComponent]
 })
 export class MembersModule { }

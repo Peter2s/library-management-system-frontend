@@ -23,7 +23,6 @@ export class MemberAddComponent {
     this.addMember = this.fb.group({
       full_name: ['',Validators.required],
       email: ['',Validators.required],
-      password: ['', Validators.required],
       activated: [false]
     })
   }
@@ -34,10 +33,6 @@ export class MemberAddComponent {
 
   get email(){
     return this.addMember.get('email');
-  }
-
-  get password(){
-    return this.addMember.get('password');
   }
 
   get activated(){
