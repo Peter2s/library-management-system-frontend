@@ -13,7 +13,6 @@ import { LangingPageComponent } from './langing-page/langing-page.component';
 import { AllBooksComponent } from './_test/books/all-books/all-books.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -24,6 +23,8 @@ import { MessageModule } from 'primeng/message';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PaginatorModule} from "primeng/paginator";
 import {FileUploadModule} from "primeng/fileupload";
+import { ButtonModule } from 'primeng/button';
+
 
 @NgModule({
   declarations: [AppComponent, LangingPageComponent],
@@ -32,35 +33,16 @@ import {FileUploadModule} from "primeng/fileupload";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
-    FontAwesomeModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    TableModule,
+    FontAwesomeModule,
     ButtonModule,
-    DialogModule,
     InputTextModule,
-    DropdownModule,
-    CalendarModule,
-    InputNumberModule,
-    MessagesModule,
-    MessageModule,
-    ConfirmDialogModule,
-    PaginatorModule,
-    FileUploadModule,
-    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}

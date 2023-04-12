@@ -11,15 +11,14 @@ import { MessagesModule } from 'primeng/messages';
 
 
 @NgModule({
-  imports: [
-  CommonModule,
-    FontAwesomeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastModule,
-    MessagesModule
-    
-  ],
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastModule,
+        MessagesModule,
+    ],
   declarations: [ActivationComponent, LoginComponent],
   providers: [MessageService],
 })

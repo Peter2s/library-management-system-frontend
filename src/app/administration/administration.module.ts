@@ -11,20 +11,25 @@ import { MembersModule } from './members/members.module';
 import { AdminRoutingModule } from './administration-routing.module';
 import { EmployeesModule } from './employees/employees.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-// Import the Cloudinary classes
-import {CloudinaryImage} from '@cloudinary/url-gen';
-// Import the Cloudinary classes
-import {fill} from '@cloudinary/url-gen/actions/resize';
-
-
-
-
-
+import {MenubarModule} from "primeng/menubar";
+import {InputTextModule} from "primeng/inputtext";
+import {PanelMenuModule} from "primeng/panelmenu";
+import { SlideMenuModule } from 'primeng/slidemenu';
+import {CardModule} from "primeng/card";
+import {SidebarModule} from "primeng/sidebar";
+import {ButtonModule} from "primeng/button";
 @NgModule({
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        MenubarModule,
+        InputTextModule,
+        SlideMenuModule,
+        PanelMenuModule,
+        CardModule,
+        SidebarModule,
+        ButtonModule
+    ],
   declarations: [
     HeaderComponent,
     FooterComponent,
