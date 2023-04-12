@@ -148,12 +148,12 @@ export class AllBooksComponent implements OnInit {
         console.log('deleteConfirmed.')
         this.deleteBook();
         this.confirmationService.close();
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Book deleted.',
-            life: 5000
-        });
+        // this.messageService.add({
+        //     severity: 'success',
+        //     summary: 'Success',
+        //     detail: 'Book deleted.',
+        //     life: 5000
+        // });
         this.getBooks();
 
     }
