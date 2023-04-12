@@ -41,13 +41,18 @@ export class BooksService implements OnInit {
         limit: limit?.toString() ?? "",
       },
     };
-    return this.ApiService.get<IBooksResponse>("/books", options);
+    console.log(options);
+    let endpoint = "/books?"
+    if(page) endpoint += `&page=${page}`
+    if(limit) endpoint += `&limit=${limit}`
+    // return this.ApiService.get<IBooksResponse>("/books", options);
+    return this.ApiService.get<IBooksResponse>(endpoint, options);
   }
-  addBook(book: IBooks) {
+  addBook(book: IBooks): Observable<BookResponse>    {
     const options: HttpOptions = {
       headers: this.httpHeaders,
     };
-    return this.ApiService.post<IBooksResponse>("/books", book,options);
+    return this.ApiService.post<BookResponse>("/books", book,options);
   }
   bookCategories() {
     this.ApiService.get<any>("/categories");

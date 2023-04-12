@@ -8,15 +8,45 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LoadingInterceptor } from "./shared/services/LoadingInterceptor";
 import { AuthInterceptor } from "./shared/services/authInterceptor.service";
+import { AllBooksComponent } from './_test/books/all-books/all-books.component';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {PaginatorModule} from "primeng/paginator";
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AllBooksComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    TableModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
+    DropdownModule,
+    CalendarModule,
+    InputNumberModule,
+    MessagesModule,
+    MessageModule,
+    ConfirmDialogModule,
+    PaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
