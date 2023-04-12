@@ -1,0 +1,85 @@
+<p-table
+  [value]="books"
+  [paginator]="true"
+  (onPageChange)="onPageChange($event)"
+  [first]="first"
+  [rows]="rows"
+  [totalRecords]="totalRecords"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th style="width: 25%">Country</th>
+      <th style="width: 25%">Company</th>
+      <th style="width: 25%">Representative</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.avilable }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    <!-- <p-button
+      type="button"
+      icon="pi pi-plus"
+      styleClass="p-button-text"
+    ></p-button> -->
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <!-- <p-button
+      type="button"
+      icon="pi pi-cloud"
+      styleClass="p-button-text"
+    ></p-button> -->
+  </ng-template>
+</p-table>
+
+<!-- <p-table [value]="books" [tableStyle]="{ 'min-width': '60rem' }">
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      books
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Title</th>
+      <th>Image</th>
+      <th>Auther</th>
+      <th>Category</th>
+      <th>Publisher</th>
+      <th>Publish Date</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>
+        <img
+          [src]="
+            book.image == null ? 'https://picsum.photos/50/50' : book.image
+          "
+          [alt]="book.title"
+          width="100"
+          class="shadow-4"
+        />
+      </td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.category }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.publish_date }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      In total there are {{ books ? books.length : 0 }} books.
+    </div>
+  </ng-template>
+</p-table> -->

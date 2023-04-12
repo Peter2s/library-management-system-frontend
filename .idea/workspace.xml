@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="Layout">
+      <change afterPath="$PROJECT_DIR$/.idea/frontend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/CreateBook/CreateBook.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/CreateBook/CreateBook.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/CreateBook/CreateBook.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/CreateBook/CreateBook.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/book-details/book-details.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/book-details/book-details.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/book-details/book-details.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/bookDetails/bookDetails.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/bookDetails/bookDetails.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/bookDetails/bookDetails.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/bookDetails/bookDetails.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/books-list/books-list.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/books-list/books-list.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/administration/books/books-list/books-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/book-response.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/shared/services/Form.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/shared/services/authInterceptor.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/library-management-system-frontend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/library-management-system-frontend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/administration.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/administration.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/books/bookItem/bookItem.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/books/bookItem/bookItem.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/books/books.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/books/books.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/books/books.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/books/books.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/books/books.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/books/books.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/components/auth/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/components/auth/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/components/auth/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/components/auth/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/components/sidebar/sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/components/sidebar/sidebar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/books.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/books.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/IBooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/IBooks.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
+  <component name="ProjectId" id="2O9GhgSfmsEmOI7eeobElXWftCp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging elshaar",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/hp/Desktop/Angular/Projects/library-management-system-frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\hp\\Desktop\\Angular\\Projects\\library-management-system-frontend",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="" />
+      <created>1680965504536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680965504536</updated>
+      <workItem from="1680965522625" duration="740000" />
+      <workItem from="1681247070952" duration="667000" />
+      <workItem from="1681248254751" duration="8177000" />
+      <workItem from="1681257580354" duration="2979000" />
+      <workItem from="1681308477449" duration="12872000" />
+      <workItem from="1681327241002" duration="5164000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Layout" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html</url>
+          <line>133</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

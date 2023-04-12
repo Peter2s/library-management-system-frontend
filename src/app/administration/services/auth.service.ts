@@ -30,6 +30,9 @@ export class AuthService {
     localStorage.setItem("refreshToken", res.refreshToken);
     this._isLogin = true;
   }
+  public token(): string { 
+    return localStorage.getItem("accessToken") || "";
+  }
 
   public logout(): void {
     this._isLogin = false;
