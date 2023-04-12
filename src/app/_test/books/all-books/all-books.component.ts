@@ -67,7 +67,7 @@ export class AllBooksComponent implements OnInit {
             pages: ['', Validators.compose([Validators.required, Validators.min(1)])],
             noOfCopies: ['', Validators.compose([Validators.required, Validators.min(1)])],
             shelfNo: ['', Validators.compose([Validators.required, Validators.min(1)])],
-            image: ['', Validators.required],
+            // image: ['', Validators.required],
         });
     }
 
@@ -175,7 +175,21 @@ export class AllBooksComponent implements OnInit {
                     this.displayDialog = false;
                 },
                 (error) => {
-
+                    // console.log(error.message)
+                    this.validationErros = this.formatError(error.message)
+                    // console.log(this.formatError(error.message));
+                    // console.log(this.validationErros['title']);
+                    let keys = Object.keys(this.validationErros);
+                    for (let key of keys) {
+                        console.log(key);
+                        this.messageService.add({
+                            key: key,
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: this.validationErros[key],
+                            // life: 5000
+                        });
+                    }
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
@@ -197,10 +211,10 @@ export class AllBooksComponent implements OnInit {
                     this.displayDialog = false;
                 },
                 (error) => {
-                    console.log(error.message)
+                    // console.log(error.message)
                     this.validationErros = this.formatError(error.message)
-                    console.log(this.formatError(error.message));
-                    console.log(this.validationErros['title']);
+                    // console.log(this.formatError(error.message));
+                    // console.log(this.validationErros['title']);
                     let keys = Object.keys(this.validationErros);
                     for (let key of keys) {
                         console.log(key);

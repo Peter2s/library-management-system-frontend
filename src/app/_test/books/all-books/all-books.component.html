@@ -158,7 +158,7 @@
                 </div>
                 <div class="p-col-12">
                     <label for="image">Image URL</label>
-                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image" required
+                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
                            type="file">
                     <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
                     <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
