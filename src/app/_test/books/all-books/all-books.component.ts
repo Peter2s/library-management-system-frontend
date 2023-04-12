@@ -16,6 +16,7 @@ import {BookResponse} from "../../../models/book-response";
 export class AllBooksComponent implements OnInit  {
 
   books: IBooks[];
+  categories: String[]= [];
   book: IBooks;
   displayDialog: boolean;
   loading: boolean;
@@ -23,7 +24,7 @@ export class AllBooksComponent implements OnInit  {
     first: number=0;
     currentPage: number = 1;
     booksPerPage: number  = 10;
-    rowsPerPageOptions: number[] = [10, 25, 50];
+    rowsPerPageOptions: number[] = [8, 2*8, 4*8];
 
   constructor(private booksService: BooksService,
               public confirmationService: ConfirmationService,
@@ -36,6 +37,7 @@ export class AllBooksComponent implements OnInit  {
 
   ngOnInit(): void {
     this.getBooks();
+    this.getCategories();
   }
   getBooks(): void {
     this.loading = true;
@@ -58,6 +60,22 @@ export class AllBooksComponent implements OnInit  {
         }
     )
   }
+    getCategories(): void {
+        this.booksService.getCategories().subscribe(
+            (response: any) => {
+                this.categories = response.data;
+                // console.log(this.categories)
+            }, (error) => {
+                this.messageService.add(
+                    {
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to get categories.',
+                        life: 5000
+                    });
+            }
+        )
+    }
 onPageChange(event: any): void {
     console.log(event);
     this.currentPage = event.page+1;
@@ -91,12 +109,13 @@ onPageChange(event: any): void {
     }
     deleteConfirmed(): void {
         console.log('deleteConfirmed.')
-        // this.deleteBook();
+        this.deleteBook();
         this.confirmationService.close();
         this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Book deleted.'
+            detail: 'Book deleted.',
+            life: 5000
         });
         this.getBooks();
 
@@ -110,7 +129,8 @@ onPageChange(event: any): void {
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Book updated.'
+              detail: 'Book updated.',
+                life: 5000
             });
             this.getBooks();
             //   this.books[this.findIndexById(this.book._id)] = this.book;
@@ -120,7 +140,8 @@ onPageChange(event: any): void {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Failed to update book.'
+              detail: 'Failed to update book.',
+                life: 5000
             });
           }
       );
@@ -131,7 +152,8 @@ onPageChange(event: any): void {
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Book added.'
+              detail: 'Book added.',
+                life: 5000
             });
             this.displayDialog = false;
           },
@@ -139,7 +161,8 @@ onPageChange(event: any): void {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Failed to add book.'
+              detail: 'Failed to add book.',
+                life: 5000
             });
           }
       );
@@ -158,14 +181,16 @@ onPageChange(event: any): void {
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Book deleted.'
+              detail: 'Book deleted.',
+                life: 5000
             });
           },
           (error) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Failed to delete book.'
+              detail: 'Failed to delete book.',
+                life: 5000
             });
           }
       );
@@ -193,6 +218,7 @@ onPageChange(event: any): void {
       return index;
     }
 
-  }
+    protected readonly console = console;
+}
 
 

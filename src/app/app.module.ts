@@ -21,6 +21,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PaginatorModule} from "primeng/paginator";
+import {FileUploadModule} from "primeng/fileupload";
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {PaginatorModule} from "primeng/paginator";
     MessagesModule,
     MessageModule,
     ConfirmDialogModule,
-    PaginatorModule
+    PaginatorModule,
+    FileUploadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },

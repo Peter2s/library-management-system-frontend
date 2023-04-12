@@ -1,40 +1,49 @@
 <!-- Import PrimeNG components -->
-<p-table [value]="books"   [paginator]="false" [rows]="10" [responsive]="true">
+
+
+
+<p-table [value]="books"  [paginator]="true" [rows]="10" [responsive]="true" #dt>
+    <ng-template pTemplate="caption">
+        <div class="p-clearfix" style="line-height: 1.87em">
+            <p-messages [showTransitionOptions]="'1500ms'" [hideTransitionOptions]="'1500ms'"></p-messages>
+            <button pButton type="button" label="Add" icon="pi pi-plus" (click)="showDialogToAdd()" class="p-button-success p-pull-right"></button>
+
+        </div>
+    </ng-template
+>
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
+            <th>Image</th>
             <th>Title</th>
+            <th>Edition</th>
+            <th>Category</th>
             <th>Author</th>
             <th>Publisher</th>
-            <th>Category</th>
             <th>Publishing Date</th>
-            <th>Edition</th>
-            <th>Pages</th>
             <th>No. of Copies</th>
-            <th>Shelf No.</th>
             <th>Available</th>
             <th>Borrowed Copies</th>
-            <th>Image</th>
             <th>Actions</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-book>
+    <ng-template pTemplate="body" let-book let-i="index">
         <tr>
-            <td>{{book._id}}</td>
-            <td>{{book.title}}</td>
-            <td>{{book.author}}</td>
-            <td>{{book.publisher}}</td>
-            <td>{{book.category}}</td>
-            <td>{{book.publishingDate | date}}</td>
-            <td>{{book.edition}}</td>
-            <td>{{book.pages}}</td>
-            <td>{{book.noOfCopies}}</td>
-            <td>{{book.shelfNo}}</td>
-            <td>{{book.available}}</td>
-            <td>{{book.borrowedCopies}}</td>
+            <td>{{i + 1}}</td>
+
+
             <td>
                 <img [src]="book.image" height="50" *ngIf="book.image">
             </td>
+            <td>{{book.title}}</td>
+            <td>{{book.edition}}</td>
+            <td>{{book.category}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.publisher}}</td>
+            <td>{{book.publishingDate | date}}</td>
+            <td>{{book.noOfCopies}}</td>
+            <td>{{book.available}}</td>
+            <td>{{book.borrowedCopies}}</td>
             <td>
                 <button pButton type="button" icon="pi pi-pencil" (click)="editBook(book)"></button>
                 <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="confirmDeleteBook(book)"></button>
@@ -62,14 +71,15 @@
                 </div>
                 <div class="p-col-12">
                     <label for="category">Category</label>
-                    <input type="text" id="category" name="category" [(ngModel)]="book.category" required>
+<!--                    <input type="text" id="category" name="category" [(ngModel)]="book.category" required>-->
+                    <p-dropdown id="category" [required]="true" [options]="categories" [(ngModel)]="book.category" name="category" *ngIf="(this.book._id)" [filterValue]="this.book.category"></p-dropdown>
+                    <p-dropdown id="category" [required]="true" [options]="categories" [(ngModel)]="book.category" name="category" *ngIf="(!this.book._id)"></p-dropdown>
                 </div>
-                <!--
                 <div class="p-col-12">
                     <label for="publishingDate">Publishing Date</label>
-                    <p-calendar id="publishingDate" name="publishingDate" [(ngModel)]="book.publishingDate" required></p-calendar>
+                    <p-calendar [required]="true" id="publishingDate" name="publishingDate" [(ngModel)]="book.publishingDate"></p-calendar>
                 </div>
-                -->
+
                 <div class="p-col-12">
                     <label for="edition">Edition</label>
                     <input type="number" id="edition" name="edition" [(ngModel)]="book.edition" required>
@@ -87,16 +97,9 @@
                     <input type="number" id="shelfNo" name="shelfNo" [(ngModel)]="book.shelfNo" required>
                 </div>
                 <div class="p-col-12">
-                    <label for="available">Available</label>
-                    <input type="number" id="available" name="available" [(ngModel)]="book.available" required>
-                </div>
-                <div class="p-col-12">
-                    <label for="borrowedCopies">Borrowed Copies</label>
-                    <input type="number" id="borrowedCopies" name="borrowedCopies" [(ngModel)]="book.borrowedCopies" required>
-                </div>
-                <div class="p-col-12">
                     <label for="image">Image URL</label>
-                    <input type="text" id="image" name="image" [(ngModel)]="book.image">
+<!--                    <input type="text" id="image" name="image" [(ngModel)]="book.image">-->
+                    <p-fileUpload name="image" id="image" [multiple]="false" accept="image/*" ></p-fileUpload>
                 </div>
             </div>
         </form>
@@ -113,7 +116,8 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [totalRecords]="totalBooksCount"
         [rows]="booksPerPage"
-        (onPageChange)="onPageChange($event)">
+        (onPageChange)="onPageChange($event)"
+>
 </p-paginator>
 <!-- Dialog for confirming book deletion -->
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [closable]="true">
@@ -123,4 +127,5 @@
         <button type="button" pButton icon="pi pi-check" label="Yes" class="p-button-text" (click)="deleteConfirmed()"></button>
     </p-footer>
 </p-confirmDialog>
-<!-- Dialog for displaying book details -->
+
+
