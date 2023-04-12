@@ -7,6 +7,7 @@ export interface IBooks {
   publishingDate: Date;
   edition: number;
   pages: number;
+  edition: number;
   noOfCopies: number;
   shelfNo: number;
   available: number;

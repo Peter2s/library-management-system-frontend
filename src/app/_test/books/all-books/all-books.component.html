@@ -1,0 +1,201 @@
+<!-- Import PrimeNG components -->
+
+
+<p-table #dt [paginator]="false" [responsive]="true" [rows]="10" [value]="books">
+    <ng-template pTemplate="caption">
+        <div class="p-clearfix" style="line-height: 1.87em">
+            <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
+            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+                    pButton
+                    type="button"></button>
+
+        </div>
+    </ng-template
+    >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Edition</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Publishing Date</th>
+            <th>No. of Copies</th>
+            <th>Available</th>
+            <th>Borrowed Copies</th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template let-book let-i="index" pTemplate="body">
+        <tr>
+            <td>{{i + 1}}</td>
+
+
+            <td>
+                <img *ngIf="book.image" [src]="book.image" height="50">
+            </td>
+            <td>{{book.title}}</td>
+            <td>{{book.edition}}</td>
+            <td>{{book.category}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.publisher}}</td>
+            <td>{{book.publishingDate | date}}</td>
+            <td>{{book.noOfCopies}}</td>
+            <td>{{book.available}}</td>
+            <td>{{book.borrowedCopies}}</td>
+            <td>
+                <button (click)="editBook(book)" icon="pi pi-pencil" pButton type="button"></button>
+                <button (click)="confirmDeleteBook(book)" class="p-button-danger" icon="pi pi-trash" pButton
+                        type="button"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- Dialog for adding/editing books -->
+<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+          header="Add/Edit Book">
+
+    <ng-container *ngIf="book">
+        <form #bookForm="ngForm" enctype="multipart/form-data">
+            <div class="p-grid">
+                <div class="p-col-12">
+                    <label for="title">Title</label>
+                    <input #title="ngModel" [(ngModel)]="book.title" id="title" name="title" required type="text">
+                    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="p-error">Title is required and
+                        should be at least 3 characters
+                    </div>
+                    <p-messages key="title"></p-messages>
+                </div>
+
+                <div class="p-col-12">
+                    <label for="author">Author</label>
+                    <input #author="ngModel" [(ngModel)]="book.author" id="author" name="author" required type="text">
+                    <div *ngIf="author.invalid && (author.dirty || author.touched)" class="p-error">Author is required
+                        and should be at least 3 characters
+                    </div>
+                    <p-messages key="author"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="publisher">Publisher</label>
+                    <input #publisher="ngModel" [(ngModel)]="book.publisher" id="publisher" name="publisher" required
+                           type="text">
+                    <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="p-error">Publisher
+                        is required and should be at least 3 characters
+                    </div>
+                    <p-messages key="publisher"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="category">Category</label>
+                    <!--                    <p-dropdown #category="ngModel"  id="category" [required]="true" [options]="categories" [(ngModel)]="book.category" name="category" *ngIf="(this.book._id)" [filterValue]="this.book.category"></p-dropdown>-->
+                    <ng-container *ngIf="this.book._id">
+                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [filterValue]="this.book.category"
+                                    [options]="categories"
+                                    [required]="true" id="category"
+                                    name="category"></p-dropdown>
+                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category
+                            is required
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!this.book._id">
+                        <p-dropdown #category="ngModel" [(ngModel)]="book.category" [options]="categories"
+                                    [required]="true"
+                                    id="category" name="category"></p-dropdown>
+                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category
+                            is required
+                        </div>
+                    </ng-container>
+                    <p-messages key="category"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="publishingDate">Publishing Date</label>
+                    <p-calendar #publishingDate="ngModel" [(ngModel)]="book.publishingDate" [required]="true"
+                                dateFormat="yy-mm-dd"
+                                id="publishingDate" name="publishingDate"></p-calendar>
+                    <div *ngIf="publishingDate.invalid && (publishingDate.dirty || publishingDate.touched)"
+                         class="p-error">Publishing Date is required and should be a valid date
+                    </div>
+                    <p-messages key="publishingDate"></p-messages>
+                </div>
+
+                <div class="p-col-12">
+                    <label for="edition">Edition</label>
+                    <input #edition="ngModel" [(ngModel)]="book.edition" id="edition" min="1" name="edition" required
+                           type="number">
+                    <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is
+                        required and should be a number
+                    </div>
+                    <p-messages key="edition"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="pages">Pages</label>
+                    <input #pages="ngModel" [(ngModel)]="book.pages" id="pages" min="1" name="pages" required
+                           type="number">
+                    <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and
+                        should be a number
+                    </div>
+                    <p-messages key="pages"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="noOfCopies">No. of Copies</label>
+                    <input #noOfCopies="ngModel" [(ngModel)]="book.noOfCopies" id="noOfCopies" min="1" name="noOfCopies"
+                           required type="number">
+                    <div *ngIf="noOfCopies.invalid && (noOfCopies.dirty || noOfCopies.touched)" class="p-error">No. of
+                        Copies is required and should be a number
+                    </div>
+                    <p-messages key="noOfCopies"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="shelfNo">Shelf No.</label>
+                    <input #shelfNo="ngModel" [(ngModel)]="book.shelfNo" id="shelfNo" min="1" name="shelfNo" required
+                           type="number">
+                    <div *ngIf="shelfNo.invalid && (shelfNo.dirty || shelfNo.touched)" class="p-error">Shelf No. is
+                        required and should be a number
+                    </div>
+                    <p-messages key="shelfNo"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="image">Image URL</label>
+                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
+                           type="file">
+                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
+                    <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
+                    <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
+                    <p-messages key="image"></p-messages>
+                </div>
+                <div class="p-dialog-footer">
+                    <button (click)="saveBook()" [disabled]="!bookForm.valid" label="Save" pButton
+                            type="button"></button>
+                    <button (click)="cancel()" label="Cancel" pButton type="button"></button>
+                </div>
+            </div>
+
+        </form>
+    </ng-container>
+
+
+</p-dialog>
+<p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rowsPerPageOptions]="rowsPerPageOptions"
+        [rows]="booksPerPage"
+        [showCurrentPageReport]="true"
+        [totalRecords]="totalBooksCount"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+</p-paginator>
+<!-- Dialog for confirming book deletion -->
+<p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <!--        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-text" (click)="messageService.clear('deleteBook')"></button>-->
+        <button (click)="confirmationService.close()" class="p-button-text" icon="pi pi-times" label="No" pButton
+                type="button"></button>
+        <button (click)="deleteConfirmed()" class="p-button-text" icon="pi pi-check" label="Yes" pButton
+                type="button"></button>
+    </p-footer>
+</p-confirmDialog>
+
+

@@ -11,6 +11,13 @@ import { MembersModule } from './members/members.module';
 import { AdminRoutingModule } from './administration-routing.module';
 import { EmployeesModule } from './employees/employees.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+// Import the Cloudinary classes
+import {CloudinaryImage} from '@cloudinary/url-gen';
+// Import the Cloudinary classes
+import {fill} from '@cloudinary/url-gen/actions/resize';
+
+
+
 
 
 @NgModule({
