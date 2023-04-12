@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IBooks } from '../../../models/IBooks';
-import { BooksService } from '../../../administration/services/books.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { IBooks } from '../../../models/IBooks';
+import { BooksService } from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
 
@@ -14,7 +15,7 @@ import {BookResponse} from "../../../models/book-response";
 })
 
 export class AllBooksComponent implements OnInit  {
-
+    bookForm: FormGroup = {} as FormGroup;
   books: IBooks[];
   categories: String[]= [];
   book: IBooks;
@@ -28,7 +29,9 @@ export class AllBooksComponent implements OnInit  {
 
   constructor(private booksService: BooksService,
               public confirmationService: ConfirmationService,
-              public messageService: MessageService) {
+              public messageService: MessageService,
+              private formBuilder: FormBuilder
+  ) {
         this.books = [];
         this.book = {} as IBooks;
         this.displayDialog = false;
@@ -38,6 +41,31 @@ export class AllBooksComponent implements OnInit  {
   ngOnInit(): void {
     this.getBooks();
     this.getCategories();
+      this.bookForm = this.formBuilder.group({
+          title: ['', Validators.required],
+          author: ['', Validators.required],
+          publisher: ['', Validators.required],
+          category: ['', Validators.compose([
+              // Validators.required,
+              value => {
+                    console.log(value.value)
+                  return this.categories.includes(value.value) ? null : { invalidCategory: true }
+             }
+          ])],
+          publishingDate: ['', Validators.compose([
+              Validators.required,
+              value=> {
+                  const date = new Date(value.value);
+                  const today = new Date();
+                  return date < today ? null : { invalidDate: true };
+              }
+          ])],
+          edition: ['', Validators.compose([Validators.required, Validators.min(1)])],
+          pages: ['', Validators.compose([Validators.required, Validators.min(1)])],
+          noOfCopies: ['', Validators.compose([Validators.required, Validators.min(1)])],
+          shelfNo: ['', Validators.compose([Validators.required, Validators.min(1)])],
+          // image: ['', Validators.required],
+      });
   }
   getBooks(): void {
     this.loading = true;
@@ -88,6 +116,7 @@ onPageChange(event: any): void {
   }
     editBook(book: IBooks): void {
         this.book = {...book};
+        this.book.publishingDate = new Date(this.book.publishingDate);
         this.displayDialog = true;
     }
     confirmDeleteBook(book: IBooks): void {

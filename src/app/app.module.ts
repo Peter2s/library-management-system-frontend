@@ -9,7 +9,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LoadingInterceptor } from "./shared/services/LoadingInterceptor";
 import { AuthInterceptor } from "./shared/services/authInterceptor.service";
 import { AllBooksComponent } from './_test/books/all-books/all-books.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -48,7 +48,8 @@ import {FileUploadModule} from "primeng/fileupload";
     MessageModule,
     ConfirmDialogModule,
     PaginatorModule,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
