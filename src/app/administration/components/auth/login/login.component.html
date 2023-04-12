@@ -1,3 +1,5 @@
+
+
 <div class="text-center mt-5">
   <div class="form-signin">
     <form [formGroup]="loginForm" (submit)="onSubmit()">
@@ -17,22 +19,10 @@
 
         {{validationErrors |json}}
         <ng-container *ngIf="email?.invalid && email?.touched">
-          
+
           <p-messages key="email" showTransitionOptions="500ms"[value]="validationErrors" [enableService]="false" ></p-messages>
-          
+
         </ng-container> -->
-        <!-- email validation
-        <!-- <ng-container *ngIf="email?.invalid && email?.touched">
-          <ng-container *ngIf="email?.errors?.['required']">
-            <div class="alert alert-danger fade show">Email is required</div>
-          </ng-container>
-          <ng-container *ngIf="email?.errors?.['email']">
-            <div class="alert alert-danger fade show">
-              Invalid email format for
-            </div>
-          </ng-container>
-        </ng-container> -->
-        <!-- email validation -->
         <label for="floatingInput">Email address</label>
       </div>
       <!-- password input -->
@@ -61,11 +51,11 @@
 
         <label for="floatingPassword">Password</label>
       </div>
-    
+
         <p-toast position="top-left"  >   </p-toast>
 
-      
- 
+
+
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me" /> Remember me
