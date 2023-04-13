@@ -15,7 +15,7 @@ import { IServerError } from '../../models/IServerError';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  private baseUrl = "https://node.tamayouz-lab.com";
+  private baseUrl = "http://www.randomiizer.ninja/";
 
   get<T>(endpoint: string, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
