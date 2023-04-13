@@ -5,6 +5,8 @@ import { IManagersResponse } from "../../models/IManagersResponse";
 import { IManagers } from "../../models/IManagers";
 import { IManagerResponse } from "src/app/models/IManagerResponse";
 import { IDeleteMessage } from "src/app/models/IDeleteMessage";
+import { IUpdateMessage } from "../../models/IUpdateMessage";
+
 @Injectable({
   providedIn: "root",
 })
@@ -23,7 +25,17 @@ export class AdminsService implements OnInit {
   //   Get admin by id
   getAdminById(id: string | null): Observable<IManagerResponse> {
     return this.apiService.get<IManagerResponse>(`${id}`);
+    // return this.apiService.get<IManagerResponse>(`/admin/${id}`);
   }
+
+  //  Update admin by id
+  updateAdminById(
+    id: number | undefined,
+    admin: IManagers
+  ): Observable<IUpdateMessage> {
+    return this.apiService.patch<IUpdateMessage>(`/admin/${id}`, admin);
+  }
+
   //   Delete admin by id
   deleteAdminById(id: string | null): Observable<IDeleteMessage> {
     return this.apiService.delete<IDeleteMessage>(`/admin/${id}`);

@@ -8,7 +8,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { HttpOptions } from "src/app/models/IHttp-options";
-import { IServerError } from '../../models/IServerError';
+import { IServerError } from "../../models/IServerError";
 @Injectable({
   providedIn: "root",
 })
@@ -20,7 +20,9 @@ export class ApiService {
   get<T>(endpoint: string, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
     console.log(url);
-    return this.http.get<T>(url,options={}).pipe(retry(2), catchError(this.handleError));
+    return this.http
+      .get<T>(url, (options = {}))
+      .pipe(retry(2), catchError(this.handleError));
   }
   post<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
@@ -32,7 +34,7 @@ export class ApiService {
   patch<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
     const url = this.baseUrl + endpoint;
     return this.http
-      .put<T>(url, data, (options = {}))
+      .patch<T>(url, data, (options = {}))
       .pipe(retry(2), catchError(this.handleError));
   }
 

@@ -9,7 +9,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AddAdminComponent } from "./add-admin/add-admin.component";
 import { AdminsItemComponent } from "./admins-item/admins-item.component";
 import { ButtonModule } from "primeng/button";
-import { GetAdminComponent } from './get-admin/get-admin.component';
+import { GetAdminComponent } from "./get-admin/get-admin.component";
+import { UpdateAdminComponent } from "./update-admin/update-admin.component";
 
 @NgModule({
   imports: [
@@ -22,6 +23,12 @@ import { GetAdminComponent } from './get-admin/get-admin.component';
     ReactiveFormsModule,
     ButtonModule,
   ],
-  declarations: [AdminComponent, AddAdminComponent, AdminsItemComponent, GetAdminComponent],
+  declarations: [
+    AdminComponent,
+    AddAdminComponent,
+    AdminsItemComponent,
+    GetAdminComponent,
+    UpdateAdminComponent,
+  ],
 })
 export class AdminModule {}

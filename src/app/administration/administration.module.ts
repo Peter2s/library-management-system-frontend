@@ -11,6 +11,7 @@ import { MembersModule } from './members/members.module';
 import { AdminRoutingModule } from './administration-routing.module';
 import { EmployeesModule } from './employees/employees.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     Error404Component,
     DashboardComponent,
     AdministrationMainLayoutComponent,
+    SuperAdminComponent,
   ],
 })
 export class administrationModule {}

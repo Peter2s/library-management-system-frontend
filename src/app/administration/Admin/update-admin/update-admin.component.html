@@ -1,0 +1,189 @@
+{{oldAdmin|json}}
+<div class="container">
+    <div class="h1 text-center text-capitalize text-success">Edit Admin Data </div>
+    <hr>
+    <form class="col-8 offset-2" [formGroup]="updateAdmin" (ngSubmit)="onSubmit()"
+          *ngIf="!loadingService.isLoading$.value" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    formControlName="firstName"
+                    [value]="tempName"
+                    [class.is-valid]="firstName?.valueChanges && firstName?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="firstName?.errors && firstName?.touched">
+                <div *ngIf="firstName?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the First Name
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    formControlName="lastName"
+                    [class.is-valid]="lastName?.valueChanges && lastName?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="lastName?.errors && lastName?.touched">
+                <div *ngIf="lastName?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the Last Name
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    [class.is-valid]="email?.valueChanges && email?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="email?.errors && email?.touched">
+                <div *ngIf="email?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the Email
+                    </div>
+                </div>
+                <div *ngIf="email?.hasError('email')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the Valid Email
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    formControlName="password"
+                    [class.is-valid]="password?.valueChanges && password?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="password?.errors && password?.touched">
+                <div *ngIf="password?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter the Password
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngIf="oldAdmin?.birthDate" class="mb-3">
+            <label for="birthDate" class="form-label">Birth Date</label>
+            <input
+                    type="date"
+                    class="form-control"
+                    id="birthDate"
+                    formControlName="birthDate"
+                    [class.is-valid]="birthDate?.valueChanges && birthDate?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="birthDate?.errors && birthDate?.touched">
+                <div *ngIf="birthDate?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Birth Date
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input
+                    type="number"
+                    class="form-control"
+                    id="salary"
+                    formControlName="salary"
+                    [class.is-valid]="salary?.valueChanges && salary?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="salary?.errors && salary?.touched">
+                <div *ngIf="salary?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Salary
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div *ngIf="oldAdmin?.image" class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input
+                    type="file"
+                    class="form-control"
+                    id="image"
+                    formControlName="image"
+                    [class.is-valid]="image?.valueChanges && image?.valid"
+                    required
+            />
+
+            <ng-container *ngIf="image?.errors && image?.touched">
+                <div *ngIf="image?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Enter The Image
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select
+                    class="form-control"
+                    id="role"
+                    formControlName="role"
+                    [class.is-valid]="role?.valueChanges && role?.valid"
+                    required
+            >
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
+            </select>
+
+            <ng-container *ngIf="role?.errors && role?.touched">
+                <div *ngIf="role?.hasError('required')">
+                    <div class="alert alert-danger mt-1" role="alert">
+                        Please Select The Role
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+
+        <div class="mb-3">
+            <input
+                    type="submit"
+                    class="btn btn-success"
+                    id="submit"
+                    [disabled]="updateAdmin.invalid"
+            />
+        </div>
+    </form>
+    <p-progressSpinner *ngIf="loadingService.isLoading$.value" styleClass="w-50  h-50 col-12"></p-progressSpinner>
+</div>
