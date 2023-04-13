@@ -28,9 +28,9 @@
             <th>Actions</th>
         </tr>
     </ng-template>
-    <ng-template let-book let-i="index" pTemplate="body">
+    <ng-template let-book let-i="rowIndex" pTemplate="body">
         <tr>
-            <td>{{i + 1}}</td>
+            <td>{{i + 1 + (booksPerPage * (currentPage - 1))}}</td>
 
 
             <td>
@@ -158,11 +158,17 @@
                 </div>
                 <div class="p-col-12">
                     <label for="image">Image URL</label>
-                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
+                    <input #image="ngModel" (change)="onFileChange($event)" [(ngModel)]="book.image" accept="image/*"
+                           id="image" name="image"
                            type="file">
+
+                    <!--<p-fileUpload #image="ngModel" (uploadHandler)="upload($event)" [(ngModel)]="book.image"
+                                  [multiple]="false"
+                                  accept="image/*"
+                                  id="image"
+
+                                  name="image" url=""></p-fileUpload>-->
                     <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
-                    <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
-                    <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                     <p-messages key="image"></p-messages>
                 </div>
                 <div class="p-dialog-footer">

@@ -55,6 +55,7 @@ export class BooksService implements OnInit {
         const options: HttpOptions = {
             headers: this.httpHeaders,
         };
+        console.log(book)
         return this.ApiService.post<BookResponse>("/books", book, options);
     }
 
@@ -74,6 +75,7 @@ export class BooksService implements OnInit {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
+
         return this.ApiService.patch<IBooks>(`/books/${book._id}`, book);
     }
 

@@ -5,6 +5,7 @@ import {IBooks} from '../../../models/IBooks';
 import {BooksService} from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
+import {Cloudinary, CloudinaryImage} from '@cloudinary/url-gen';
 
 
 @Component({
@@ -15,6 +16,7 @@ import {BookResponse} from "../../../models/book-response";
 })
 
 export class AllBooksComponent implements OnInit {
+    img!: CloudinaryImage;
     bookForm: FormGroup = {} as FormGroup;
     books: IBooks[];
     categories: String[] = [];
@@ -24,7 +26,7 @@ export class AllBooksComponent implements OnInit {
     totalBooksCount: number = 0;
     first: number = 0;
     currentPage: number = 1;
-    booksPerPage: number = 10;
+    booksPerPage: number = 8;
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
@@ -67,7 +69,7 @@ export class AllBooksComponent implements OnInit {
             pages: ['', Validators.compose([Validators.required, Validators.min(1)])],
             noOfCopies: ['', Validators.compose([Validators.required, Validators.min(1)])],
             shelfNo: ['', Validators.compose([Validators.required, Validators.min(1)])],
-            // image: ['', Validators.required],
+            image: ['', Validators.required],
         });
     }
 
@@ -158,7 +160,35 @@ export class AllBooksComponent implements OnInit {
 
     }
 
+    upload(event: any) {
+        console.log(event);
+        const file = event.target.files[0];
+        console.log(file);
+        this.bookForm.patchValue({
+            image: file
+        });
+        console.log(this.bookForm);
+        this.bookForm.get('image')?.updateValueAndValidity();
+        console.log(this.bookForm);
+    }
+
+    onFileChange(event: any) {
+
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.bookForm.patchValue({
+                image: file
+            });
+        }
+    }
+
     saveBook(): void {
+        console.log(this.bookForm.value);
+        console.log(this.book);
+        if (this.bookForm.value.image) {
+            this.book.image = this.bookForm.value.image;
+        }
+
         this.validationErros = {};
         if (this.book._id) {
             this.booksService.updateBook(this.book).subscribe(
