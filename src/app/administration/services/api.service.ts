@@ -14,7 +14,7 @@ import {IServerError} from '../../models/IServerError';
     providedIn: "root",
 })
 export class ApiService {
-    private baseUrl = "http://www.randomiizer.ninja/";
+    private baseUrl = "http://www.randomiizer.ninja";
 
     constructor(private http: HttpClient) {
     }
