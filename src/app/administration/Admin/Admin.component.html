@@ -1,42 +1,76 @@
-<!--Bind Admins Data-->
+<!--admin component work-->
+<!--<h1>Admin</h1>-->
 <!--{{admins|json}}-->
-<!--HTML to Show Admins Using Boot Strap-->
-<div class="container">
-    <!-- loading -->
-    <ng-container *ngFor="let number of getNumbersArray(1,12); index as i">
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="4" [value]="admins">
+    <ng-template pTemplate="caption">
+        <div class="p-clearfix" style="line-height: 1.87em">
+            <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
+            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+                    pButton
+                    type="button"></button>
 
-        <p-skeleton
-                *ngIf="loadingService.isLoading$.value"
-                width="25rm"
-                height="50rem"
-                borderRadius="16px"
-                styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
-        ></p-skeleton>
-    </ng-container>
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center text-success">All Admins Data</h1>
-            <hr>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-        <ng-container *ngFor="let admin of admins; index as i">
-                <app-admins-item [adminItem]="admin" class="col-3">
-                </app-admins-item>
-        </ng-container>
-        </div>
-    </div>
-</div>
+    </ng-template
+    >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Hire Date</th>
+            <th>Salary</th>
+            <th>Show</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </ng-template>
 
-<div class="row">
-    <div class="card flex justify-content-center col-12">
-        <p-paginator
-                (onPageChange)="onPageChange($event)"
-                [rows]="itemsPerPage"
-                [totalRecords]="totalRecords"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-        ></p-paginator>
-    </div>
-</div>
-<router-outlet></router-outlet>
+    <ng-template let-admin pTemplate="body">
+        <tr>
+            <td>{{admin._id}}</td>
+            <td>{{admin.firstName}}</td>
+            <td>{{admin.lastName}}</td>
+            <td>{{admin.email}}</td>
+            <td>{{admin.hireDate}}</td>
+            <td>{{admin.salary}}</td>
+            <td>
+                <button class="p-button-info" icon="pi pi-eye" label="View"
+                        pButton
+                        type="button"></button>
+            </td>
+            <td>
+                <button class="p-button-warning" icon="pi pi-pencil" label="Edit"
+                        pButton
+                        type="button"></button>
+            </td>
+            <td>
+                <button (click)="confirmDeleteAdmin(admin)" class="p-button-danger" icon="pi pi-trash" label="Delete"
+                        pButton
+                        type="button"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!--<p-paginator-->
+<!--        (onPageChange)="onPageChange($event)"-->
+<!--        [first]="first"-->
+<!--        [rowsPerPageOptions]="rowsPerPageOptions"-->
+<!--        [rows]="adminsPerPage"-->
+<!--        [showCurrentPageReport]="true"-->
+<!--        [totalRecords]="totalBooksCount"-->
+<!--        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"-->
+<!--&gt;-->
+<!--</p-paginator>-->
+
+<!--Dialog-->
+<p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <!--        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-text" (click)="messageService.clear('deleteBook')"></button>-->
+        <button (click)="confirmationService.close()" class="p-button-text" icon="pi pi-times" label="No" pButton
+                type="button"></button>
+        <button (click)="deleteConfirmed()" class="p-button-text" icon="pi pi-check" label="Yes" pButton
+                type="button"></button>
+    </p-footer>
+</p-confirmDialog>

@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="Layout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/Admin/Admin.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/Admin/Admin.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/Admin/Admin.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/Admin/Admin.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/Admin/Admin.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/Admin/Admin.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/Admin/Admin.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/Admin/Admin.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/components/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/components/sidebar/sidebar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/admins.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/admins.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/IManagers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/IManagers.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "admins",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/hp/Desktop/Angular/Projects/library-management-system-frontend",
     "node.js.detected.package.eslint": "true",
@@ -89,6 +95,14 @@
       <workItem from="1681308477449" duration="12872000" />
       <workItem from="1681327241002" duration="7480000" />
     </task>
+    <task id="LOCAL-00001" summary="Layout">
+      <created>1681399083305</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681399083305</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
