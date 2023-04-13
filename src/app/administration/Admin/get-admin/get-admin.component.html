@@ -1,7 +1,8 @@
 <div class="container  ">
-    <div class="card col-8 mx-auto" >
+    <div class="card col-8 mx-auto">
 
-        <img *ngIf="admin?.image" src="https://node.tamayouz-lab.com/images/{{admin?.image}}" class="card-img-top" alt="{{admin?.firstName}}">
+        <img *ngIf="admin?.image" alt="{{admin?.firstName}}" class="card-img-top"
+             src="https://node.tamayouz-lab.com/images/{{admin?.image}}">
         <div class="card-body">
             <span class="badge bg-success text-white mb-1">Admin</span>
             <h1 class="card-title text-center text-bg-success">
@@ -9,7 +10,7 @@
             </h1>
         </div>
         <div class="card-body">
-            <h3  class="list-group-item text-center">
+            <h3 class="list-group-item text-center">
                 ID : <span class="text-success fs-1">{{admin?._id}}</span>
             </h3>
             <h3 class="list-group-item text-center">
@@ -44,10 +45,9 @@
             </h3>
         </div>
         <div class="card-footer text-center">
-            <button pButton type="button" routerLink="edit" icon="pi pi-pencil" class="p-button-warning mx-1"></button>
-            <button pButton type="button" (click)="deleteAdmin(admin?._id)" icon="pi pi-trash" class="p-button-danger mx-1">
-
-            </button>
+            <p-button label="All Admins" routerLink="/admin/admins" styleClass="p-button-rounded p-button-info">
+            </p-button>
         </div>
     </div>
+
 </div>

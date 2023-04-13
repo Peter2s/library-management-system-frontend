@@ -41,12 +41,6 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         const trim = (str: string) => str.trim();
         this.getAllAdmins();
-    }
-
-    onPageChange(event: any) {
-        this.currentPage = event.page + 1;
-        this.adminsPerPage = event.rows;
-        this.getAllAdmins();
         this.adminAddForm = this.formBuilder.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
@@ -122,6 +116,13 @@ export class AdminComponent implements OnInit {
                 }
             ])],
         })
+    }
+
+    onPageChange(event: any) {
+        this.currentPage = event.page + 1;
+        this.adminsPerPage = event.rows;
+        this.getAllAdmins();
+
     }
 
     // Show Dialog

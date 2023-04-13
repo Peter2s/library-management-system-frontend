@@ -36,7 +36,7 @@
             <td>{{admin.salary}}</td>
             <td>
                 <button class="p-button-info" icon="pi pi-eye" label="View"
-                        pButton
+                        pButton routerLink="{{admin._id}}"
                         type="button"></button>
             </td>
             <td>
@@ -52,17 +52,71 @@
         </tr>
     </ng-template>
 </p-table>
+<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+          header="Add Admin">
+    <ng-container *ngIf="admin">
+        <form #bookForm="ngForm" enctype="multipart/form-data">
+            <div class="p-grid">
+                <div class="p-col-12">
+                    <label for="firstName">First Name</label>
+                    <input #firstName="ngModel" [(ngModel)]="admin.firstName" id="firstName" name="firstName" required
+                           type="text">
+                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                         class="p-error">First Name is required and should be valid
+                    </div>
+                    <p-messages key="firstName"></p-messages>
+                </div>
 
-<!--<p-paginator-->
-<!--        (onPageChange)="onPageChange($event)"-->
-<!--        [first]="first"-->
-<!--        [rowsPerPageOptions]="rowsPerPageOptions"-->
-<!--        [rows]="adminsPerPage"-->
-<!--        [showCurrentPageReport]="true"-->
-<!--        [totalRecords]="totalBooksCount"-->
-<!--        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"-->
-<!--&gt;-->
-<!--</p-paginator>-->
+                <div class="p-col-12">
+                    <label for="lastName">Last Name</label>
+                    <input #lastName="ngModel" [(ngModel)]="admin.lastName" id="lastName" name="lastName" required
+                           type="text">
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                         class="p-error">Last Name is required and should be valid
+                    </div>
+                    <p-messages key="lastName"></p-messages>
+                </div>
+
+                <div class="p-col-12">
+                    <label for="email">Email</label>
+                    <input #email="ngModel" [(ngModel)]="admin.email" id="email" name="email" required type="email">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                         class="p-error">Email is required and should be Valid
+                    </div>
+                    <p-messages key="email"></p-messages>
+                </div>
+
+                <div class="p-col-12">
+                    <label for="hireDate">Hire Date</label>
+                    <input #hireDate="ngModel" [(ngModel)]="admin.hireDate" id="hireDate" name="hireDate" required
+                           type="date">
+                    <div *ngIf="hireDate.invalid && (hireDate.dirty || hireDate.touched)"
+                         class="p-error">Hire Date is required and should be valid
+                    </div>
+                    <p-messages key="hireDate"></p-messages>
+                </div>
+
+                <div class="p-col-12">
+                    <label for="salary">Salary</label>
+                    <input #salary="ngModel" [(ngModel)]="admin.salary" id="salary" name="salary" required
+                           type="number">
+                    <div *ngIf="salary.invalid && (salary.dirty || salary.touched)"
+                         class="p-error">Salary is required and should be valid
+                    </div>
+                    <p-messages key="salary"></p-messages>
+                </div>
+
+                <div class="p-dialog-footer">
+                    <button (click)="saveAdmin()" label="Save" pButton
+                            type="button"></button>
+                    <button (click)="cancelDialog()" label="Cancel" pButton type="button"></button>
+                </div>
+            </div>
+
+        </form>
+    </ng-container>
+</p-dialog>
+
 
 <!--Dialog-->
 <p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
