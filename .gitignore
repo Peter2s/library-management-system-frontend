@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
 .angular/*
-
+.idea/*
 # compiled output
 /dist
 /tmp
