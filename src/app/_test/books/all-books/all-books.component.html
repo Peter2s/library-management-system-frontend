@@ -31,8 +31,6 @@
     <ng-template let-book let-i="index" pTemplate="body">
         <tr>
             <td>{{i + 1}}</td>
-
-
             <td>
                 <img *ngIf="book.image" [src]="book.image" height="50">
             </td>
