@@ -1,19 +1,17 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ApiService} from "../services/api.service";
 import {IBooks} from "src/app/models/IBooks";
-import {BooksService} from "../services/books.service";
+import {BooksService} from "../../services/books.service";
+import {LoadingService} from "src/app/shared/services/loading.service";
+import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {LoadingService} from "../../shared/services/loading.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Action} from "rxjs/internal/scheduler/Action";
-import {AuthorizationService} from './../services/Authorization.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
-    selector: "app-books",
-    templateUrl: "./books.component.html",
-    styleUrls: ["./books.component.css"],
+    selector: "table-customers-demo",
+    templateUrl: "books-list.component.html",
+    styleUrls: ["books-list.component.css"],
 })
-export class BooksComponent implements OnInit, OnDestroy {
+export class BooksListComponent implements OnInit, OnDestroy {
     /** book model */
     books: IBooks[] = [];
     /** Pagination */
@@ -24,11 +22,15 @@ export class BooksComponent implements OnInit, OnDestroy {
     /** Observable */
     subscription: Subscription[] = [];
 
+    selectedBooks: IBooks[] = [];
+
+    loading: boolean = true;
+    editing: boolean = false;
+
     constructor(
         private booksService: BooksService,
         public loadingService: LoadingService,
-        public route: ActivatedRoute,
-        private authorization: AuthorizationService
+        public route: ActivatedRoute
     ) {
         this.currentPage = 1;
         this.itemsPerPage = 8;
@@ -57,6 +59,23 @@ export class BooksComponent implements OnInit, OnDestroy {
         });
     }
 
+    onRowEditInit(book: any) {
+        // Perform any initialization logic before editing the row, if needed
+        console.log(`Editing book: ${book.title}`);
+    }
+
+    onRowEditSave(book: any) {
+    }
+
+    onRowEditCancel(book: any) {
+    }
+
+    deletebook(event: any) {
+    }
+
+    editbook(event: any) {
+    }
+
     onPageChange(event: any) {
         console.log(event);
         this.currentPage = event.page + 1;
@@ -66,6 +85,12 @@ export class BooksComponent implements OnInit, OnDestroy {
 
     getNumbersArray(start: number, end: number): number[] {
         return Array.from({length: end - start + 1}, (_, i) => start + i);
+    }
+
+    deleteSelectedBooks() {
+    }
+
+    openNew() {
     }
 
     ngOnDestroy(): void {
