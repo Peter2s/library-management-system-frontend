@@ -25,26 +25,42 @@ import {PaginatorModule} from "primeng/paginator";
 import {FileUploadModule} from "primeng/fileupload";
 import {ButtonModule} from 'primeng/button';
 
-
 @NgModule({
-    declarations: [AppComponent, LangingPageComponent],
+    declarations: [AppComponent, AllBooksComponent],
     imports: [
-        AppComponent,
-        AllBooksComponent,
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        FormsModule,
         HttpClientModule,
         FontAwesomeModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        TableModule,
         ButtonModule,
+        DialogModule,
         InputTextModule,
+        DropdownModule,
+        CalendarModule,
+        InputNumberModule,
+        MessagesModule,
+        MessageModule,
+        ConfirmDialogModule,
+        PaginatorModule,
+        FileUploadModule,
+        ReactiveFormsModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent],
 })
-
 export class AppModule {
 }
