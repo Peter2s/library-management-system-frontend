@@ -25,6 +25,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {FileUploadModule} from "primeng/fileupload";
 import {ButtonModule} from 'primeng/button';
 
+
 @NgModule({
     declarations: [AppComponent, AllBooksComponent],
     imports: [
