@@ -17,13 +17,12 @@ export class AdminComponent implements OnInit {
     adminEditForm: FormGroup;
     admin: IManagers;
     displayDialog: boolean;
-    currentPage: number = 1;
-    adminsPerPage: number = 4;
-    rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
+    displayEditDialog: boolean;
     totalAdminsCount: number = 0;
     first: number = 0;
     loading: boolean;
     public validationErros?: { [p: string]: string };
+    adminEditData: IManagers;
     protected readonly console = console;
 
     constructor(
@@ -35,12 +34,13 @@ export class AdminComponent implements OnInit {
         this.admins = [];
         this.admin = {} as IManagers;
         this.displayDialog = false;
+        this.displayEditDialog = false;
         this.loading = false;
     }
 
     ngOnInit() {
-        const trim = (str: string) => str.trim();
         this.getAllAdmins();
+
         this.adminAddForm = this.formBuilder.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
@@ -60,9 +60,16 @@ export class AdminComponent implements OnInit {
                     return date < today ? null : {invalidDate: true};
                 }
             ])],
-            salary: ["", Validators.required],
+            salary: ["", Validators.compose([
+                Validators.required,
+                value => {
+                    const salary = value.value;
+                    return salary > 2500 ? null : {invalidSalary: true};
+                }
+            ])],
             activated: [false],
         })
+
         this.adminEditForm = this.formBuilder.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
@@ -83,13 +90,8 @@ export class AdminComponent implements OnInit {
                 }
             ])],
             password: ["", Validators.compose([
-                Validators.required,
                 Validators.minLength(8),
                 Validators.maxLength(20),
-                value => {
-                    const password = value.value;
-                    return password && password.trim() ? null : {invalidPassword: true};
-                }
             ])],
             salary: ["", Validators.compose([
                 Validators.required,
@@ -108,7 +110,6 @@ export class AdminComponent implements OnInit {
                 }
             ])],
             image: ["", Validators.compose([
-                // Validators.required,
                 value => {
                     const image = value.value;
                     const mimes = ["image/jpeg", "image/png", "image/gif"];
@@ -118,23 +119,18 @@ export class AdminComponent implements OnInit {
         })
     }
 
-    onPageChange(event: any) {
-        this.currentPage = event.page + 1;
-        this.adminsPerPage = event.rows;
-        this.getAllAdmins();
 
-    }
-
-    // Show Dialog
     showDialogToAdd() {
         this.admin = {} as IManagers;
         this.displayDialog = true;
     }
 
-    // Save Admin
+    cancelDialog() {
+        this.displayDialog = false;
+    }
+
     saveAdmin() {
         this.validationErros = {};
-        //   Id Exists => Edit Admin
         if (this.admin._id) {
             this.adminsService.updateAdminById(this.admin._id, this.admin).subscribe(
                 (data) => {
@@ -161,7 +157,7 @@ export class AdminComponent implements OnInit {
                     }
                 }
             )
-        } else {//   Id Not Exists => Add new Admin
+        } else {
             this.adminsService.addAdmin(this.admin).subscribe(
                 (data: IManagerResponse) => {
                     this.admins.push(data.data);
@@ -198,14 +194,7 @@ export class AdminComponent implements OnInit {
         this.getAllAdmins();
     }
 
-    // Edit Admin
-    editAdmin(admin: IManagers) {
-        this.admin = {...admin};
-        this.displayDialog = true;
 
-    }
-
-    // Confirm Delete Admin
     confirmDeleteAdmin(admin: IManagers) {
         this.admin = admin;
         this.confirmationService.confirm({
@@ -220,9 +209,7 @@ export class AdminComponent implements OnInit {
         });
     }
 
-    // Delete Confirmed
     deleteConfirmed() {
-        console.log("this.admin");
         this.deleteAdmin()
         this.confirmationService.close();
         this.getAllAdmins()
@@ -250,11 +237,6 @@ export class AdminComponent implements OnInit {
         );
     }
 
-    // Cancel Dialog
-    cancelDialog() {
-        this.displayDialog = false;
-    }
-
 
     // Format Error
     formatError(error: string): { [key: string]: string } {
@@ -268,10 +250,40 @@ export class AdminComponent implements OnInit {
         return errors;
     }
 
+    showDialogToEditAdmin(admin: IManagers) {
+        this.adminEditData = {...admin};
+        this.displayEditDialog = true;
+    }
+
+    updateAdmin(data: IManagers) {
+        this.adminsService.updateAdminById(data._id, data).subscribe(
+            (data) => {
+                this.messageService.add({
+                    severity: "success",
+                    summary: "Success",
+                    detail: "Admin Updated Successfully",
+                    life: 3000
+                });
+                this.displayEditDialog = false;
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: "error",
+                    summary: "Error",
+                    detail: "Admin Not Updated",
+                    life: 3000
+                });
+            }
+        );
+    }
+
+    cancelEditDialog() {
+        this.displayEditDialog = false;
+    }
+
     private getAllAdmins() {
         this.loading = true;
-        this.adminsService
-            .getAdmins(this.currentPage, this.adminsPerPage)
+        this.adminsService.getAdmins()
             .subscribe((data) => {
                     this.admins = data.data;
                     this.totalAdminsCount = data.pagination?.total_managers_count;
@@ -287,6 +299,4 @@ export class AdminComponent implements OnInit {
                 }
             );
     }
-
-    // End of class
 }

@@ -5,6 +5,7 @@ import {IBooks} from '../../../models/IBooks';
 import {BooksService} from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
+import {ApiService} from "../../../administration/services/api.service";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class AllBooksComponent implements OnInit {
     protected readonly console = console;
 
     constructor(private booksService: BooksService,
+                public uploadService: ApiService,
                 public confirmationService: ConfirmationService,
                 public messageService: MessageService,
                 private formBuilder: FormBuilder
@@ -161,7 +163,7 @@ export class AllBooksComponent implements OnInit {
     saveBook(): void {
         this.validationErros = {};
         if (this.book._id) {
-            this.booksService.updateBook(this.book).subscribe(
+            this.booksService.updateBook(this.bookForm.value).subscribe(
                 (response: IBooks) => {
                     this.book = response;
                     this.messageService.add({
@@ -170,8 +172,7 @@ export class AllBooksComponent implements OnInit {
                         detail: 'Book updated.',
                         life: 5000
                     });
-                    this.getBooks();
-                    //   this.books[this.findIndexById(this.book._id)] = this.book;
+                    //this.getBooks();
                     this.displayDialog = false;
                 },
                 (error) => {
