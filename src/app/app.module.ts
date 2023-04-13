@@ -8,12 +8,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LoadingInterceptor } from "./shared/services/LoadingInterceptor";
 import { AuthInterceptor } from "./shared/services/authInterceptor.service";
-import { LangingPageComponent } from './langing-page/langing-page.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
-  declarations: [AppComponent, LangingPageComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, LandingPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
