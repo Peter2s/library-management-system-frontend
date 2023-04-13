@@ -52,7 +52,6 @@
     </ng-template>
 </p-table>
 
-<!-- Dialog for adding/editing books -->
 <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add/Edit Book">
 
@@ -156,6 +155,12 @@
                 </div>
                 <div class="p-col-12">
                     <label for="image">Image URL</label>
+                    <!--                    <input-->
+                    <!--                            (change)="onFileChange($event)"-->
+                    <!--                            class="form-control"-->
+                    <!--                            formControlName="file"-->
+                    <!--                            id="file"-->
+                    <!--                            type="file">-->
                     <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
                            type="file">
                     <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>

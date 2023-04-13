@@ -27,18 +27,11 @@ export class AdminsService implements OnInit {
     // getAdmins(url: string): Observable<IManagersResponse> {
     //     return this.apiService.get<IManagersResponse>(url);
     // }
-    getAdmins(page?: number, limit?: number): Observable<IManagersResponse> {
+    getAdmins(): Observable<IManagersResponse> {
         const options: HttpOptions = {
             headers: this.httpHeaders,
-            params: {
-                page: page?.toString() ?? "",
-                limit: limit?.toString() ?? "",
-            },
         };
-        console.log(options);
-        let endpoint = "/admin?"
-        if (page) endpoint += `&page=${page}`
-        if (limit) endpoint += `&limit=${limit}`
+        let endpoint = "/admin"
         return this.apiService.get<IManagersResponse>(endpoint, options);
     }
 

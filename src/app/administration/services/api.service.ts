@@ -14,7 +14,7 @@ import {IServerError} from '../../models/IServerError';
     providedIn: "root",
 })
 export class ApiService {
-    private baseUrl = "http://www.randomiizer.ninja/";
+    private baseUrl = "http://www.randomiizer.ninja";
 
     constructor(private http: HttpClient) {
     }
@@ -34,9 +34,15 @@ export class ApiService {
 
     patch<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
         const url = this.baseUrl + endpoint;
+        console.log("data", data);
+
         return this.http
             .patch<T>(url, data, (options = {}))
             .pipe(retry(2), catchError(this.handleError));
+
+        // return this.http
+        //     .patch<T>(url, data, (options = {}))
+        //     .pipe(retry(2), catchError(this.handleError));
     }
 
     put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {

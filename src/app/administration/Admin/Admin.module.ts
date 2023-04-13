@@ -13,6 +13,7 @@ import {MessagesModule} from "primeng/messages";
 import {TableModule} from "primeng/table";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {DialogModule} from "primeng/dialog";
         TableModule,
         ConfirmDialogModule,
         DialogModule,
+        InputTextModule,
     ],
     declarations: [
         AdminComponent,
