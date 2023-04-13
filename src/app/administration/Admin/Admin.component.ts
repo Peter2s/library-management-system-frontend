@@ -131,33 +131,6 @@ export class AdminComponent implements OnInit {
 
     saveAdmin() {
         this.validationErros = {};
-        if (this.admin._id) {
-            this.adminsService.updateAdminById(this.admin._id, this.admin).subscribe(
-                (data) => {
-                    this.admin = data;
-                    this.messageService.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "Admin Updated Successfully",
-                        life: 3000
-                    });
-                    this.getAllAdmins();
-                    this.displayDialog = false;
-                },
-                (error) => {
-                    this.validationErros = this.formatError(error.message);
-                    let keys = Object.keys(this.validationErros);
-                    for (let key of keys) {
-                        this.messageService.add({
-                            severity: "error",
-                            summary: "Error",
-                            detail: this.validationErros[key],
-                            life: 3000
-                        });
-                    }
-                }
-            )
-        } else {
             this.adminsService.addAdmin(this.admin).subscribe(
                 (data: IManagerResponse) => {
                     this.admins.push(data.data);
@@ -168,6 +141,7 @@ export class AdminComponent implements OnInit {
                         life: 3000
                     })
                     this.displayDialog = false;
+                    this.getAllAdmins();
                 },
                 (error) => {
                     this.validationErros = this.formatError(error.message);
@@ -189,9 +163,6 @@ export class AdminComponent implements OnInit {
                     })
                 }
             );
-
-        }
-        this.getAllAdmins();
     }
 
 
@@ -225,6 +196,7 @@ export class AdminComponent implements OnInit {
                     detail: "Admin Deleted Successfully",
                     life: 3000
                 });
+                this.getAllAdmins();
             },
             (error) => {
                 this.messageService.add({
@@ -265,6 +237,7 @@ export class AdminComponent implements OnInit {
                     life: 3000
                 });
                 this.displayEditDialog = false;
+                this.getAllAdmins();
             },
             (error) => {
                 this.messageService.add({

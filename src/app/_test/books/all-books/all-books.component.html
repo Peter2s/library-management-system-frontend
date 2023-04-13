@@ -154,16 +154,17 @@
                     <p-messages key="shelfNo"></p-messages>
                 </div>
                 <div class="p-col-12">
-                    <label for="image">Image URL</label>
-                    <!--                    <input-->
-                    <!--                            (change)="onFileChange($event)"-->
-                    <!--                            class="form-control"-->
-                    <!--                            formControlName="file"-->
-                    <!--                            id="file"-->
-                    <!--                            type="file">-->
-                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
-                           type="file">
-                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
+                    <img [src]="image" alt="book image" width="100" height="100">
+<!--                    <label for="image">Image URL</label>-->
+                        <input
+                                (change)="onFileChange($event)"
+                                class="form-control"
+                                formControlName="file"
+                                id="file"
+                                type="file">
+<!--                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"-->
+<!--                           type="file">-->
+<!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                     <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
                     <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                     <p-messages key="image"></p-messages>

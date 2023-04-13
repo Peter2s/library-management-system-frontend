@@ -29,9 +29,9 @@ export class AllBooksComponent implements OnInit {
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
+    image: string;
 
     constructor(private booksService: BooksService,
-                public uploadService: ApiService,
                 public confirmationService: ConfirmationService,
                 public messageService: MessageService,
                 private formBuilder: FormBuilder
@@ -158,6 +158,22 @@ export class AllBooksComponent implements OnInit {
         // });
         this.getBooks();
 
+    }
+
+    onFileChange(event: Event) {
+        const reader = new FileReader();
+        // @ts-ignore
+        if(event.target.files && event.target.files.length) {
+            // @ts-ignore
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.image = reader.result as string;
+                this.bookForm.patchValue({
+                    image: reader.result
+                });
+            };
+        }
     }
 
     saveBook(): void {
