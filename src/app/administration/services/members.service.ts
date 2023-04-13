@@ -1,45 +1,61 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMembers} from "../../models/IMembers";
-import { IMemberResponse } from 'src/app/models/IMemberResponse';
+import {IMemberResponse} from 'src/app/models/IMemberResponse';
 import {IDeleteMessage} from "../../models/IDeleteMessage";
 import {IUpdateMessage} from "../../models/IUpdateMessage";
 import {IMemberActivation} from "../../models/IMemberActivation";
+import {HttpOptions} from "../../models/IHttp-options";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class MembersService implements OnInit{
+export class MembersService implements OnInit {
+    httpHeaders: any = {};
 
-  constructor(private apiService: ApiService) { }
-  ngOnInit() {
-  }
+    constructor(private apiService: ApiService) {
+    }
 
-  getMembers(url:string): Observable<IMembersResponse> {
+    ngOnInit() {
+    }
 
-    return this.apiService.get<IMembersResponse>(url);
-  }
+    getMembers(page?: number, limit?: number): Observable<IMembersResponse> {
+        const options: HttpOptions = {
+            headers: this.httpHeaders,
+            params: {
+                page: page?.toString() ?? "",
+                limit: limit?.toString() ?? "",
+            },
+        };
+        let endpoint = "/members?"
+        if (page) endpoint += `&page=${page}`
+        if (limit) endpoint += `&limit=${limit}`
+        return this.apiService.get<IMembersResponse>(endpoint, options);
+    }
 
-  addMember(member: IMembers) {
-    return this.apiService.post<IMembersResponse>("/members", member);
-  }
+    addMember(member: IMembers) {
+        const options: HttpOptions = {
+            headers: this.httpHeaders,
+        };
+        return this.apiService.post<IMemberResponse>("/members", member, options);
+    }
 
-  getMemberById(id: string | null): Observable<IMemberResponse> {
-    return this.apiService.get<IMemberResponse>(`/members/${id}`);
-  }
+    getMemberById(id: string | null): Observable<IMemberResponse> {
+        return this.apiService.get<IMemberResponse>(`/members/${id}`);
+    }
 
-  deleteMemberById(id: string | null): Observable<IDeleteMessage>{
-    return this.apiService.delete<IDeleteMessage>(`/members/${id}`);
-  }
+    deleteMemberById(id: number): Observable<IDeleteMessage> {
+        return this.apiService.delete<IDeleteMessage>(`/members/${id}`);
+    }
 
 
-  updateMember(id: number|undefined, member: IMembers):Observable<IUpdateMessage> {
-    return this.apiService.patch<IUpdateMessage>(`/members/${id}`, member)
-  }
+    updateMember(id: number | undefined, member: IMembers): Observable<IUpdateMessage> {
+        return this.apiService.patch<IUpdateMessage>(`/members/${id}`, member)
+    }
 
-  activateMember(member: IMemberActivation):Observable<IUpdateMessage> {
-    return this.apiService.post<IUpdateMessage>(`/activation`, member)
-  }
+    activateMember(member: IMemberActivation): Observable<IUpdateMessage> {
+        return this.apiService.post<IUpdateMessage>(`/activation`, member)
+    }
 }

@@ -1,48 +1,243 @@
-<div class="container-fluid">
-  <!-- loading -->
-  <ng-container *ngFor="let number of getNumbersArray(1,12); index as i">
+<!-- Import PrimeNG components -->
 
-    <p-skeleton
-            *ngIf="loadingService.isLoading$.value"
-            width="25rm"
-            height="50rem"
-            borderRadius="16px"
-            styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
-    ></p-skeleton>
 
-  </ng-container>
-  <!-- end loading -->
-  <p-table [value]="members" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header" let-member let-columns="columns">
-      <tr>
-        <th>Member Details</th>
-        <th>Actions</th>
-      </tr>
+<p-table #dt [paginator]="false" [responsive]="true" [rows]="10" [value]="members">
+    <ng-template pTemplate="caption">
+        <div class="p-clearfix" style="line-height: 1.87em">
+            <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
+            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+                    pButton
+                    type="button"></button>
+
+        </div>
+    </ng-template
+    >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Image</th>
+            <th>Phone Number</th>
+            <th>Birth Date</th>
+            <th colspan="3">Address</th>
+            <th>Last Login</th>
+            <th>Ban Date</th>
+            <th>Activated</th>
+            <th>Actions</th>
+        </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-member>
-      <tr class="member-item">
-        <td>
-          <app-members-item [memberItem]="member"></app-members-item>
-        </td>
-        <td>
-          <button pButton type="submit" routerLink="{{member._id}}"  icon="pi pi-eye" class="p-button-secondary"></button>
-          <button pButton type="button" routerLink="{{member._id}}/edit" icon="pi pi-pencil" class="p-button-warning"></button>
-          <button pButton type="button" routerLink="{{member._id}}/delete" icon="pi pi-trash" class="p-button-danger"></button>
-        </td>
-      </tr>
+    <ng-template let-i="rowIndex" let-member pTemplate="body">
+        <tr>
+            <td>{{i + 1 + (membersPerPage * (currentPage - 1))}}</td>
+            <td>{{member._id}}</td>
+            <td>{{member.full_name}}</td>
+            <td>{{member.email}}</td>
+            <td>
+                <img *ngIf="member.image" [alt]="member.title" [src]="member.image" height="50">
+            </td>
+            <td>{{member?.phone_number}}</td>
+            <td>{{member?.birth_date | date}}</td>
+            <td>{{member.address?.city}}</td>
+            <td>{{member.address?.street}}</td>
+            <td>{{member.address?.building}}</td>
+            <td>{{member?.last_login}}</td>
+            <td>{{member?.ban_date | date}}</td>
+            <td>{{member.activated}}</td>
+            <td>
+                <button (click)="editMember(member)" icon="pi pi-pencil" pButton type="button"></button>
+                <button (click)="confirmDeleteMember(member)" class="p-button-danger" icon="pi pi-trash" pButton
+                        type="button"></button>
+            </td>
+        </tr>
     </ng-template>
-  </p-table>
+</p-table>
+
+<!-- Dialog for adding members -->
+<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+          header="Add Member">
+
+    <ng-container *ngIf="member">
+        <form #memberForm="ngForm" enctype="multipart/form-data">
+            <div class="p-grid">
+                <div class="p-col-12">
+                    <label for="full_name">Full Name</label>
+                    <input #full_name="ngModel" [(ngModel)]="member.full_name" id="full_name" name="full_name" required
+                           type="text">
+                    <div *ngIf="full_name.invalid && (full_name.dirty || full_name.touched)" class="p-error">Full Name
+                        is required and
+                        should be at least 3 characters
+                    </div>
+                    <p-messages key="full_name"></p-messages>
+                </div>
+                <div class="p-col-12">
+                    <label for="email">Email</label>
+                    <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Email is required
+                    </div>
+                    <p-messages key="email"></p-messages>
+                    <p-messages key="MongoServerError"></p-messages>
+                </div>
+
+                <div class="p-dialog-footer">
+                    <button (click)="addMember()" [disabled]="!memberForm.valid" label="save" pButton
+                            type="button"></button>
+                    <button (click)="cancel()" label="Cancel" pButton type="button"></button>
+                </div>
+            </div>
+
+        </form>
+    </ng-container>
 
 
-</div>
-<div class="row">
-  <div class="card flex justify-content-center col-12">
-    <p-paginator
-            (onPageChange)="onPageChange($event)"
-            [rows]="itemsPerPage"
-            [totalRecords]="totalRecords"
-            [rowsPerPageOptions]="rowsPerPageOptions"
-    ></p-paginator>
-  </div>
-</div>
-<router-outlet></router-outlet>
+</p-dialog>
+
+<!-- Dialog for Editing members -->
+
+<!--<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"-->
+<!--          header="Add Member">-->
+
+<!--    <ng-container *ngIf="member">-->
+<!--        <form #memberForm="ngForm" enctype="multipart/form-data">-->
+<!--            <div class="p-grid">-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="title">Email</label>-->
+<!--                    <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">-->
+<!--                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Title is required and-->
+<!--                        should be at least 3 characters-->
+<!--                    </div>-->
+<!--                    <p-messages key="title"></p-messages>-->
+<!--                </div>-->
+
+<!--                <div class="p-col-12">-->
+<!--                    <label for="author">Author</label>-->
+<!--                    <input #author="ngModel" [(ngModel)]="member.author" id="author" name="author" required type="text">-->
+<!--                    <div *ngIf="author.invalid && (author.dirty || author.touched)" class="p-error">Author is required-->
+<!--                        and should be at least 3 characters-->
+<!--                    </div>-->
+<!--                    <p-messages key="author"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="publisher">Publisher</label>-->
+<!--                    <input #publisher="ngModel" [(ngModel)]="member.publisher" id="publisher" name="publisher" required-->
+<!--                           type="text">-->
+<!--                    <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="p-error">Publisher-->
+<!--                        is required and should be at least 3 characters-->
+<!--                    </div>-->
+<!--                    <p-messages key="publisher"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="category">Category</label>-->
+<!--                    &lt;!&ndash;                    <p-dropdown #category="ngModel"  id="category" [required]="true" [options]="categories" [(ngModel)]="member.category" name="category" *ngIf="(this.member._id)" [filterValue]="this.member.category"></p-dropdown>&ndash;&gt;-->
+<!--                    <ng-container *ngIf="this.member._id">-->
+<!--                        <p-dropdown #category="ngModel" [(ngModel)]="member.category"-->
+<!--                                    [filterValue]="this.member.category"-->
+<!--                                    [options]="categories"-->
+<!--                                    [required]="true" id="category"-->
+<!--                                    name="category"></p-dropdown>-->
+<!--                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category-->
+<!--                            is required-->
+<!--                        </div>-->
+<!--                    </ng-container>-->
+<!--                    <ng-container *ngIf="!this.member._id">-->
+<!--                        <p-dropdown #category="ngModel" [(ngModel)]="member.category" [options]="categories"-->
+<!--                                    [required]="true"-->
+<!--                                    id="category" name="category"></p-dropdown>-->
+<!--                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category-->
+<!--                            is required-->
+<!--                        </div>-->
+<!--                    </ng-container>-->
+<!--                    <p-messages key="category"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="publishingDate">Publishing Date</label>-->
+<!--                    <p-calendar #publishingDate="ngModel" [(ngModel)]="member.publishingDate" [required]="true"-->
+<!--                                dateFormat="yy-mm-dd"-->
+<!--                                id="publishingDate" name="publishingDate"></p-calendar>-->
+<!--                    <div *ngIf="publishingDate.invalid && (publishingDate.dirty || publishingDate.touched)"-->
+<!--                         class="p-error">Publishing Date is required and should be a valid date-->
+<!--                    </div>-->
+<!--                    <p-messages key="publishingDate"></p-messages>-->
+<!--                </div>-->
+
+<!--                <div class="p-col-12">-->
+<!--                    <label for="edition">Edition</label>-->
+<!--                    <input #edition="ngModel" [(ngModel)]="member.edition" id="edition" min="1" name="edition" required-->
+<!--                           type="number">-->
+<!--                    <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is-->
+<!--                        required and should be a number-->
+<!--                    </div>-->
+<!--                    <p-messages key="edition"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="pages">Pages</label>-->
+<!--                    <input #pages="ngModel" [(ngModel)]="member.pages" id="pages" min="1" name="pages" required-->
+<!--                           type="number">-->
+<!--                    <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and-->
+<!--                        should be a number-->
+<!--                    </div>-->
+<!--                    <p-messages key="pages"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="noOfCopies">No. of Copies</label>-->
+<!--                    <input #noOfCopies="ngModel" [(ngModel)]="member.noOfCopies" id="noOfCopies" min="1"-->
+<!--                           name="noOfCopies"-->
+<!--                           required type="number">-->
+<!--                    <div *ngIf="noOfCopies.invalid && (noOfCopies.dirty || noOfCopies.touched)" class="p-error">No. of-->
+<!--                        Copies is required and should be a number-->
+<!--                    </div>-->
+<!--                    <p-messages key="noOfCopies"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="shelfNo">Shelf No.</label>-->
+<!--                    <input #shelfNo="ngModel" [(ngModel)]="member.shelfNo" id="shelfNo" min="1" name="shelfNo" required-->
+<!--                           type="number">-->
+<!--                    <div *ngIf="shelfNo.invalid && (shelfNo.dirty || shelfNo.touched)" class="p-error">Shelf No. is-->
+<!--                        required and should be a number-->
+<!--                    </div>-->
+<!--                    <p-messages key="shelfNo"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="image">Image URL</label>-->
+<!--                    <input #image="ngModel" [(ngModel)]="member.image" accept="image/*" id="image" name="image"-->
+<!--                           type="file">-->
+<!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
+<!--                    &lt;!&ndash;                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>&ndash;&gt;-->
+<!--                    <p-messages key="image"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-dialog-footer">-->
+<!--                    <button (click)="saveMember()" [disabled]="!memberForm.valid" label="Save" pButton-->
+<!--                            type="button"></button>-->
+<!--                    <button (click)="cancel()" label="Cancel" pButton type="button"></button>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </form>-->
+<!--    </ng-container>-->
+
+
+<!--</p-dialog>-->
+<p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rowsPerPageOptions]="rowsPerPageOptions"
+        [rows]="membersPerPage"
+        [showCurrentPageReport]="true"
+        [totalRecords]="totalMembersCount"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+</p-paginator>
+<!-- Dialog for confirming member deletion -->
+<p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <!--        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-text" (click)="messageService.clear('deleteMember')"></button>-->
+        <button (click)="confirmationService.close()" class="p-button-text" icon="pi pi-times" label="No" pButton
+                type="button"></button>
+        <button (click)="deleteConfirmed()" class="p-button-text" icon="pi pi-check" label="Yes" pButton
+                type="button"></button>
+    </p-footer>
+</p-confirmDialog>
+
+

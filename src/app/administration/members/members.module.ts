@@ -1,21 +1,24 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { MembersComponent } from './members.component';
+import {MembersComponent} from './members.component';
 import {MembersRoute} from "./members.routing";
 import {PaginatorModule} from "primeng/paginator";
 import {SkeletonModule} from "primeng/skeleton";
-import { MembersItemComponent } from './members-item/members-item.component';
-import { MemberDetailsComponent } from './member-details/member-details.component';
-import { MemberAddComponent } from './member-add/member-add.component';
+import {MembersItemComponent} from './members-item/members-item.component';
+import {MemberDetailsComponent} from './member-details/member-details.component';
+import {MemberAddComponent} from './member-add/member-add.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {CardModule} from "primeng/card";
-import { MemberDeleteComponent } from './member-delete/member-delete.component';
-import { MemberUpdateComponent } from './member-update/member-update.component';
-import { MemberActivationComponent } from './member-activation/member-activation.component';
+import {MemberDeleteComponent} from './member-delete/member-delete.component';
+import {MemberUpdateComponent} from './member-update/member-update.component';
+import {MemberActivationComponent} from './member-activation/member-activation.component';
+import {MessagesModule} from "primeng/messages";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
     imports: [
@@ -30,8 +33,12 @@ import { MemberActivationComponent } from './member-activation/member-activation
         ButtonModule,
         SelectButtonModule,
         CardModule,
+        MessagesModule,
+        ConfirmDialogModule,
+        DialogModule,
 
     ],
-  declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent, MemberUpdateComponent, MemberActivationComponent]
+    declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent, MemberUpdateComponent, MemberActivationComponent]
 })
-export class MembersModule { }
+export class MembersModule {
+}
