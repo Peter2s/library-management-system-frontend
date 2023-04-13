@@ -27,7 +27,7 @@ export class BooksService implements OnInit {
     }
 
 
-    getCategoriesgetCategories() {
+    getCategories() {
         return this.ApiService.get('/categories');
     }
 
