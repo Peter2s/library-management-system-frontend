@@ -158,6 +158,31 @@ export class BooksService implements OnInit {
         return this.ApiService.get<IBooksResponse>(url);
     }
 
+    getListBorrowed(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
+
+        let url = '';
+        if (Number(year)) {
+            url = `/books/history/borrowed/${year}`;
+            if (Number(month))
+                url += `/${month}`;
+        } else
+            url = `/books/history/borrowed/`;
+        return this.ApiService.get<IBooksResponse>(url);
+    }
+
+    getListRead(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
+
+        let url = '';
+        if (Number(year)) {
+            url = `/books/history/reading/${year}`;
+            if (Number(month))
+                url += `/${month}`;
+        } else
+            url = `/books/history/reading/`;
+        return this.ApiService.get<IBooksResponse>(url);
+    }
+
+
     borrowBook(data: any) {
         let options: HttpOptions = {
             headers: this.httpHeaders,

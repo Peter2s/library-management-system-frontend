@@ -11,6 +11,9 @@ import {
 import {AuthGuard} from './guards/auth.guard';
 import {LoginGuard} from './guards/login.guard';
 import {ReportComponent} from "./dashboard/report/report.component";
+import {ListBorrowedComponent} from "./members/books/list-borrowed/list-borrowed.component";
+import {ListReadingComponent} from "./members/books/list-reading/list-reading.component";
+import {CurrentBorrowedComponent} from "./members/books/current-borrowed/current-borrowed.component";
 
 const routes: Routes = [
     {
@@ -34,7 +37,9 @@ const routes: Routes = [
             }
         ],
     },
-
+    {path: "list", component: ListBorrowedComponent},
+    {path: "list2", component: ListReadingComponent},
+    {path: "list3", component: CurrentBorrowedComponent},
     {path: "login", component: LoginComponent, canActivate: [LoginGuard]},
     {path: "activation", component: ActivationComponent},
 ];
