@@ -55,7 +55,7 @@
 <!-- Add Form -->
 <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add Admin">
-    <ng-container *ngIf="adminEditData">
+    <ng-container *ngIf="admin">
         <form #adminAddForm="ngForm" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12 mb-3">
