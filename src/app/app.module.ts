@@ -11,9 +11,11 @@ import { AuthInterceptor } from "./shared/services/authInterceptor.service";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { BestBooksComponent } from './landing-page/best-books/best-books.component';
+import { NewBooksComponent } from './landing-page/new-books/new-books.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, LandingPageComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, LandingPageComponent, BestBooksComponent, NewBooksComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
