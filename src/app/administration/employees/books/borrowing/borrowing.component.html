@@ -10,11 +10,12 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-book>
+        {{console.log(book)}}
         <tr>
-            <td>{{book._id}}</td>
+            <td>{{book.member?.full_name}}</td>
             <td>{{book.book.title}}</td>
-            <td>{{book.emp}}</td>
-            <td>{{book.expected_date | date:'yyyy/MM/dd'}}</td>
+            <td>{{book.emp?.firstName}} {{book.emp?.lastName}}</td>
+            <td>{{book.expected_date | date}}</td>
         </tr>
     </ng-template>
 

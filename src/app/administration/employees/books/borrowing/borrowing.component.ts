@@ -20,4 +20,6 @@ export class BorrowingComponent {
         this.books = response.data;
       });
   }
+
+    protected readonly console = console;
 }
