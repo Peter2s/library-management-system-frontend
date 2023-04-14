@@ -136,15 +136,22 @@ export class BooksService implements OnInit {
         );
     }
 
+    getLatestBooks(): Observable<IBooksResponse> {
+        return this.ApiService.get<IBooksResponse>(
+            `/latest/`
+        );
+    }
+
+
     getMostBorrowed(year: number | string = ''): Observable<IBooksResponse> {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        let url = `/books/mostborrowed/`;
+        let url = '';
         if (Number(year))
-            url = `/books/mostborrowed/${year}`;
+            url = `/most/borrowed/${year}`;
         else
-            url = `/books/mostborrowed/`;
+            url = `/most/borrowed/`;
         return this.ApiService.get<IBooksResponse>(url);
     }
 
@@ -152,11 +159,11 @@ export class BooksService implements OnInit {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        let url = `/books/mostborrowed/`;
+        let url = '';
         if (Number(year))
-            url = `/books/mostborrowed/${year}`;
+            url = `/most/read/${year}`;
         else
-            url = `/books/mostborrowed/`;
+            url = `/most/read/`;
         return this.ApiService.get<IBooksResponse>(url);
     }
 

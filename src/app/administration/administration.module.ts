@@ -17,6 +17,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {CloudinaryImage} from '@cloudinary/url-gen';
 // Import the Cloudinary classes
 import {CloudinaryModule} from '@cloudinary/ng';
+import { ReportComponent } from './dashboard/report/report.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {CloudinaryModule} from '@cloudinary/ng';
         Error404Component,
         DashboardComponent,
         AdministrationMainLayoutComponent,
+        ReportComponent,
     ],
 })
 export class administrationModule {

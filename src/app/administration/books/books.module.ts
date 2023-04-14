@@ -11,11 +11,14 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {BooksListComponent} from './books-list/books-list.component';
 import {TableModule} from 'primeng/table';
 import {SearchBookComponent} from './search-book/search-book.component';
+import { NewComponent } from './new/new.component';
+import { AuthorsComponent } from './authors/authors.component';
+import { PublishersComponent } from './publishers/publishers.component';
 
 
 @NgModule({
     imports: [CommonModule, BooksRoutes, ReactiveFormsModule, PaginatorModule, SkeletonModule, TableModule],
-    declarations: [BooksComponent, BookItemComponent, BookDetailsComponent, CreateBookComponent, BooksListComponent, SearchBookComponent],
+    declarations: [BooksComponent, BookItemComponent, BookDetailsComponent, CreateBookComponent, BooksListComponent, SearchBookComponent, NewComponent, AuthorsComponent, PublishersComponent],
 
 })
 export class BooksModule {
