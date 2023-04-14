@@ -147,6 +147,7 @@
                 <div class="p-dialog-footer">
                     <!--                    <button (click)="Add()" [disabled]="!addForm.valid" label="Save"-->
                     <button (click)="Add()"  label="Save"
+                            [disabled]="addForm.invalid"
                             pButton type="button"></button>
                     <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
                 </div>
