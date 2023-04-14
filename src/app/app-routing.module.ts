@@ -9,6 +9,7 @@ import {BooksComponent} from "./administration/books/books.component";
 import {AuthorsComponent} from "./administration/books/authors/authors.component";
 import {PublishersComponent} from "./administration/books/publishers/publishers.component";
 import {BookDetailsComponent} from "./administration/books/book-details/book-details.component";
+import {ReportComponent} from "./administration/dashboard/report/report.component";
 
 
 const routes: Routes = [

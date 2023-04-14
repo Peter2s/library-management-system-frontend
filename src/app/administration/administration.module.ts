@@ -14,12 +14,20 @@ import {AdminRoutingModule} from './administration-routing.module';
 import {EmployeesModule} from './employees/employees.module';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {ReportComponent} from './dashboard/report/report.component';
+import {ButtonModule} from "primeng/button";
+import {MessagesModule} from "primeng/messages";
+import {SharedModule} from "primeng/api";
+import {TableModule} from "primeng/table";
 
 
 @NgModule({
     imports: [
         CommonModule,
         AdminRoutingModule,
+        ButtonModule,
+        MessagesModule,
+        SharedModule,
+        TableModule,
 
     ],
     declarations: [

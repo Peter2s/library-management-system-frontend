@@ -6,12 +6,17 @@ import {BooksListComponent} from './books-list/books-list.component';
 import {AllBooksComponent} from "../../_test/books/all-books/all-books.component";
 import {AuthorsComponent} from "./authors/authors.component";
 import {PublishersComponent} from "./publishers/publishers.component";
+import {ReportComponent} from "../dashboard/report/report.component";
 
 
 const routes: Routes = [
     {
         path: "", component: AllBooksComponent
     },
+    {
+        path: "report", component: ReportComponent
+    },
+
     {
         path: "authors/:title",
         // loadChildren: () => import('./administration/books/authors/authors.component').then(mod => mod.AuthorsComponent),

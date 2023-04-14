@@ -6,7 +6,7 @@ import {HttpOptions} from 'src/app/models/IHttp-options';
 import {IBooks} from 'src/app/models/IBooks';
 import {AuthService} from './auth.service';
 import {HttpHeaders} from '@angular/common/http';
-import {BookResponse} from 'src/app/models/book-response';
+import {BookResponse, BorrowedBooks} from 'src/app/models/book-response';
 
 @Injectable({
     providedIn: "root",
@@ -31,7 +31,7 @@ export class BooksService implements OnInit {
         return this.ApiService.get('/categories');
     }
 
-    getReports() {
+    getReports(): Observable<BorrowedBooks> {
         return this.ApiService.get('/reports');
     }
 
@@ -104,7 +104,7 @@ export class BooksService implements OnInit {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        return this.ApiService.get<IBooksResponse>(`/books/title/${title}`);
+        return this.ApiService.get<IBooksResponse>(`/title/${title}`);
     }
 
     getAvailabileBooks(): Observable<IBooksResponse> {
@@ -203,11 +203,11 @@ export class BooksService implements OnInit {
         return this.ApiService.get(`/books/currentborrow`);
     }
 
-    search(): Observable<IBooksResponse> {
+    search(searchBy: String, value: String | number | boolean): Observable<IBooksResponse> {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        return this.ApiService.get('/books/search');
+        return this.ApiService.get(`/books/search?searchBy=${searchBy}&value=${value}`);
     }
 
     borrowHistory(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
