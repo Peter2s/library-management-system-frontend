@@ -25,10 +25,16 @@ import {FileUploadModule} from "primeng/fileupload";
 import {LatestComponent} from './books/latest/latest.component';
 import { MostBorrowedComponent } from './books/most-borrowed/most-borrowed.component';
 import { MostReadingComponent } from './books/most-reading/most-reading.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { HeaderComponent } from './landing-page/header/header.component';
+import { FooterComponent } from './landing-page/footer/footer.component';
+import { BestBooksComponent } from './landing-page/best-books/best-books.component';
+import { NewBooksComponent } from './landing-page/new-books/new-books.component';
+
 
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent],
+    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent, LandingPageComponent, HeaderComponent, FooterComponent, BestBooksComponent, NewBooksComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

@@ -10,6 +10,7 @@ import {AuthorsComponent} from "./administration/books/authors/authors.component
 import {PublishersComponent} from "./administration/books/publishers/publishers.component";
 import {BookDetailsComponent} from "./administration/books/book-details/book-details.component";
 import {ReportComponent} from "./administration/dashboard/report/report.component";
+import {LandingPageComponent} from './landing-page/landing-page.component'
 
 
 const routes: Routes = [
@@ -53,7 +54,10 @@ const routes: Routes = [
         path: "home",
         component: AllBooksComponent
     },
-
+    {
+        path: "land",
+        component: LandingPageComponent
+    },
 
     {path: "**", component: Error404Component},
 ];
