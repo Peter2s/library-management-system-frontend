@@ -48,9 +48,9 @@
 
 <p-dialog [(visible)]="addDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add Admin">
-    <ng-container *ngIf="admin">
-        <form [formGroup]="addForm" (ngSubmit)="Add()" enctype="multipart/form-data">
+        <form [formGroup]="addForm" enctype="multipart/form-data">
             <div class="row">
+
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
                         <input class="form-control" id="firstName"
@@ -108,13 +108,11 @@
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <div class="form-floating mb-3">
-                            <input class="form-control"
-                                   pInputText
-                                   formControlName="hireDate"
-                                   required type="date">
-                            <label>Hire Date</label>
-                        </div>
+                        <input class="form-control" id="hireDate"
+                               pInputText
+                               formControlName="hireDate"
+                               required type="date">
+                        <label for="hireDate">Hire Date</label>
                     </div>
                     <div *ngIf="addForm.controls['hireDate']?.invalid && (addForm.controls['hireDate'].dirty || addForm.controls['hireDate'].touched)">
                         <div *ngIf="addForm.controls['hireDate'].errors.required">
@@ -138,23 +136,23 @@
                         <div *ngIf="addForm.controls['salary'].errors.required">
                             Salary is required.
                         </div>
-                        <div *ngIf="addForm.controls['salary'].errors.pattern">
+                        <div *ngIf="addForm.controls['salary'].errors.invalidSalary">
                             Salary is not valid.
                         </div>
                     </div>
                 </div>
 
                 <div class="p-dialog-footer">
-<!--                    <button (click)="Add()" [disabled]="!addForm.valid" label="Save"-->
-                    <button (click)="Add()"  label="Save"
+                    <button (click)="Add()"
+                            label="Save"
+                            [disabled]="!addForm.invalid"
                             pButton type="button"></button>
                     <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
                 </div>
             </div>
-        </form>
-    </ng-container>
-</p-dialog>
 
+        </form>
+</p-dialog>
 <!-- Edit Form -->
 <p-dialog [(visible)]="editDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Edit Admin">
@@ -216,25 +214,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Hire Date -->
-<!--                <div class="col-md-12 mb-3">-->
-<!--                    <div class="form-floating mb-3">-->
-<!--                        <input class="form-control"-->
-<!--                               pInputText-->
-<!--                               formControlName="hireDate"-->
-<!--                               required type="date">-->
-<!--                        <label>Hire Date</label>-->
-<!--                    </div>-->
-<!--                    <div *ngIf="editForm.controls['hireDate']?.invalid && (editForm.controls['hireDate'].dirty || editForm.controls['hireDate'].touched)">-->
-<!--                        <div *ngIf="editForm.controls['hireDate'].errors.required">-->
-<!--                            Hire Date is required.-->
-<!--                        </div>-->
-<!--                        <div *ngIf="editForm.controls['hireDate'].errors.invalidDate">-->
-<!--                            Hire Date is not valid.-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
 
                 <!-- Salary -->
                 <div class="col-md-12 mb-3">

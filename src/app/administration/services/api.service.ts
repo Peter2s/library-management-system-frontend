@@ -56,10 +56,8 @@ export class ApiService {
   private handleError(error: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred";
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side error
       errorMessage = `Error Code: ${error.status} \n  Message: ${error.error.message}`;
     }
     console.error(error);

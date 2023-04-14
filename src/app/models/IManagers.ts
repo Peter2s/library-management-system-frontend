@@ -3,7 +3,7 @@ export interface IManagers {
     firstName: string;
     lastName: string;
     email: string;
-    password: string;
+    password?: string;
     birthDate?: Date;
     hireDate: Date;
     salary: number;

@@ -48,8 +48,7 @@
 
 <p-dialog [(visible)]="addDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add Admin">
-  <ng-container *ngIf="employee">
-    <form [formGroup]="addForm" (ngSubmit)="Add()" enctype="multipart/form-data">
+    <form [formGroup]="addForm" enctype="multipart/form-data">
       <div class="row">
         <div class="col-md-12 mb-3">
           <div class="form-floating mb-3">
@@ -143,22 +142,19 @@
             </div>
           </div>
         </div>
-
         <div class="p-dialog-footer">
-          <!--                    <button (click)="Add()" [disabled]="!addForm.valid" label="Save"-->
           <button (click)="Add()"  label="Save"
                   pButton type="button"></button>
           <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
         </div>
       </div>
     </form>
-  </ng-container>
 </p-dialog>
 
 <!-- Edit Form -->
 <p-dialog [(visible)]="editDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Edit Admin">
-  <form [formGroup]="editForm" (ngSubmit)="update()" enctype="multipart/form-data">
+  <form [formGroup]="editForm"  enctype="multipart/form-data">
     <div class="row">
 
       <!-- First Name -->

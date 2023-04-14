@@ -116,7 +116,6 @@ export class EmployeesComponent implements OnInit {
         this.loading = false;
       },
       (error) => {
-        this.loading = false;
         this.toastService.showError("Error Loading Admins");
       }
     );
@@ -126,7 +125,6 @@ export class EmployeesComponent implements OnInit {
     this.employee = {} as IManagers;
     this.addDialog = true;
     this.validationErrors = {};
-    this.addForm.reset();
   }
 
   cancelAddDialog() {
@@ -134,7 +132,11 @@ export class EmployeesComponent implements OnInit {
   }
 
   Add() {
-    this.validationErrors = {};
+    Object.keys(this.addForm.value).forEach((key) => {
+      if (this.addForm.value[key] === "") {
+        delete this.addForm.value[key];
+      }
+    });
     console.log(this.addForm.value);
     this.employee = this.addForm.value;
     this.employeesService.addEmployee(this.employee).subscribe(
@@ -144,12 +146,10 @@ export class EmployeesComponent implements OnInit {
         this.addDialog = false;
       },
       (error) => {
-        this.validationErrors = this.formatError(error.message);
-        let keys = Object.keys(this.validationErrors);
+        let keys = Object.keys(error.message);
         for (let key of keys) {
-          this.toastService.showError(this.validationErrors[key]);
+          this.toastService.showError(error.message[key]);
         }
-        this.toastService.showError(error.message);
       }
     );
   }
@@ -225,7 +225,6 @@ export class EmployeesComponent implements OnInit {
       }
     });
     this.employee = this.editForm.value;
-    console.log(this.employee);
     this.employeesService.updateEmployeeById(this.employee).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Updated Successfully");
@@ -233,20 +232,12 @@ export class EmployeesComponent implements OnInit {
         this.getAll();
       },
       (error) => {
-        this.toastService.showError("Admin Not Updated");
+        let keys = Object.keys(error.message);
+        for (let key of keys) {
+          this.toastService.showError(error.message[key]);
+        }
       }
     );
   }
 
-  formatError(error: string): { [key: string]: string } {
-    const errors: { [key: string]: string } = {};
-    error = error.replace("Error: ", "");
-    error.split(",").forEach((error) => {
-      let [key, ...value] = error.split(":");
-      key = key.substring(key.indexOf("[") + 1, key.indexOf("]"));
-      errors[key.trim()] = value.join(":").split("==>")[1].trim();
-    });
-    return errors;
-  }
-  //   End of Class
 }
