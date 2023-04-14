@@ -78,7 +78,35 @@ export class SuperAdminComponent {
 
     // @ts-ignore
     this.editForm = new FormGroup({
-      ...this.addForm.controls,
+      // ...this.addForm.controls,
+      firstName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      lastName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      email: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+      ]),
+      hireDate: new FormControl("", [
+        Validators.required,
+        (value) => {
+          const date = new Date(value.value);
+          const today = new Date();
+          return date < today ? null : { invalidDate: true };
+        },
+      ]),
+      salary: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        (value) => {
+          const salary = value.value;
+          return salary > 2500 ? null : { invalidSalary: true };
+        },
+      ]),
       _id: new FormControl("", [Validators.required]),
       birthDate: new FormControl("", [
         Validators.required,
@@ -144,12 +172,10 @@ export class SuperAdminComponent {
         this.addDialog = false;
       },
       (error) => {
-        this.validationErrors = this.formatError(error.message);
-        let keys = Object.keys(this.validationErrors);
+        let keys = Object.keys(error.message);
         for (let key of keys) {
-          this.toastService.showError(this.validationErrors[key]);
+          this.toastService.showError(error.message[key]);
         }
-        this.toastService.showError(error.message);
       }
     );
   }
@@ -234,21 +260,13 @@ export class SuperAdminComponent {
         this.getAll();
       },
       (error) => {
-        this.toastService.showError("Admin Not Updated");
+        let keys = Object.keys(error.message);
+        for (let key of keys) {
+          this.toastService.showError(error.message[key]);
+        }
       }
     );
   }
 
-  //   Format Error
-  formatError(error: string): { [key: string]: string } {
-    const errors: { [key: string]: string } = {};
-    error = error.replace("Error: ", "");
-    error.split(",").forEach((error) => {
-      let [key, ...value] = error.split(":");
-      key = key.substring(key.indexOf("[") + 1, key.indexOf("]"));
-      errors[key.trim()] = value.join(":").split("==>")[1].trim();
-    });
-    return errors;
-  }
   //   Class End
 }

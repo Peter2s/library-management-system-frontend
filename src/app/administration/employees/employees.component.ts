@@ -78,7 +78,35 @@ export class EmployeesComponent implements OnInit {
 
     // @ts-ignore
     this.editForm = new FormGroup({
-      ...this.addForm.controls,
+      // ...this.addForm.controls,
+      firstName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      lastName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      email: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+      ]),
+      hireDate: new FormControl("", [
+        Validators.required,
+        (value) => {
+          const date = new Date(value.value);
+          const today = new Date();
+          return date < today ? null : { invalidDate: true };
+        },
+      ]),
+      salary: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        (value) => {
+          const salary = value.value;
+          return salary > 2500 ? null : { invalidSalary: true };
+        },
+      ]),
       _id: new FormControl("", [Validators.required]),
       birthDate: new FormControl("", [
         Validators.required,
@@ -239,5 +267,4 @@ export class EmployeesComponent implements OnInit {
       }
     );
   }
-
 }
