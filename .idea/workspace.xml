@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="remove upload api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +94,7 @@
       <workItem from="1681403812974" duration="2426000" />
       <workItem from="1681426650858" duration="1893000" />
       <workItem from="1681477887080" duration="15154000" />
-      <workItem from="1681497380174" duration="5577000" />
+      <workItem from="1681497380174" duration="7937000" />
     </task>
     <task id="LOCAL-00001" summary="Public Book Apis">
       <created>1681489598276</created>
@@ -137,6 +136,18 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/app.module.ts</url>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html</url>
+          <line>87</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/_test/books/all-books/all-books.component.html</url>
+          <line>174</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
