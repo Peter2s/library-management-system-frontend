@@ -8,6 +8,7 @@ import {MostReadingComponent} from "./books/most-reading/most-reading.component"
 import {BooksComponent} from "./administration/books/books.component";
 import {AuthorsComponent} from "./administration/books/authors/authors.component";
 import {PublishersComponent} from "./administration/books/publishers/publishers.component";
+import {BookDetailsComponent} from "./administration/books/book-details/book-details.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
     {
         path: "books",
         component: BooksComponent,
+    },
+    {
+        path: "books/:id",
+        component: BookDetailsComponent,
     },
     {
         path: "latest",

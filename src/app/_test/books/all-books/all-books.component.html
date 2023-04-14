@@ -37,12 +37,12 @@
                 <img *ngIf="book.image" [src]="book.image" height="50" width="50">
             </td>
             <td>
-                <a [routerLink]="['/admin','books',book._id]"> {{book.title}}</a>
+                <a [routerLink]="[book._id]"> {{book.title}}</a>
             </td>
             <td>{{book.edition}}</td>
             <td>{{book.category}}</td>
-            <td><a [routerLink]="['/authors',book.author]">{{book.author}}</a></td>
-            <td><a [routerLink]="['/publishers',book.publisher]">{{book.publisher}}</a></td>
+            <td><a [routerLink]="['authors',book.author]">{{book.author}}</a></td>
+            <td><a [routerLink]="['publishers',book.publisher]">{{book.publisher}}</a></td>
             <td>{{book.publishingDate | date}}</td>
             <td>{{book.noOfCopies}}</td>
             <td>{{book.available}}</td>

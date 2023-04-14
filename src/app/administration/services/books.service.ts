@@ -88,7 +88,7 @@ export class BooksService implements OnInit {
 
     getBooksByAuthor(author: string): Observable<IBooksResponse> {
 
-        return this.ApiService.get<IBooksResponse>(`/books/author/${author}`);
+        return this.ApiService.get<IBooksResponse>(`/author/${author}`);
     }
 
     getBooksByPublisher(publisher: string): Observable<IBooksResponse> {
@@ -96,7 +96,7 @@ export class BooksService implements OnInit {
             headers: this.httpHeaders,
         }
         return this.ApiService.get<IBooksResponse>(
-            `/books/publisher/${publisher}`
+            `/publisher/${publisher}`
         );
     }
 
