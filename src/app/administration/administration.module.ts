@@ -18,6 +18,7 @@ import { SlideMenuModule } from 'primeng/slidemenu';
 import {CardModule} from "primeng/card";
 import {SidebarModule} from "primeng/sidebar";
 import {ButtonModule} from "primeng/button";
+import {ToastModule} from "primeng/toast";
 @NgModule({
     imports: [
         CommonModule,
@@ -28,7 +29,8 @@ import {ButtonModule} from "primeng/button";
         PanelMenuModule,
         CardModule,
         SidebarModule,
-        ButtonModule
+        ButtonModule,
+        ToastModule
     ],
   declarations: [
     HeaderComponent,

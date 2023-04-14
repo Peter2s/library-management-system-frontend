@@ -16,72 +16,27 @@ export class SidebarComponent implements OnInit {
             {
                 label: 'Super Admin',
                 icon: 'pi pi-fw pi-file',
-                items: [
-                    {
-                        label: 'All',
-                        routerLink: '/admin/superAdmins',
-                    },
-                    {
-                        label: 'Create',
-                        routerLink: '/admin/super_admin/create',
-                    },
-                ]
+                routerLink: '/admin/superAdmins',
             },
             {
                 label: 'Admin',
                 icon: 'pi pi-fw pi-pencil',
-                items: [
-                    {
-                        label: 'All',
-                        routerLink: '/admin/admins',
-                    },
-                    {
-                        label: 'Create',
-                        routerLink: '/admin/admins/create',
-                    },
-                ]
+                routerLink: '/admin/admins',
             },
             {
                 label: 'Employee',
                 icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'All',
-                        routerLink: '/admin/employee',
-                    },
-                    {
-                        label: 'Delete',
-                        routerLink: '/admin/employee/create',
-                    },
-                ]
+                routerLink: '/admin/employees',
             },
             {
                 label: 'Members',
                 icon: 'pi pi-fw pi-calendar',
-                items: [
-                    {
-                        label: 'All',
-                        routerLink: '/admin/members',
-                    },
-                    {
-                        label: 'Create',
-                        routerLink: '/admin/members/create',
-                    }
-                ]
+                routerLink: '/admin/members',
             },
             {
                 label: 'Books',
                 icon: 'pi pi-fw pi-book',
-                items: [
-                    {
-                        label: 'All',
-                        routerLink: '/admin/books',
-                    },
-                    {
-                        label: 'Create',
-                        routerLink: '/admin/books/create',
-                    }
-                ]
+                routerLink: '/admin/books',
             }
         ];
     }

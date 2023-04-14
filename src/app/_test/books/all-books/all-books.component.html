@@ -155,13 +155,12 @@
                 </div>
                 <div class="p-col-12">
                     <img [src]="image" alt="book image" width="100" height="100">
-<!--                    <label for="image">Image URL</label>-->
                         <input
-                                (change)="onFileChange($event)"
-                                class="form-control"
-                                formControlName="file"
-                                id="file"
-                                type="file">
+                            (change)="onFileChange($event)"
+                            class="form-control"
+                            formControlName="file"
+                            id="file"
+                            type="file">
 <!--                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"-->
 <!--                           type="file">-->
 <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->

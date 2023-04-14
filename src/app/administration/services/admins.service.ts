@@ -23,10 +23,7 @@ export class AdminsService implements OnInit {
     ngOnInit() {
     }
 
-    //  Get all admins
-    // getAdmins(url: string): Observable<IManagersResponse> {
-    //     return this.apiService.get<IManagersResponse>(url);
-    // }
+
     getAdmins(): Observable<IManagersResponse> {
         const options: HttpOptions = {
             headers: this.httpHeaders,
@@ -51,10 +48,10 @@ export class AdminsService implements OnInit {
 
     //  Update admin by id
     updateAdminById(
-        id: number | undefined,
         admin: IManagers
     ): Observable<IManagers> {
-        return this.apiService.patch<IManagers>(`/admin/${id}`, admin);
+
+        return this.apiService.patch<IManagers>(`/admin/${admin._id}`, admin);
     }
 
     //   Delete admin by id

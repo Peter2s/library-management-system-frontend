@@ -1,53 +1,60 @@
-<div class="container  ">
-    <div class="card col-8 mx-auto">
 
-        <img *ngIf="admin?.image" alt="{{admin?.firstName}}" class="card-img-top"
-             src="https://node.tamayouz-lab.com/images/{{admin?.image}}">
-        <div class="card-body">
-            <span class="badge bg-success text-white mb-1">Admin</span>
-            <h1 class="card-title text-center text-bg-success">
-                {{fullName}}
-            </h1>
-        </div>
-        <div class="card-body">
-            <h3 class="list-group-item text-center">
-                ID : <span class="text-success fs-1">{{admin?._id}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                First Name : <span class="text-success fs-1">{{admin?.firstName}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Last Name : <span class="text-success fs-1">{{admin?.lastName}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Email : <span class="text-success fs-1">{{admin?.email}}</span>
-            </h3>
-            <h3 *ngIf="admin?.birthDate" class="list-group-item text-center">
-                Birth Date : <span class="text-success fs-1">{{admin?.birthDate}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Hire Date : <span class="text-success fs-1">{{admin?.hireDate}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Salary : <span class="text-success fs-1">{{admin?.salary}}</span>
-            </h3>
-            <h3 *ngIf="admin?.activated" class="list-group-item text-center">
-                Activated : <span class="text-success fs-1">{{admin?.activated}}</span>
-            </h3>
-            <h3 *ngIf="admin?.lastLoginTime" class="list-group-item text-center">
-                Last Login : <span class="text-success fs-1">{{admin?.lastLoginTime}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Created At : <span class="text-success fs-1">{{admin?.createdAt}}</span>
-            </h3>
-            <h3 class="list-group-item text-center">
-                Updated At : <span class="text-success fs-1">{{admin?.updatedAt}}</span>
-            </h3>
-        </div>
-        <div class="card-footer text-center">
-            <p-button label="All Admins" routerLink="/admin/admins" styleClass="p-button-rounded p-button-success">
-            </p-button>
+
+
+<div class="card w-50 mx-auto my-4">
+    <img *ngIf="admin?.image" [src]="admin?.image" alt="{{admin?.firstName}}" class="card-img-top" />
+    <div class="card-body">
+        <h5 class="card-title mb-3">Admin: {{fullName}}</h5>
+        <div class="card-text">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <td>{{admin?._id}}</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{admin?.firstName}}</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>{{admin?.lastName}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{admin?.email}}</td>
+                </tr>
+                <tr *ngIf="admin?.birthDate">
+                    <th>Birth Date</th>
+                    <td>{{admin?.birthDate | date:'yyyy/MM/dd'}}</td>
+                </tr>
+                <tr>
+                    <th>Hire Date</th>
+                    <td>{{admin?.hireDate | date:'yyyy/MM/dd'}}</td>
+                </tr>
+                <tr>
+                    <th>Salary</th>
+                    <td>{{admin?.salary}}</td>
+                </tr>
+                <tr *ngIf="admin?.activated">
+                    <th>Activated</th>
+                    <td>{{admin?.activated}}</td>
+                </tr>
+                <tr *ngIf="admin?.lastLoginTime">
+                    <th>Last Login</th>
+                    <td>{{admin?.lastLoginTime}}</td>
+                </tr>
+                <tr>
+                    <th>Created At</th>
+                    <td>{{admin?.createdAt | date:'yyyy/MM/dd'}}</td>
+                </tr>
+                <tr>
+                    <th>Updated At</th>
+                    <td>{{admin?.updatedAt | date:'yyyy/MM/dd'}}</td>
+                </tr>
+            </table>
         </div>
     </div>
-
+    <div class="card-footer text-center">
+        <a class="btn btn-primary" [routerLink]="'/admin/admins'">Show All Admin</a>
+    </div>
 </div>

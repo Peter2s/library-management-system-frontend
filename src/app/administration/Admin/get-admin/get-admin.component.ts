@@ -28,10 +28,7 @@ export class GetAdminComponent {
         const url = `/admin/${id}`;
         const sub = this.adminsService.getAdminById(url).subscribe((data) => {
             this.admin = data.data;
-            // Full Name
-            this.fullName =
-                `${this?.admin.firstName[0]}.${this.admin?.lastName}` || "";
-            console.log(this.admin.birthDate);
+            this.fullName = `${this?.admin.firstName[0]}.${this.admin?.lastName}` || "";
             this.subscription.push(sub);
         });
     }

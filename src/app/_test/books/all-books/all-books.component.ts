@@ -169,6 +169,7 @@ export class AllBooksComponent implements OnInit {
             reader.readAsDataURL(file);
             reader.onload = () => {
                 this.image = reader.result as string;
+                this.book.image = reader.result as string;
                 this.bookForm.patchValue({
                     image: reader.result
                 });
@@ -179,7 +180,9 @@ export class AllBooksComponent implements OnInit {
     saveBook(): void {
         this.validationErros = {};
         if (this.book._id) {
-            this.booksService.updateBook(this.bookForm.value).subscribe(
+            console.log('updateBook')
+            console.log(this.bookForm.value.image)
+            this.booksService.updateBook(this.book).subscribe(
                 (response: IBooks) => {
                     this.book = response;
                     this.messageService.add({
@@ -189,7 +192,7 @@ export class AllBooksComponent implements OnInit {
                         life: 5000
                     });
                     //this.getBooks();
-                    this.displayDialog = false;
+                   //this.displayDialog = false;
                 },
                 (error) => {
                     // console.log(error.message)
@@ -254,7 +257,7 @@ export class AllBooksComponent implements OnInit {
                 }
             );
         }
-        this.getBooks();
+        //this.getBooks();
     }
 
     deleteBook(): void {
