@@ -78,10 +78,36 @@ export class AdminComponent implements OnInit {
       ]),
     });
 
-    // @ts-ignore
     this.editForm = new FormGroup({
-      ...this.addForm.controls,
       _id: new FormControl("", [Validators.required]),
+      firstName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      lastName: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-zA-Z]*$"),
+      ]),
+      email: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+      ]),
+      hireDate: new FormControl("", [
+        Validators.required,
+        (value) => {
+          const date = new Date(value.value);
+          const today = new Date();
+          return date < today ? null : { invalidDate: true };
+        },
+      ]),
+      salary: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        (value) => {
+          const salary = value.value;
+          return salary > 2500 ? null : { invalidSalary: true };
+        },
+      ]),
       birthDate: new FormControl("", [
         Validators.required,
         (value) => {
@@ -90,7 +116,7 @@ export class AdminComponent implements OnInit {
           return date < today ? null : { invalidDate: true };
         },
       ]),
-      password: new FormControl("", [
+      password: new FormControl(null, [
         Validators.minLength(8),
         Validators.maxLength(20),
       ]),
@@ -102,7 +128,6 @@ export class AdminComponent implements OnInit {
           return this.roles.includes(role) ? null : { invalidRole: true };
         },
       ]),
-
       image: new FormControl(null),
     });
   }
@@ -122,14 +147,8 @@ export class AdminComponent implements OnInit {
   }
 
   Add() {
-    console.log(this.addForm.controls['firstName'].errors);
-    console.log(this.addForm.controls['lastName'].errors);
-    console.log(this.addForm.controls['email'].errors);
-    console.log(this.addForm.controls['hireDate'].errors);
-    console.log(this.addForm.controls['salary'].errors);
+    this.admin = this.addForm.value;
 
-    debugger;
-    this.admin = this.addForm.getRawValue();
     Object.keys(this.admin).forEach((key) => {
         // @ts-ignore
       if (this.admin[key] === "") {
@@ -191,6 +210,7 @@ export class AdminComponent implements OnInit {
     // @ts-ignore
     admin.birthDate = this.datePipe.transform(admin.birthDate, "yyyy-MM-dd");
     this.editForm.patchValue(admin);
+    this.editForm.patchValue({ image: admin.image });
     this.editDialog = true;
   }
 
@@ -218,7 +238,7 @@ export class AdminComponent implements OnInit {
     this.admin = this.editForm.getRawValue();
     Object.keys(this.admin).forEach((key) => {
       // @ts-ignore
-      if (this.admin[key] === "") {
+      if (this.admin[key] === "" || this.admin[key] === null) {
         // @ts-ignore
         delete this.admin[key];
       }

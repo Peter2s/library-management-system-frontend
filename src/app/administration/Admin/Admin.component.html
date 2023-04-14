@@ -1,7 +1,8 @@
 <p-toast></p-toast>
 <p-table [paginator]="true" [responsive]="true" [rows]="5" [value]="admins">
     <ng-template pTemplate="caption">
-        <div class="p-clearfix" style="line-height: 1.87em">
+        <div class="d-flex align-items-center justify-content-between" >
+            <h3 class="mb-0">Admins: {{ admins.length }}</h3>
             <button (click)="showAddDialog()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
                     pButton
                     type="button"></button>
@@ -59,7 +60,7 @@
                                required type="text">
                         <label for="firstName">First Name</label>
                     </div>
-                    <div *ngIf="addForm.controls['firstName']?.invalid && (addForm.controls['firstName'].dirty || addForm.controls['firstName'].touched)">
+                    <div class="p-error" *ngIf="addForm.controls['firstName']?.invalid && (addForm.controls['firstName'].dirty || addForm.controls['firstName'].touched)">
                         <div *ngIf="addForm.controls['firstName'].errors.required">
                             First Name is required.
                         </div>
@@ -77,7 +78,7 @@
                                required type="text">
                         <label for="lastName">Last Name</label>
                     </div>
-                    <div *ngIf="addForm.controls['lastName']?.invalid && (addForm.controls['lastName'].dirty || addForm.controls['lastName'].touched)">
+                    <div class="p-error" *ngIf="addForm.controls['lastName']?.invalid && (addForm.controls['lastName'].dirty || addForm.controls['lastName'].touched)">
                         <div *ngIf="addForm.controls['lastName'].errors.required">
                             Last Name is required.
                         </div>
@@ -96,7 +97,7 @@
                                required type="text">
                         <label for="email">Email</label>
                     </div>
-                    <div *ngIf="addForm.controls['email']?.invalid && (addForm.controls['email'].dirty || addForm.controls['email'].touched)">
+                    <div class="p-error" *ngIf="addForm.controls['email']?.invalid && (addForm.controls['email'].dirty || addForm.controls['email'].touched)">
                         <div *ngIf="addForm.controls['email'].errors.required">
                             Email is required.
                         </div>
@@ -114,7 +115,7 @@
                                required type="date">
                         <label for="hireDate">Hire Date</label>
                     </div>
-                    <div *ngIf="addForm.controls['hireDate']?.invalid && (addForm.controls['hireDate'].dirty || addForm.controls['hireDate'].touched)">
+                    <div class="p-error" *ngIf="addForm.controls['hireDate']?.invalid && (addForm.controls['hireDate'].dirty || addForm.controls['hireDate'].touched)">
                         <div *ngIf="addForm.controls['hireDate'].errors.required">
                             Hire Date is required.
                         </div>
@@ -132,7 +133,7 @@
                                required type="number">
                         <label for="salary">Salary</label>
                     </div>
-                    <div *ngIf="addForm.controls['salary']?.invalid && (addForm.controls['salary'].dirty || addForm.controls['salary'].touched)">
+                    <div class="p-error" *ngIf="addForm.controls['salary']?.invalid && (addForm.controls['salary'].dirty || addForm.controls['salary'].touched)">
                         <div *ngIf="addForm.controls['salary'].errors.required">
                             Salary is required.
                         </div>
@@ -145,7 +146,8 @@
                 <div class="p-dialog-footer">
                     <button (click)="Add()"
                             label="Save"
-                            [disabled]="!addForm.invalid"
+                            class="p-button-success"
+                            [disabled]="addForm.invalid"
                             pButton type="button"></button>
                     <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
                 </div>
@@ -168,7 +170,7 @@
                                required type="text">
                         <label>First Name</label>
                     </div>
-                    <div *ngIf="editForm.controls['firstName']?.invalid && (editForm.controls['firstName'].dirty || editForm.controls['firstName'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['firstName']?.invalid && (editForm.controls['firstName'].dirty || editForm.controls['firstName'].touched)">
                         <div *ngIf="editForm.controls['firstName'].errors.required">
                             First Name is required.
                         </div>
@@ -186,7 +188,7 @@
                                required type="text">
                         <label>Last Name</label>
                     </div>
-                    <div *ngIf="editForm.controls['lastName']?.invalid && (editForm.controls['lastName'].dirty || editForm.controls['lastName'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['lastName']?.invalid && (editForm.controls['lastName'].dirty || editForm.controls['lastName'].touched)">
                         <div *ngIf="editForm.controls['lastName'].errors.required">
                             Last Name is required.
                         </div>
@@ -205,7 +207,7 @@
                                required type="text">
                         <label>Email</label>
                     </div>
-                    <div *ngIf="editForm.controls['email']?.invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['email']?.invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)">
                         <div *ngIf="editForm.controls['email'].errors.required">
                             Email is required.
                         </div>
@@ -224,11 +226,11 @@
                                required type="number">
                         <label>Salary</label>
                     </div>
-                    <div *ngIf="editForm.controls['salary']?.invalid && (editForm.controls['salary'].dirty || editForm.controls['salary'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['salary']?.invalid && (editForm.controls['salary'].dirty || editForm.controls['salary'].touched)">
                         <div *ngIf="editForm.controls['salary'].errors.required">
                             Salary is required.
                         </div>
-                        <div *ngIf="editForm.controls['salary'].errors.pattern">
+                        <div *ngIf="editForm.controls['salary'].errors.invalidSalary">
                             Salary is not valid.
                         </div>
                     </div>
@@ -243,7 +245,7 @@
                                required type="date">
                         <label>Birth Date</label>
                     </div>
-                    <div *ngIf="editForm.controls['birthDate']?.invalid && (editForm.controls['birthDate'].dirty || editForm.controls['birthDate'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['birthDate']?.invalid && (editForm.controls['birthDate'].dirty || editForm.controls['birthDate'].touched)">
                         <div *ngIf="editForm.controls['birthDate'].errors.required">
                             Birth Date is required.
                         </div>
@@ -254,34 +256,37 @@
                 </div>
 
                 <!-- password -->
-                <div class="col-md-12 mb-3">
+                <div  class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
                         <input class="form-control"
                                pInputText
                                formControlName="password"
-                               required type="password">
+                               type="password">
                         <label>Password</label>
                     </div>
-                    <div *ngIf="editForm.controls['password']?.invalid && (editForm.controls['password'].dirty || editForm.controls['password'].touched)">
-                        <div *ngIf="editForm.controls['password'].errors.required">
-                            Password is required.
+                    <div class="p-error" *ngIf="editForm.controls['password']?.invalid && (editForm.controls['password'].dirty || editForm.controls['password'].touched)">
+                        <div *ngIf="editForm.controls['password'].errors.minLength">
+                            Password must be at least 8 characters.
                         </div>
-                        <div *ngIf="editForm.controls['password'].errors.pattern">
-                            Password is not valid.
+                        <div *ngIf="editForm.controls['password'].errors.maxLength">
+                            Password must be at most 20 characters.
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-12 mb-3">
+                <div  class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
                         <p-dropdown [options]="roles" formControlName="role" [style]="{'width':'100%'}" [filter]="true"
                                      [showClear]="true" [placeholder]="'Select a Role'"
                                     [scrollHeight]="'200px'">
                         </p-dropdown>
                     </div>
-                    <div *ngIf="editForm.controls['role']?.invalid && (editForm.controls['role'].dirty || editForm.controls['role'].touched)">
+                    <div class="p-error" *ngIf="editForm.controls['role']?.invalid && (editForm.controls['role'].dirty || editForm.controls['role'].touched)">
                         <div *ngIf="editForm.controls['role'].errors.required">
                             Role is required.
+                        </div>
+                        <div *ngIf="editForm.controls['role'].errors.invalidRole">
+                            Role is not valid.
                         </div>
                     </div>
                 </div>
@@ -295,9 +300,9 @@
                                 type="file">
                     </div>
                 </div>
-
                 <div class="p-dialog-footer">
-                    <button (click)="update()" label="Save" pButton
+                    <button (click)="update()" label="Save" pButton class="p-button-success"
+                            [disabled]="editForm.invalid"
                             type="button"></button>
                     <button (click)="cancelEditDialog()" label="Cancel" pButton type="button"></button>
                 </div>
