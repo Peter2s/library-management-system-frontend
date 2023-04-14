@@ -13,21 +13,18 @@ import {MembersModule} from './members/members.module';
 import {AdminRoutingModule} from './administration-routing.module';
 import {EmployeesModule} from './employees/employees.module';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
-import {ReportComponent} from './dashboard/report/report.component';
-import {ButtonModule} from "primeng/button";
-import {MessagesModule} from "primeng/messages";
-import {SharedModule} from "primeng/api";
-import {TableModule} from "primeng/table";
+// Import the Cloudinary classes
+import {CloudinaryImage} from '@cloudinary/url-gen';
+// Import the Cloudinary classes
+import {CloudinaryModule} from '@cloudinary/ng';
+import { ReportComponent } from './dashboard/report/report.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
         AdminRoutingModule,
-        ButtonModule,
-        MessagesModule,
-        SharedModule,
-        TableModule,
+        CloudinaryModule
 
     ],
     declarations: [
