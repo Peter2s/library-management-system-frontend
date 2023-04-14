@@ -4,54 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="before fix image upload">
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/authors/authors.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/authors/authors.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/authors/authors.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/authors/authors.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/new/new.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/new/new.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/new/new.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/new/new.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/publishers/publishers.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/publishers/publishers.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/publishers/publishers.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/books/publishers/publishers.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/dashboard/report/report.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/available/available.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/available/available.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/available/available.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/available/available.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/borrowing/borrowing.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/borrowing/borrowing.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/borrowing/borrowing.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/borrowing/borrowing.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/late/late.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/late/late.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/late/late.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/late/late.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/reading/reading.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/reading/reading.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/reading/reading.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/administration/employees/books/reading/reading.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/latest/latest.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/latest/latest.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/latest/latest.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/latest/latest.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/most-borrowed/most-borrowed.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/most-borrowed/most-borrowed.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/most-borrowed/most-borrowed.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/books/most-borrowed/most-borrowed.component.ts" afterDir="false" />
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="Public Book Apis">
+      <change afterPath="$PROJECT_DIR$/src/app/books/most-reading/most-reading.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/books/most-reading/most-reading.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/books/most-reading/most-reading.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/books/most-reading/most-reading.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/administration.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/administration.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/books/books.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/books/books.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/employees/employees.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/employees/employees.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/administration/services/books.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/books.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,8 +97,16 @@
       <workItem from="1681393280268" duration="819000" />
       <workItem from="1681403812974" duration="2426000" />
       <workItem from="1681426650858" duration="1893000" />
-      <workItem from="1681477887080" duration="10117000" />
+      <workItem from="1681477887080" duration="10774000" />
     </task>
+    <task id="LOCAL-00001" summary="Public Book Apis">
+      <created>1681489598276</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681489598276</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +114,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Public Book Apis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Public Book Apis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

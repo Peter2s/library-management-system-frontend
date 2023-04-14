@@ -144,9 +144,7 @@ export class BooksService implements OnInit {
 
 
     getMostBorrowed(year: number | string = ''): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
+        
         let url = '';
         if (Number(year))
             url = `/most/borrowed/${year}`;
@@ -156,9 +154,7 @@ export class BooksService implements OnInit {
     }
 
     getMostReading(year: number | string = ''): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
+
         let url = '';
         if (Number(year))
             url = `/most/read/${year}`;
