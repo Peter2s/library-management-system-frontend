@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AllBooksComponent} from './all-books.component';
+import {MostReadingComponent} from './most-reading.component';
 
-describe('AllBooksComponent', () => {
-    let component: AllBooksComponent;
-    let fixture: ComponentFixture<AllBooksComponent>;
+describe('MostReadingComponent', () => {
+    let component: MostReadingComponent;
+    let fixture: ComponentFixture<MostReadingComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [AllBooksComponent]
+            declarations: [MostReadingComponent]
         })
             .compileComponents();
 
-        fixture = TestBed.createComponent(AllBooksComponent);
+        fixture = TestBed.createComponent(MostReadingComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

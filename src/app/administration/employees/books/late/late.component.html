@@ -1,0 +1,25 @@
+<p>late works!</p>
+{{books|json}}
+<!--<p>borrowing works!</p>-->
+<!--{{books|json}}-->
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="books">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Member</th>
+            <th>Book Title</th>
+            <th>Emp</th>
+            <th>Expected Date</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+        <tr>
+            <td>{{book.member||"null"}}</td>
+            <td>{{book.book||"null"}}</td>
+            <td>{{book.emp||"null"}}</td>
+            <td>{{book.expected_date | date:'yyyy/MM/dd'||"null"}}</td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+
