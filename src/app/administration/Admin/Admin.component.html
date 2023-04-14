@@ -1,14 +1,12 @@
-<p-table #dt [paginator]="true" [responsive]="true" [rows]="4" [value]="admins">
+<p-toast></p-toast>
+<p-table [paginator]="true" [responsive]="true" [rows]="5" [value]="admins">
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
-            <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
-            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+            <button (click)="showAddDialog()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
                     pButton
                     type="button"></button>
-
         </div>
-    </ng-template
-    >
+    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
@@ -17,122 +15,139 @@
             <th>Email</th>
             <th>Hire Date</th>
             <th>Salary</th>
-            <th>Show</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Action</th>
         </tr>
     </ng-template>
 
     <ng-template let-admin pTemplate="body">
         <tr>
-            <td>{{admin._id}}</td>
-            <td>{{admin.firstName}}</td>
-            <td>{{admin.lastName}}</td>
-            <td>{{admin.email}}</td>
-            <td>{{admin.hireDate | date:'yyyy/MM/dd'}}</td>
-            <td>{{admin.salary}}</td>
+            <td>{{admin["_id"]}}</td>
+            <td>{{admin["firstName"]}}</td>
+            <td>{{admin["lastName"]}}</td>
+            <td>{{admin["email"]}}</td>
+            <td>{{admin["hireDate"] | date:'yyyy/MM/dd'}}</td>
+            <td>{{admin["salary"]}}</td>
             <td>
-                <button class="p-button-info" icon="pi pi-eye" label="View"
-                        pButton routerLink="{{admin._id}}"
-                        type="button"></button>
-            </td>
-            <td>
-                <button (click)="showDialogToEditAdmin(admin)"
-                        class="p-button-warning"
-                        icon="pi pi-pencil" label="Edit"
-                        pButton
-                        type="button"></button>
-            </td>
-            <td>
-                <button (click)="confirmDeleteAdmin(admin)" class="p-button-danger" icon="pi pi-trash" label="Delete"
-                        pButton
-                        type="button"></button>
+                <div class="input-group">
+                    <a class="p-button-info text-decoration-none" icon="pi pi-eye" label="View"
+                       pButton [routerLink]="['/admin', 'admins', admin._id]"
+                       type="button"></a>
+                    <button (click)="showEditDialog(admin)"
+                            class="p-button-warning"
+                            icon="pi pi-pencil" label="Edit"
+                            pButton
+                            type="button"></button>
+                    <button (click)="confirmDelete(admin)" class="p-button-danger" icon="pi pi-trash" label="Delete"
+                            pButton
+                            type="button"></button>
+                </div>
             </td>
         </tr>
     </ng-template>
 </p-table>
 
-<!-- Add Form -->
-<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+<p-dialog [(visible)]="addDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add Admin">
     <ng-container *ngIf="admin">
-        <form #adminAddForm="ngForm" enctype="multipart/form-data">
+        <form [formGroup]="addForm" enctype="multipart/form-data">
             <div class="row">
+
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #firstName="ngModel" [(ngModel)]="admin.firstName" class="form-control" id="firstName"
-                               name="firstName"
+                        <input class="form-control" id="firstName"
                                pInputText
+                               formControlName="firstName"
                                required type="text">
                         <label for="firstName">First Name</label>
-
-                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-                             class="p-error">First Name is required and should be valid
+                    </div>
+                    <div *ngIf="addForm.controls['firstName']?.invalid && (addForm.controls['firstName'].dirty || addForm.controls['firstName'].touched)">
+                        <div *ngIf="addForm.controls['firstName'].errors.required">
+                            First Name is required.
+                        </div>
+                        <div *ngIf="addForm.controls['firstName'].errors.pattern">
+                            First Name is not valid (letter only).
                         </div>
                     </div>
-                    <p-messages key="firstName"></p-messages>
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #lastName="ngModel" [(ngModel)]="admin.lastName" class="form-control" id="lastName"
-                               name="lastName"
+                        <input class="form-control" id="lastName"
                                pInputText
+                               formControlName="lastName"
                                required type="text">
-                        <label for="firstName">Last Name</label>
-                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-                             class="p-error">Last Name is required and should be valid
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div *ngIf="addForm.controls['lastName']?.invalid && (addForm.controls['lastName'].dirty || addForm.controls['lastName'].touched)">
+                        <div *ngIf="addForm.controls['lastName'].errors.required">
+                            Last Name is required.
+                        </div>
+                        <div *ngIf="addForm.controls['lastName'].errors.pattern">
+                            Last Name is not valid (letter only).
                         </div>
                     </div>
-                    <p-messages key="lastName"></p-messages>
                 </div>
 
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #email="ngModel" [(ngModel)]="admin.email" class="form-control" id="email"
-                               name="Email"
+                        <input class="form-control" id="email"
                                pInputText
+                               formControlName="email"
                                required type="text">
-                        <label for="Email">Email</label>
-                        <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                             class="p-error">Email is required and should be Valid
+                        <label for="email">Email</label>
+                    </div>
+                    <div *ngIf="addForm.controls['email']?.invalid && (addForm.controls['email'].dirty || addForm.controls['email'].touched)">
+                        <div *ngIf="addForm.controls['email'].errors.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="addForm.controls['email'].errors.pattern">
+                            Email is not valid.
                         </div>
                     </div>
-                    <p-messages key="email"></p-messages>
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #hireDate="ngModel" [(ngModel)]="admin.hireDate" class="form-control" id="hireDate"
-                               name="hireDate"
+                        <input class="form-control" id="hireDate"
                                pInputText
+                               formControlName="hireDate"
+                               readonly
                                required type="date">
                         <label for="hireDate">Hire Date</label>
-                        <div *ngIf="hireDate.invalid && (hireDate.dirty || hireDate.touched)"
-                             class="p-error">Hire Date is required and should be valid
+                    </div>
+                    <div *ngIf="addForm.controls['hireDate']?.invalid && (addForm.controls['hireDate'].dirty || addForm.controls['hireDate'].touched)">
+                        <div *ngIf="addForm.controls['hireDate'].errors.required">
+                            Hire Date is required.
+                        </div>
+                        <div *ngIf="addForm.controls['hireDate'].errors.invalidDate">
+                            Hire Date is not valid.
                         </div>
                     </div>
-                    <p-messages key="hireDate"></p-messages>
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #salary="ngModel" [(ngModel)]="admin.salary" class="form-control" id="salary"
-                               name="salary"
+                        <input class="form-control" id="salary"
                                pInputText
+                               formControlName="salary"
                                required type="number">
                         <label for="salary">Salary</label>
-                        <div *ngIf="salary.invalid && (salary.dirty || salary.touched)"
-                             class="p-error">Salary is required and should be valid
+                    </div>
+                    <div *ngIf="addForm.controls['salary']?.invalid && (addForm.controls['salary'].dirty || addForm.controls['salary'].touched)">
+                        <div *ngIf="addForm.controls['salary'].errors.required">
+                            Salary is required.
+                        </div>
+                        <div *ngIf="addForm.controls['salary'].errors.pattern">
+                            Salary is not valid.
                         </div>
                     </div>
-                    <p-messages key="salary"></p-messages>
                 </div>
+
                 <div class="p-dialog-footer">
-                    <button (click)="saveAdmin()" [disabled]="!adminAddForm.valid" label="Save"
+                    <button (click)="Add()" [disabled]="!addForm.valid" label="Save"
                             pButton type="button"></button>
-                    <button (click)="cancelDialog()" label="Cancel" pButton type="button"></button>
+                    <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
                 </div>
             </div>
 
@@ -141,114 +156,180 @@
 </p-dialog>
 
 <!-- Edit Form -->
-<p-dialog [(visible)]="displayEditDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+<p-dialog [(visible)]="editDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Edit Admin">
-    <ng-container *ngIf="adminEditData">
-        <form #adminEditForm="ngForm" enctype="multipart/form-data">
+        <form [formGroup]="editForm" (ngSubmit)="update()" enctype="multipart/form-data">
             <div class="row">
+
+                <!-- First Name -->
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #firstName="ngModel" [(ngModel)]="adminEditData.firstName" class="form-control"
-                               name="firstName"
+                        <input class="form-control"
                                pInputText
+                               formControlName="firstName"
                                required type="text">
                         <label>First Name</label>
-                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-                             class="p-error">First Name is required and should be valid
+                    </div>
+                    <div *ngIf="editForm.controls['firstName']?.invalid && (editForm.controls['firstName'].dirty || editForm.controls['firstName'].touched)">
+                        <div *ngIf="editForm.controls['firstName'].errors.required">
+                            First Name is required.
+                        </div>
+                        <div *ngIf="editForm.controls['firstName'].errors.pattern">
+                            First Name is not valid (letter only).
                         </div>
                     </div>
-                    <p-messages key="firstName"></p-messages>
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #lastName="ngModel" [(ngModel)]="adminEditData.lastName" class="form-control"
-                               name="lastName"
+                        <input class="form-control"
                                pInputText
+                               formControlName="lastName"
                                required type="text">
-                        <label for="firstName">Last Name</label>
-                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-                             class="p-error">Last Name is required and should be valid
+                        <label>Last Name</label>
+                    </div>
+                    <div *ngIf="editForm.controls['lastName']?.invalid && (editForm.controls['lastName'].dirty || editForm.controls['lastName'].touched)">
+                        <div *ngIf="editForm.controls['lastName'].errors.required">
+                            Last Name is required.
+                        </div>
+                        <div *ngIf="editForm.controls['lastName'].errors.pattern">
+                            Last Name is not valid (letter only).
                         </div>
                     </div>
-                    <p-messages key="lastName"></p-messages>
                 </div>
 
-
+                <!-- Email -->
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #email="ngModel" [(ngModel)]="adminEditData.email" class="form-control"
-                               name="Email"
+                        <input class="form-control"
                                pInputText
+                               formControlName="email"
                                required type="text">
-                        <label for="Email">Email</label>
-                        <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                             class="p-error">Email is required and should be Valid
+                        <label>Email</label>
+                    </div>
+                    <div *ngIf="editForm.controls['email']?.invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)">
+                        <div *ngIf="editForm.controls['email'].errors.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="editForm.controls['email'].errors.pattern">
+                            Email is not valid.
                         </div>
                     </div>
-                    <p-messages key="email"></p-messages>
                 </div>
 
+                <!-- Hire Date -->
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #password="ngModel" [(ngModel)]="adminEditData.password" class="form-control"
-                               minlength="8"
-                               name="password"
-                               pInputText type="password">
-                        <label>Password</label>
-                        <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                             class="p-error">Password is Minimum 8 characters
-                        </div>
-                    </div>
-                    <p-messages key="password"></p-messages>
-                </div>
-
-                <div class="col-md-12 mb-3">
-                    <div class=" mb-3">
-
-                        <img *ngIf="adminEditData.image" [src]="adminEditData.image" height="100" width="100">
-
-                        <label class="form-label">Image</label>
-                        <input #image="ngModel" [(ngModel)]="adminEditData.image" class="form-control"
-                               name="image"
+                        <input class="form-control"
                                pInputText
-                               type="file">
-                        <div *ngIf="image.invalid && (image.dirty || image.touched)"
-                             class="p-error">Image is required and should be valid
+                               formControlName="hireDate"
+                               required type="date">
+                        <label>Hire Date</label>
+                    </div>
+                    <div *ngIf="editForm.controls['hireDate']?.invalid && (editForm.controls['hireDate'].dirty || editForm.controls['hireDate'].touched)">
+                        <div *ngIf="editForm.controls['hireDate'].errors.required">
+                            Hire Date is required.
+                        </div>
+                        <div *ngIf="editForm.controls['hireDate'].errors.invalidDate">
+                            Hire Date is not valid.
                         </div>
                     </div>
-                    <p-messages key="image"></p-messages>
                 </div>
 
+                <!-- Salary -->
                 <div class="col-md-12 mb-3">
                     <div class="form-floating mb-3">
-                        <input #salary="ngModel" [(ngModel)]="adminEditData.salary" class="form-control"
-                               name="salary"
+                        <input class="form-control"
                                pInputText
+                               formControlName="salary"
                                required type="number">
-                        <label for="salary">Salary</label>
-                        <div *ngIf="salary.invalid && (salary.dirty || salary.touched)"
-                             class="p-error">Salary is required and should be valid
+                        <label>Salary</label>
+                    </div>
+                    <div *ngIf="editForm.controls['salary']?.invalid && (editForm.controls['salary'].dirty || editForm.controls['salary'].touched)">
+                        <div *ngIf="editForm.controls['salary'].errors.required">
+                            Salary is required.
+                        </div>
+                        <div *ngIf="editForm.controls['salary'].errors.pattern">
+                            Salary is not valid.
                         </div>
                     </div>
-                    <p-messages key="salary"></p-messages>
                 </div>
+
+                <!-- Birth date -->
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <input class="form-control"
+                               pInputText
+                               formControlName="birthDate"
+                               required type="date">
+                        <label>Birth Date</label>
+                    </div>
+                    <div *ngIf="editForm.controls['birthDate']?.invalid && (editForm.controls['birthDate'].dirty || editForm.controls['birthDate'].touched)">
+                        <div *ngIf="editForm.controls['birthDate'].errors.required">
+                            Birth Date is required.
+                        </div>
+                        <div *ngIf="editForm.controls['birthDate'].errors.invalidDate">
+                            Birth Date is not valid.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- password -->
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <input class="form-control"
+                               pInputText
+                               formControlName="password"
+                               required type="password">
+                        <label>Password</label>
+                    </div>
+                    <div *ngIf="editForm.controls['password']?.invalid && (editForm.controls['password'].dirty || editForm.controls['password'].touched)">
+                        <div *ngIf="editForm.controls['password'].errors.required">
+                            Password is required.
+                        </div>
+                        <div *ngIf="editForm.controls['password'].errors.pattern">
+                            Password is not valid.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <p-dropdown [options]="roles" formControlName="role" [style]="{'width':'100%'}" [filter]="true"
+                                     [showClear]="true" [placeholder]="'Select a Role'"
+                                    [scrollHeight]="'200px'">
+                        </p-dropdown>
+                    </div>
+                    <div *ngIf="editForm.controls['role']?.invalid && (editForm.controls['role'].dirty || editForm.controls['role'].touched)">
+                        <div *ngIf="editForm.controls['role'].errors.required">
+                            Role is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="mb-3">
+                        <img [src]="this.image" class="w-50 d-block mx-auto">
+                        <label class="form-label">Image</label>
+                        <input class="form-control"
+                                (change)="onFileChange($event)"
+                                type="file">
+                    </div>
+                </div>
+
                 <div class="p-dialog-footer">
-                    <button (click)="updateAdmin(adminEditData)" label="Save" pButton
+                    <button (click)="update()" label="Save" pButton
                             type="button"></button>
                     <button (click)="cancelEditDialog()" label="Cancel" pButton type="button"></button>
                 </div>
             </div>
 
         </form>
-    </ng-container>
 </p-dialog>
 
 
-<!--Dialog-->
 <p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
     <p-footer>
-        <!--        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-text" (click)="messageService.clear('deleteBook')"></button>-->
         <button (click)="confirmationService.close()" class="p-button-text" icon="pi pi-times" label="No" pButton
                 type="button"></button>
         <button (click)="deleteConfirmed()" class="p-button-text" icon="pi pi-check" label="Yes" pButton

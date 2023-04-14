@@ -14,11 +14,12 @@ import {TableModule} from "primeng/table";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
 import {InputTextModule} from "primeng/inputtext";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
     imports: [
-        CommonModule,
         AdminRoute,
+        CommonModule,
         PaginatorModule,
         SkeletonModule,
         NgOptimizedImage,
@@ -30,6 +31,7 @@ import {InputTextModule} from "primeng/inputtext";
         ConfirmDialogModule,
         DialogModule,
         InputTextModule,
+        ToastModule,
     ],
     declarations: [
         AdminComponent,

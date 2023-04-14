@@ -1,208 +1,150 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {AdminsService} from "../services/admins.service";
 import {IManagers} from "../../models/IManagers";
 import {IManagerResponse} from "../../models/IManagerResponse";
+import {ToastService} from "../services/toast.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: "app-Admin",
     templateUrl: "./Admin.component.html",
     styleUrls: ["./Admin.component.css"],
-    providers: [MessageService, ConfirmationService],
+    providers: [MessageService, ConfirmationService, ToastService, DatePipe],
 })
+
 export class AdminComponent implements OnInit {
     admins: IManagers[];
-    adminAddForm: FormGroup;
-    adminEditForm: FormGroup;
     admin: IManagers;
-    displayDialog: boolean;
-    displayEditDialog: boolean;
-    totalAdminsCount: number = 0;
-    first: number = 0;
+    addForm: FormGroup;
+    editForm: FormGroup;
+    addDialog: boolean;
+    editDialog: boolean;
     loading: boolean;
-    public validationErros?: { [p: string]: string };
-    adminEditData: IManagers;
-    protected readonly console = console;
+    image: any;
+    public validationErrors?: { [p: string]: string };
+    roles: string[];
 
     constructor(
         private adminsService: AdminsService,
         private messageService: MessageService,
         public confirmationService: ConfirmationService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private toastService: ToastService,
+        private datePipe: DatePipe
     ) {
         this.admins = [];
         this.admin = {} as IManagers;
-        this.displayDialog = false;
-        this.displayEditDialog = false;
+        this.addDialog = false;
+        this.editDialog = false;
         this.loading = false;
-    }
 
-    ngOnInit() {
-        this.getAllAdmins();
-
-        this.adminAddForm = this.formBuilder.group({
-            firstName: ["", Validators.required],
-            lastName: ["", Validators.required],
-            email: ["", Validators.compose([
+        this.roles = ["admin", "super-admin", "employee"];
+        this.addForm = new FormGroup({
+            firstName: new FormControl('',[
                 Validators.required,
-                Validators.email,
-                value => {
-                    const email = value.value;
-                    return email && email.trim() ? null : {invalidEmail: true};
-                }
-            ])],
-            hireDate: ["", Validators.compose([
+                Validators.pattern("^[a-zA-Z]*$")
+            ]),
+            lastName: new FormControl('',[
+                Validators.required,
+                Validators.pattern("^[a-zA-Z]*$")
+            ]),
+            email: new FormControl('',[
+                Validators.required,
+                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+            ]),
+            hireDate: new FormControl('',[
                 Validators.required,
                 value => {
                     const date = new Date(value.value);
                     const today = new Date();
                     return date < today ? null : {invalidDate: true};
                 }
-            ])],
-            salary: ["", Validators.compose([
+            ]),
+            salary: new FormControl('',[
                 Validators.required,
+                Validators.pattern("^[0-9]*$"),
                 value => {
                     const salary = value.value;
                     return salary > 2500 ? null : {invalidSalary: true};
                 }
-            ])],
-            activated: [false],
+            ]),
         })
 
-        this.adminEditForm = this.formBuilder.group({
-            firstName: ["", Validators.required],
-            lastName: ["", Validators.required],
-            email: ["", Validators.compose([
+        // @ts-ignore
+        this.editForm = new FormGroup({
+            ...this.addForm.controls,
+            _id: new FormControl('',[
                 Validators.required,
-                Validators.email,
-                value => {
-                    const email = value.value;
-                    return email && email.trim() ? null : {invalidEmail: true};
-                }
-            ])],
-            birthDate: ["", Validators.compose([
+            ]),
+            birthDate: new FormControl('',[
                 Validators.required,
                 value => {
                     const date = new Date(value.value);
                     const today = new Date();
                     return date < today ? null : {invalidDate: true};
                 }
-            ])],
-            password: ["", Validators.compose([
+            ]),
+            password: new FormControl('',[
                 Validators.minLength(8),
                 Validators.maxLength(20),
-            ])],
-            salary: ["", Validators.compose([
+            ]),
+
+            role: new FormControl('',[
                 Validators.required,
-                value => {
-                    const salary = value.value;
-                    return salary > 2500 ? null : {invalidSalary: true};
-                }
-            ])],
-            role: ["", Validators.compose([
-                Validators.required,
-                //     Value is one of [admin,super-admin,employee]
                 value => {
                     const role = value.value;
-                    const roles = ["admin", "super-admin", "employee"];
-                    return roles.includes(role) ? null : {invalidRole: true};
+                    return this.roles.includes(role) ? null : {invalidRole: true};
                 }
-            ])],
-            image: ["", Validators.compose([
-                value => {
-                    const image = value.value;
-                    const mimes = ["image/jpeg", "image/png", "image/gif"];
-                    return mimes.includes(image.type) ? null : {invalidImage: true};
-                }
-            ])],
+            ]),
+
+            image: new FormControl(null),
         })
     }
 
 
-    showDialogToAdd() {
+    ngOnInit() {
+        this.getAll();
+    }
+
+    showAddDialog() {
         this.admin = {} as IManagers;
-        this.displayDialog = true;
+        this.addDialog = true;
+        this.validationErrors = {};
+        this.addForm.reset();
     }
 
-    cancelDialog() {
-        this.displayDialog = false;
+    cancelAddDialog() {
+        this.addDialog = false;
     }
 
-    saveAdmin() {
-        this.validationErros = {};
-        if (this.admin._id) {
-            this.adminsService.updateAdminById(this.admin._id, this.admin).subscribe(
-                (data) => {
-                    this.admin = data;
-                    this.messageService.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "Admin Updated Successfully",
-                        life: 3000
-                    });
-                    this.getAllAdmins();
-                    this.displayDialog = false;
-                },
-                (error) => {
-                    this.validationErros = this.formatError(error.message);
-                    let keys = Object.keys(this.validationErros);
-                    for (let key of keys) {
-                        this.messageService.add({
-                            severity: "error",
-                            summary: "Error",
-                            detail: this.validationErros[key],
-                            life: 3000
-                        });
-                    }
+    Add() {
+        this.validationErrors = {};
+        this.admin = this.addForm.value;
+        this.adminsService.addAdmin(this.admin).subscribe(
+            (data: IManagerResponse) => {
+                this.getAll();
+                this.toastService.showSuccess("Admin Added Successfully");
+                this.addDialog = false;
+            },
+            (error) => {
+                this.validationErrors = this.formatError(error.message);
+                let keys = Object.keys(this.validationErrors);
+                for (let key of keys) {
+                    this.toastService.showError(this.validationErrors[key]);
                 }
-            )
-        } else {
-            this.adminsService.addAdmin(this.admin).subscribe(
-                (data: IManagerResponse) => {
-                    this.admins.push(data.data);
-                    this.messageService.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "Admin Added Successfully",
-                        life: 3000
-                    })
-                    this.displayDialog = false;
-                },
-                (error) => {
-                    this.validationErros = this.formatError(error.message);
-                    let keys = Object.keys(this.validationErros);
-                    for (let key of keys) {
-                        this.messageService.add({
-                            severity: "error",
-                            summary: "Error",
-                            detail: this.validationErros[key],
-                            life: 3000
-                        });
-                    }
-
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: error.message,
-                        // life: 3000
-                    })
-                }
-            );
-
-        }
-        this.getAllAdmins();
+                this.toastService.showError(error.message);
+            }
+        );
     }
 
 
-    confirmDeleteAdmin(admin: IManagers) {
+    confirmDelete(admin: IManagers) {
         this.admin = admin;
         this.confirmationService.confirm({
-            message: "Are you sure that you want to delete this Admin?",
+            message: "Are you sure that you want to delete " + admin.firstName + " " + admin.lastName + " ?",
             header: "Delete Confirmation",
-            icon: "pi pi-exclamation-triangle",
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
             accept: () => {
                 this.deleteConfirmed();
             },
@@ -210,35 +152,23 @@ export class AdminComponent implements OnInit {
     }
 
     deleteConfirmed() {
-        this.deleteAdmin()
+        this.delete()
         this.confirmationService.close();
-        this.getAllAdmins()
+        this.getAll()
     }
 
-    // Delete Admin
-    deleteAdmin() {
+    delete() {
         this.adminsService.deleteAdminById(this.admin._id).subscribe(
             (data) => {
-                this.messageService.add({
-                    severity: "success",
-                    summary: "Success",
-                    detail: "Admin Deleted Successfully",
-                    life: 3000
-                });
+                this.toastService.showSuccess("Admin Deleted Successfully");
+                this.getAll();
             },
             (error) => {
-                this.messageService.add({
-                    severity: "error",
-                    summary: "Error",
-                    detail: "Admin Not Deleted",
-                    life: 3000
-                });
+                this.toastService.showError("Admin Not Deleted");
             }
         );
     }
 
-
-    // Format Error
     formatError(error: string): { [key: string]: string } {
         const errors: { [key: string]: string } = {};
         error = error.replace("Error: ", "");
@@ -250,52 +180,66 @@ export class AdminComponent implements OnInit {
         return errors;
     }
 
-    showDialogToEditAdmin(admin: IManagers) {
-        this.adminEditData = {...admin};
-        this.displayEditDialog = true;
+    showEditDialog(admin: IManagers) {
+        // @ts-ignore
+        admin.hireDate = this.datePipe.transform(admin.hireDate, 'yyyy-MM-dd');
+        // @ts-ignore
+        admin.birthDate = this.datePipe.transform(admin.birthDate, 'yyyy-MM-dd');
+        console.log(admin)
+        this.editForm.patchValue(admin);
+        this.editDialog = true;
     }
 
-    updateAdmin(data: IManagers) {
-        this.adminsService.updateAdminById(data._id, data).subscribe(
-            (data) => {
-                this.messageService.add({
-                    severity: "success",
-                    summary: "Success",
-                    detail: "Admin Updated Successfully",
-                    life: 3000
+    cancelEditDialog() {
+        this.editDialog = false;
+    }
+
+    onFileChange(event: Event) {
+        const reader = new FileReader();
+        // @ts-ignore
+        if(event.target.files && event.target.files.length) {
+            // @ts-ignore
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.image = reader.result as string;
+                this.editForm.patchValue({
+                    image: reader.result
                 });
-                this.displayEditDialog = false;
+            };
+        }
+    }
+
+    update() {
+        Object.keys(this.editForm.value).forEach((key) => {
+            if (this.editForm.value[key] === "") {
+                delete this.editForm.value[key];
+            }
+        });
+        this.admin = this.editForm.value;
+        console.log(this.admin)
+        this.adminsService.updateAdminById(this.admin).subscribe(
+            (data) => {
+                this.toastService.showSuccess("Admin Updated Successfully");
+                this.editDialog = false;
+                this.getAll();
             },
             (error) => {
-                this.messageService.add({
-                    severity: "error",
-                    summary: "Error",
-                    detail: "Admin Not Updated",
-                    life: 3000
-                });
+                this.toastService.showError("Admin Not Updated");
             }
         );
     }
 
-    cancelEditDialog() {
-        this.displayEditDialog = false;
-    }
-
-    private getAllAdmins() {
+    private getAll() {
         this.loading = true;
         this.adminsService.getAdmins()
             .subscribe((data) => {
                     this.admins = data.data;
-                    this.totalAdminsCount = data.pagination?.total_managers_count;
                     this.loading = false;
                 },
                 (error) => {
                     this.loading = false;
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: "Something went wrong",
-                    }); // End of messageService.add
+                    this.toastService.showError("Error Loading Admins");
                 }
             );
     }

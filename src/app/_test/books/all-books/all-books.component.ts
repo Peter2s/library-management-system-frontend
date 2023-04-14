@@ -29,9 +29,9 @@ export class AllBooksComponent implements OnInit {
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
+    image: string;
 
     constructor(private booksService: BooksService,
-                public uploadService: ApiService,
                 public confirmationService: ConfirmationService,
                 public messageService: MessageService,
                 private formBuilder: FormBuilder
@@ -160,10 +160,29 @@ export class AllBooksComponent implements OnInit {
 
     }
 
+    onFileChange(event: Event) {
+        const reader = new FileReader();
+        // @ts-ignore
+        if(event.target.files && event.target.files.length) {
+            // @ts-ignore
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.image = reader.result as string;
+                this.book.image = reader.result as string;
+                this.bookForm.patchValue({
+                    image: reader.result
+                });
+            };
+        }
+    }
+
     saveBook(): void {
         this.validationErros = {};
         if (this.book._id) {
-            this.booksService.updateBook(this.bookForm.value).subscribe(
+            console.log('updateBook')
+            console.log(this.bookForm.value.image)
+            this.booksService.updateBook(this.book).subscribe(
                 (response: IBooks) => {
                     this.book = response;
                     this.messageService.add({
@@ -173,7 +192,7 @@ export class AllBooksComponent implements OnInit {
                         life: 5000
                     });
                     //this.getBooks();
-                    this.displayDialog = false;
+                   //this.displayDialog = false;
                 },
                 (error) => {
                     // console.log(error.message)
@@ -238,7 +257,7 @@ export class AllBooksComponent implements OnInit {
                 }
             );
         }
-        this.getBooks();
+        //this.getBooks();
     }
 
     deleteBook(): void {

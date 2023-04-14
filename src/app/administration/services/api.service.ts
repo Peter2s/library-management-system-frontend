@@ -21,7 +21,6 @@ export class ApiService {
 
     get<T>(endpoint: string, options?: HttpOptions): Observable<T> {
         const url = this.baseUrl + endpoint;
-        console.log(url);
         return this.http.get<T>(url, options = {}).pipe(retry(2), catchError(this.handleError));
     }
 
@@ -34,15 +33,9 @@ export class ApiService {
 
     patch<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
         const url = this.baseUrl + endpoint;
-        console.log("data", data);
-
         return this.http
             .patch<T>(url, data, (options = {}))
             .pipe(retry(2), catchError(this.handleError));
-
-        // return this.http
-        //     .patch<T>(url, data, (options = {}))
-        //     .pipe(retry(2), catchError(this.handleError));
     }
 
     put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
