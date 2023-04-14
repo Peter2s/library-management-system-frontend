@@ -87,9 +87,7 @@ export class BooksService implements OnInit {
     }
 
     getBooksByAuthor(author: string): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
+
         return this.ApiService.get<IBooksResponse>(`/books/author/${author}`);
     }
 
@@ -144,7 +142,7 @@ export class BooksService implements OnInit {
 
 
     getMostBorrowed(year: number | string = ''): Observable<IBooksResponse> {
-        
+
         let url = '';
         if (Number(year))
             url = `/most/borrowed/${year}`;

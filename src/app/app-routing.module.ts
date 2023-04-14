@@ -6,6 +6,8 @@ import {LatestComponent} from "./books/latest/latest.component";
 import {MostBorrowedComponent} from "./books/most-borrowed/most-borrowed.component";
 import {MostReadingComponent} from "./books/most-reading/most-reading.component";
 import {BooksComponent} from "./administration/books/books.component";
+import {AuthorsComponent} from "./administration/books/authors/authors.component";
+import {PublishersComponent} from "./administration/books/publishers/publishers.component";
 
 
 const routes: Routes = [
@@ -13,6 +15,17 @@ const routes: Routes = [
         path: "admin",
         loadChildren: () => import('./administration/administration.module').then(m => m.administrationModule),
     },
+    {
+        path: "authors/:title",
+        // loadChildren: () => import('./administration/books/authors/authors.component').then(mod => mod.AuthorsComponent),
+        component: AuthorsComponent
+    },
+    {
+        path: "publishers/:title",
+        // loadChildren: () => import('./administration/books/publishers/publishers.component').then(mod => mod.PublishersComponent),
+        component: PublishersComponent
+    },
+
     {
         path: "books",
         component: BooksComponent,
@@ -34,6 +47,7 @@ const routes: Routes = [
         path: "home",
         component: AllBooksComponent
     },
+
 
     {path: "**", component: Error404Component},
 ];
