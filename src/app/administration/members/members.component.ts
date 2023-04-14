@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {IMembers} from "../../models/IMembers";
 import {MembersService} from "../services/members.service";
-import {Subscription} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMemberResponse} from "../../models/IMemberResponse";
+import {IUpdateMessage} from "../../models/IUpdateMessage";
 
 @Component({
     selector: 'app-members',
@@ -17,6 +17,7 @@ export class MembersComponent implements OnInit {
     memberForm: FormGroup = {} as FormGroup;
     members: IMembers[];
     member: IMembers;
+    editMemberFlag: boolean = false;
     displayDialog: boolean;
     loading: boolean;
     totalMembersCount: number = 0;
@@ -25,7 +26,6 @@ export class MembersComponent implements OnInit {
     membersPerPage: number = 10;
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
-    subscription: Subscription[] = [];
     protected readonly console = console;
 
     constructor(
@@ -46,6 +46,15 @@ export class MembersComponent implements OnInit {
         this.memberForm = this.formBuilder.group({
             full_name: [trim, Validators.required],
             email: ['', Validators.required],
+            password: ['', Validators.required],
+            image: ['', Validators.required],
+            phone_number: ['', Validators.required],
+            birth_date: ['', Validators.required],
+            address: {
+                city: ['', Validators.required],
+                street: ['', Validators.required],
+                building: ['', Validators.required],
+            },
         });
     }
 
@@ -55,9 +64,6 @@ export class MembersComponent implements OnInit {
         this.loadMembers();
     }
 
-    ngOnDestroy(): void {
-        this.subscription.forEach((sub) => sub.unsubscribe());
-    }
 
     showDialogToAdd() {
         this.member = {} as IMembers;
@@ -68,10 +74,6 @@ export class MembersComponent implements OnInit {
         this.deleteMember();
         this.confirmationService.close();
         this.loadMembers();
-    }
-
-    editMember(member: any) {
-
     }
 
     confirmDeleteMember(member: IMembers) {
@@ -88,40 +90,77 @@ export class MembersComponent implements OnInit {
         });
     }
 
-    addMember() {
+    saveMember() {
         this.validationErros = {};
-        this.membersService.addMember(this.member).subscribe(
-            (response: IMemberResponse) => {
-                this.members.push(response.data);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: 'Member added.',
-                    life: 5000
-                });
-                this.displayDialog = false;
-            },
-            (error) => {
-                try {
-                    this.validationErros = this.formatError(error.message)
-                    let keys = Object.keys(this.validationErros);
-                    for (let key of keys) {
-                        this.messageService.add({
-                            key: key,
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: this.validationErros[key],
-                        });
+        if (this.member._id) {
+            this.membersService.updateMember(this.member).subscribe(
+                (response: IUpdateMessage) => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Member updated.',
+                        life: 5000
+                    });
+                    this.displayDialog = false;
+                    this.editMemberFlag = false;
+                    this.loadMembers();
+                },
+                (error) => {
+                    try {
+                        this.validationErros = this.formatError(error.message)
+                        let keys = Object.keys(this.validationErros);
+                        for (let key of keys) {
+                            this.messageService.add({
+                                key: key,
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: this.validationErros[key],
+                            });
+                        }
+                    } catch (e: any) {
                     }
-                } catch (e: any) {
+                    this.messageService.add({
+                        key: 'MongoServerError',
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message,
+                    });
                 }
-                this.messageService.add({
-                    key: 'MongoServerError',
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: error.message,
-                });
-            })
+            );
+        } else {
+            this.membersService.addMember(this.member).subscribe(
+                (response: IMemberResponse) => {
+                    this.members.push(response.data);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Member added.',
+                        life: 5000
+                    });
+                    this.displayDialog = false;
+                },
+                (error) => {
+                    try {
+                        this.validationErros = this.formatError(error.message)
+                        let keys = Object.keys(this.validationErros);
+                        for (let key of keys) {
+                            this.messageService.add({
+                                key: key,
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: this.validationErros[key],
+                            });
+                        }
+                    } catch (e: any) {
+                    }
+                    this.messageService.add({
+                        key: 'MongoServerError',
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message,
+                    });
+                })
+        }
     }
 
     formatError(error: string): { [key: string]: string } {
@@ -164,6 +203,24 @@ export class MembersComponent implements OnInit {
                     });
                 }
             );
+        }
+    }
+
+    editMember(member: IMembers): void {
+        if (member.activated) {
+            this.member = {...member};
+            this.displayDialog = true;
+            this.editMemberFlag = true;
+        } else {
+            this.messageService.add({
+                key: 'ativationError',
+                severity: 'warn',
+                summary: 'Warning',
+                detail: 'Member Is Not Activated',
+                life: 5000, // message will be visible for 5 seconds
+                closable: true, // user can close the message
+                sticky: false // message will not stay visible until closed
+            });
         }
     }
 

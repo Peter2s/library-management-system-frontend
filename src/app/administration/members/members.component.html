@@ -4,6 +4,7 @@
 <p-table #dt [paginator]="false" [responsive]="true" [rows]="10" [value]="members">
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
+            <p-messages key="ativationError"></p-messages>
             <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
             <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
                     pButton
@@ -18,12 +19,6 @@
             <th>ID</th>
             <th>Full Name</th>
             <th>Email</th>
-            <th>Image</th>
-            <th>Phone Number</th>
-            <th>Birth Date</th>
-            <th colspan="3">Address</th>
-            <th>Last Login</th>
-            <th>Ban Date</th>
             <th>Activated</th>
             <th>Actions</th>
         </tr>
@@ -34,16 +29,6 @@
             <td>{{member._id}}</td>
             <td>{{member.full_name}}</td>
             <td>{{member.email}}</td>
-            <td>
-                <img *ngIf="member.image" [alt]="member.title" [src]="member.image" height="50">
-            </td>
-            <td>{{member?.phone_number}}</td>
-            <td>{{member?.birth_date | date}}</td>
-            <td>{{member.address?.city}}</td>
-            <td>{{member.address?.street}}</td>
-            <td>{{member.address?.building}}</td>
-            <td>{{member?.last_login}}</td>
-            <td>{{member?.ban_date | date}}</td>
             <td>{{member.activated}}</td>
             <td>
                 <button (click)="editMember(member)" icon="pi pi-pencil" pButton type="button"></button>
@@ -56,7 +41,7 @@
 
 <!-- Dialog for adding members -->
 <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
-          header="Add Member">
+          header="Add/Edit Member">
 
     <ng-container *ngIf="member">
         <form #memberForm="ngForm" enctype="multipart/form-data">
@@ -79,9 +64,75 @@
                     <p-messages key="email"></p-messages>
                     <p-messages key="MongoServerError"></p-messages>
                 </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="password">Password</label>
+                    <input #password="ngModel" [(ngModel)]="member.password" id="password" name="password" required
+                           type="password">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">Password
+                        is
+                        required
+                    </div>
+                    <p-messages key="password"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="image">Image</label>
+                    <input #image="ngModel" [(ngModel)]="member.image" id="image" name="image" required type="file">
+                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required
+                    </div>
+                    <p-messages key="image"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="phone_number">Phone Number</label>
+                    <input #phone_number="ngModel" [(ngModel)]="member.phone_number" id="phone_number"
+                           name="phone_number" required type="string">
+                    <div *ngIf="phone_number.invalid && (phone_number.dirty || phone_number.touched)"
+                         class="p-error">
+                        Phone is required
+                    </div>
+                    <p-messages key="phone_number"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="birth_date">Birth Date</label>
+                    <input #birth_date="ngModel" [(ngModel)]="member.birth_date" id="birth_date" name="birth_date"
+                           required type="date">
+                    <div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)" class="p-error">
+                        Birth is
+                        required
+                    </div>
+                    <p-messages key="birth_date"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="city">City</label>
+                    <input #city="ngModel" [(ngModel)]="member.address.city" id="city" name="city" required
+                           type="text">
+                    <div *ngIf="city.invalid && (city.dirty || city.touched)" class="p-error">city is required
+                    </div>
+                    <p-messages key="city"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="street">Street</label>
+                    <input #street="ngModel" [(ngModel)]="member.address.street" id="street" name="street"
+                           required
+                           type="text">
+                    <div *ngIf="street.invalid && (street.dirty || street.touched)" class="p-error">street is
+                        required
+                    </div>
+                    <p-messages key="street"></p-messages>
+                </div>
+                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
+                    <label for="building">Building</label>
+                    <input #building="ngModel" [(ngModel)]="member.address.building" id="building"
+                           name="building"
+                           required type="number">
+                    <div *ngIf="building.invalid && (building.dirty || building.touched)" class="p-error">
+                        building
+                        is required
+                    </div>
+                    <p-messages key="building"></p-messages>
+                </div>
 
                 <div class="p-dialog-footer">
-                    <button (click)="addMember()" [disabled]="!memberForm.valid" label="save" pButton
+                    <button (click)="saveMember()" [disabled]="!memberForm.valid" label="save" pButton
                             type="button"></button>
                     <button (click)="cancel()" label="Cancel" pButton type="button"></button>
                 </div>
@@ -93,122 +144,99 @@
 
 </p-dialog>
 
-<!-- Dialog for Editing members -->
+<!--Dialog for Editing members-->
 
 <!--<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"-->
-<!--          header="Add Member">-->
+<!--          header="Edit Member">-->
 
 <!--    <ng-container *ngIf="member">-->
-<!--        <form #memberForm="ngForm" enctype="multipart/form-data">-->
+<!--        <form #editMemberForm="ngForm" enctype="multipart/form-data">-->
 <!--            <div class="p-grid">-->
 <!--                <div class="p-col-12">-->
-<!--                    <label for="title">Email</label>-->
-<!--                    <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">-->
-<!--                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Title is required and-->
+<!--                    <label for="full_name">Full Name</label>-->
+<!--                    <input #full_name="ngModel" [(ngModel)]="member.full_name" id="full_name" name="full_name" required-->
+<!--                           type="text">-->
+<!--                    <div *ngIf="full_name.invalid && (full_name.dirty || full_name.touched)" class="p-error">Full Name-->
+<!--                        is required and-->
 <!--                        should be at least 3 characters-->
 <!--                    </div>-->
-<!--                    <p-messages key="title"></p-messages>-->
+<!--                    <p-messages key="full_name"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="email">Email</label>-->
+<!--                    <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">-->
+<!--                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Email is required-->
+<!--                    </div>-->
+<!--                    <p-messages key="email"></p-messages>-->
+<!--                    <p-messages key="MongoServerError"></p-messages>-->
 <!--                </div>-->
 
-<!--                <div class="p-col-12">-->
-<!--                    <label for="author">Author</label>-->
-<!--                    <input #author="ngModel" [(ngModel)]="member.author" id="author" name="author" required type="text">-->
-<!--                    <div *ngIf="author.invalid && (author.dirty || author.touched)" class="p-error">Author is required-->
-<!--                        and should be at least 3 characters-->
-<!--                    </div>-->
-<!--                    <p-messages key="author"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="publisher">Publisher</label>-->
-<!--                    <input #publisher="ngModel" [(ngModel)]="member.publisher" id="publisher" name="publisher" required-->
-<!--                           type="text">-->
-<!--                    <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="p-error">Publisher-->
-<!--                        is required and should be at least 3 characters-->
-<!--                    </div>-->
-<!--                    <p-messages key="publisher"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="category">Category</label>-->
-<!--                    &lt;!&ndash;                    <p-dropdown #category="ngModel"  id="category" [required]="true" [options]="categories" [(ngModel)]="member.category" name="category" *ngIf="(this.member._id)" [filterValue]="this.member.category"></p-dropdown>&ndash;&gt;-->
-<!--                    <ng-container *ngIf="this.member._id">-->
-<!--                        <p-dropdown #category="ngModel" [(ngModel)]="member.category"-->
-<!--                                    [filterValue]="this.member.category"-->
-<!--                                    [options]="categories"-->
-<!--                                    [required]="true" id="category"-->
-<!--                                    name="category"></p-dropdown>-->
-<!--                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category-->
-<!--                            is required-->
-<!--                        </div>-->
-<!--                    </ng-container>-->
-<!--                    <ng-container *ngIf="!this.member._id">-->
-<!--                        <p-dropdown #category="ngModel" [(ngModel)]="member.category" [options]="categories"-->
-<!--                                    [required]="true"-->
-<!--                                    id="category" name="category"></p-dropdown>-->
-<!--                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="p-error">Category-->
-<!--                            is required-->
-<!--                        </div>-->
-<!--                    </ng-container>-->
-<!--                    <p-messages key="category"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="publishingDate">Publishing Date</label>-->
-<!--                    <p-calendar #publishingDate="ngModel" [(ngModel)]="member.publishingDate" [required]="true"-->
-<!--                                dateFormat="yy-mm-dd"-->
-<!--                                id="publishingDate" name="publishingDate"></p-calendar>-->
-<!--                    <div *ngIf="publishingDate.invalid && (publishingDate.dirty || publishingDate.touched)"-->
-<!--                         class="p-error">Publishing Date is required and should be a valid date-->
-<!--                    </div>-->
-<!--                    <p-messages key="publishingDate"></p-messages>-->
-<!--                </div>-->
 
 <!--                <div class="p-col-12">-->
-<!--                    <label for="edition">Edition</label>-->
-<!--                    <input #edition="ngModel" [(ngModel)]="member.edition" id="edition" min="1" name="edition" required-->
-<!--                           type="number">-->
-<!--                    <div *ngIf="edition.invalid && (edition.dirty || edition.touched)" class="p-error">Edition is-->
-<!--                        required and should be a number-->
+<!--                    <label for="password">Password</label>-->
+<!--                    <input #password="ngModel" [(ngModel)]="member.password" id="password" name="password" required-->
+<!--                           type="password">-->
+<!--                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">Password is-->
+<!--                        required-->
 <!--                    </div>-->
-<!--                    <p-messages key="edition"></p-messages>-->
+<!--                    <p-messages key="password"></p-messages>-->
 <!--                </div>-->
 <!--                <div class="p-col-12">-->
-<!--                    <label for="pages">Pages</label>-->
-<!--                    <input #pages="ngModel" [(ngModel)]="member.pages" id="pages" min="1" name="pages" required-->
-<!--                           type="number">-->
-<!--                    <div *ngIf="pages.invalid && (pages.dirty || pages.touched)" class="p-error">Pages is required and-->
-<!--                        should be a number-->
+<!--                    <label for="image">Image</label>-->
+<!--                    <input #image="ngModel" [(ngModel)]="member.image" id="image" name="image" required type="file">-->
+<!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required-->
 <!--                    </div>-->
-<!--                    <p-messages key="pages"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="noOfCopies">No. of Copies</label>-->
-<!--                    <input #noOfCopies="ngModel" [(ngModel)]="member.noOfCopies" id="noOfCopies" min="1"-->
-<!--                           name="noOfCopies"-->
-<!--                           required type="number">-->
-<!--                    <div *ngIf="noOfCopies.invalid && (noOfCopies.dirty || noOfCopies.touched)" class="p-error">No. of-->
-<!--                        Copies is required and should be a number-->
-<!--                    </div>-->
-<!--                    <p-messages key="noOfCopies"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="shelfNo">Shelf No.</label>-->
-<!--                    <input #shelfNo="ngModel" [(ngModel)]="member.shelfNo" id="shelfNo" min="1" name="shelfNo" required-->
-<!--                           type="number">-->
-<!--                    <div *ngIf="shelfNo.invalid && (shelfNo.dirty || shelfNo.touched)" class="p-error">Shelf No. is-->
-<!--                        required and should be a number-->
-<!--                    </div>-->
-<!--                    <p-messages key="shelfNo"></p-messages>-->
-<!--                </div>-->
-<!--                <div class="p-col-12">-->
-<!--                    <label for="image">Image URL</label>-->
-<!--                    <input #image="ngModel" [(ngModel)]="member.image" accept="image/*" id="image" name="image"-->
-<!--                           type="file">-->
-<!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
-<!--                    &lt;!&ndash;                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>&ndash;&gt;-->
 <!--                    <p-messages key="image"></p-messages>-->
 <!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="phone_number">Phone Number</label>-->
+<!--                    <input #phone_number="ngModel" [(ngModel)]="member.phone_number" id="phone_number"-->
+<!--                           name="phone_number" required type="string">-->
+<!--                    <div *ngIf="phone_number.invalid && (phone_number.dirty || phone_number.touched)" class="p-error">-->
+<!--                        Phone is required-->
+<!--                    </div>-->
+<!--                    <p-messages key="phone_number"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12">-->
+<!--                    <label for="birth_date">Birth Date</label>-->
+<!--                    <input #birth_date="ngModel" [(ngModel)]="member.birth_date" id="birth_date" name="birth_date"-->
+<!--                           required type="date">-->
+<!--                    <div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)" class="p-error">Birth is-->
+<!--                        required-->
+<!--                    </div>-->
+<!--                    <p-messages key="birth_date"></p-messages>-->
+<!--                </div>-->
+<!--                <div class="p-col-12" formGroupName="address">-->
+<!--                    <div class="p-col-12">-->
+<!--                        <label for="city">City</label>-->
+<!--                        <input #city="ngModel" [(ngModel)]="member.address.city" id="city" name="city" required-->
+<!--                               type="text">-->
+<!--                        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="p-error">city is required-->
+<!--                        </div>-->
+<!--                        <p-messages key="city"></p-messages>-->
+<!--                    </div>-->
+<!--                    <div class="p-col-12">-->
+<!--                        <label for="street">Street</label>-->
+<!--                        <input #street="ngModel" [(ngModel)]="member.address.street" id="street" name="street" required-->
+<!--                               type="text">-->
+<!--                        <div *ngIf="street.invalid && (street.dirty || street.touched)" class="p-error">street is-->
+<!--                            required-->
+<!--                        </div>-->
+<!--                        <p-messages key="street"></p-messages>-->
+<!--                    </div>-->
+<!--                    <div class="p-col-12">-->
+<!--                        <label for="building">Building</label>-->
+<!--                        <input #building="ngModel" [(ngModel)]="member.address.building" id="building" name="building"-->
+<!--                               required type="number">-->
+<!--                        <div *ngIf="building.invalid && (building.dirty || building.touched)" class="p-error">building-->
+<!--                            is required-->
+<!--                        </div>-->
+<!--                        <p-messages key="building"></p-messages>-->
+<!--                    </div>-->
+<!--                </div>-->
+
 <!--                <div class="p-dialog-footer">-->
-<!--                    <button (click)="saveMember()" [disabled]="!memberForm.valid" label="Save" pButton-->
+<!--                    <button (click)="editMember(member)" [disabled]="!memberForm.valid" label="Edit" pButton-->
 <!--                            type="button"></button>-->
 <!--                    <button (click)="cancel()" label="Cancel" pButton type="button"></button>-->
 <!--                </div>-->
@@ -217,8 +245,8 @@
 <!--        </form>-->
 <!--    </ng-container>-->
 
-
 <!--</p-dialog>-->
+
 <p-paginator
         (onPageChange)="onPageChange($event)"
         [first]="first"

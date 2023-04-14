@@ -51,8 +51,8 @@ export class MembersService implements OnInit {
     }
 
 
-    updateMember(id: number | undefined, member: IMembers): Observable<IUpdateMessage> {
-        return this.apiService.patch<IUpdateMessage>(`/members/${id}`, member)
+    updateMember(member: IMembers): Observable<IUpdateMessage> {
+        return this.apiService.patch<IUpdateMessage>(`/members/${member._id}`, member)
     }
 
     activateMember(member: IMemberActivation): Observable<IUpdateMessage> {
