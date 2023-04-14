@@ -4,22 +4,28 @@ import { IBooks } from 'src/app/models/IBooks';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-book-details',
-  templateUrl: './book-details.component.html',
-  styleUrls: ['./book-details.component.css']
+  selector: "app-book-details",
+  templateUrl: "./book-details.component.html",
+  styleUrls: ["./book-details.component.css"],
 })
 export class BookDetailsComponent implements OnInit {
-
   @Input() public bookItem!: IBooks;
-  
-  constructor(private bookApi: BooksService,private link:ActivatedRoute) 
-  { 
-  }
+  borrowModalVisible: boolean = false;
+  readModalVisible: boolean = false;
+
+  constructor(private bookApi: BooksService, private link: ActivatedRoute) {}
   ngOnInit() {
-    this.bookApi.getBookById(this.link.snapshot.params['id']).subscribe((data) => {
-      this.bookItem = data.data;
-    });
+    this.bookApi
+      .getBookById(this.link.snapshot.params["id"])
+      .subscribe((data) => {
+        this.bookItem = data.data;
+      });
   }
+  showBorrowForm() {
+    this.borrowModalVisible = true;
+  }
+  showReadForm() { 
+    this.readModalVisible = true;
 
-
+  }
 }

@@ -1,0 +1,27 @@
+<form [formGroup]="readBook" (ngSubmit)="onSubmit()">
+  <label for="text" class="control-label"> Member </label>
+  <p-autoComplete
+    formControlName="member"
+    styleClass="d-block w-100"
+    [suggestions]="filteredMembers"
+    (completeMethod)="Autocomplete($event)"
+    field="full_name"
+    [showClear]="true"
+    [showEmptyMessage]="true"
+    [required]="true"
+  ></p-autoComplete>
+  <div class="alert alert-danger mt-2" *ngIf="readBook.get('member')?.errors && readBook.get('member')?.touched">
+    Member is required  
+  </div>
+  <p-button
+    icon="pi pi-check"
+    (click)="onSubmit()"
+    label="Read Book"
+    styleClass="p-button-text mt-2"
+    [disabled]="readBook.invalid"
+  ></p-button>
+  
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
+</form>
