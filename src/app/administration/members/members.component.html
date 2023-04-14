@@ -1,7 +1,7 @@
 <!-- Import PrimeNG components -->
 
 
-<p-table #dt [paginator]="false" [responsive]="true" [rows]="10" [value]="members">
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="members">
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
             <p-messages key="ativationError"></p-messages>
@@ -27,7 +27,7 @@
         <tr>
             <td>{{i + 1 + (membersPerPage * (currentPage - 1))}}</td>
             <td>{{member._id}}</td>
-            <td>{{member.full_name}}</td>
+            <td><a routerLink='{{member._id}}'>{{member.full_name}}</a></td>
             <td>{{member.email}}</td>
             <td>{{member.activated}}</td>
             <td>

@@ -1,17 +1,67 @@
-<p-card>
-    <ng-template pTemplate="title">
-        <img alt="" height="100" ngSrc="{{member?.image}}" srcset="" width="100">
-    </ng-template>
-    <ng-template pTemplate="content">
-        <div class="member-details">
-            <p><strong>Member Name:</strong>{{ member?.full_name }}</p>
-            <p><strong>Password:</strong> {{ member?.password }}</p>
-            <p><strong>Email:</strong> {{ member?.email }}</p>
-            <ul><strong>Address:</strong>
-                <li><strong>City:</strong>{{member?.address?.city}}</li>
-                <li><strong>Street:</strong>{{member?.address?.street}}</li>
-                <li><strong>Buliding:</strong>{{member?.address?.building}}</li>
-            </ul>
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-11 pull-right">
+    <div class="tg-content" id="tg-content">
+        <div class="tg-productdetail">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="tg-postbook">
+                        <figure class="tg-featureimg">
+                            <img
+                                    alt="{{member?.image}}"
+                                    src="http://localhost:4200/assets/images/users/img-01.jpg"
+                            />
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="tg-productcontent">
+                        <div class="tg-booktitle">
+                            <h3>Member Name: {{ member?.full_name }}</h3>
+                        </div>
+                        <ul class="tg-productinfo">
+                            <li>
+                                <span>Email :</span><span>{{ member?.email }}</span>
+                            </li>
+                            <li>
+                                <span>Activation Status :</span><span>{{ member?.activated }}</span>
+                            </li>
+                            <li>
+                                <span>Member Address:</span>
+                                <ul>
+                                    <li>
+                                        <span>City:</span><span>{{ member?.address?.city }}</span>
+                                    </li>
+
+                                    <li>
+                                        <span>Street:</span><span>{{ member?.address?.street }}</span>
+                                    </li>
+                                    <li>
+                                        <span>Building:</span><span>{{ member?.address?.building }}</span>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <span>Phone Number:</span><span>{{ member?.phone_number }}</span>
+                            </li>
+                            <li>
+                                <span>Birth Date:</span><span>{{ member?.birth_date | date }}</span>
+                            </li>
+                            <li>
+                                <span>Last Login:</span><span>{{ member?.last_login }}</span>
+                            </li>
+                            <li>
+                                <span>Banned Date:</span><span>{{ member?.ban_date | date }}</span>
+                            </li>
+                            <li>
+                                <span>Create At:</span><span>{{ member?.created_at | date }}</span>
+                            </li>
+                            <li>
+                                <span>Updated At:</span><span>{{ member?.updated_at | date }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </ng-template>
-</p-card>
+    </div>
+</div>

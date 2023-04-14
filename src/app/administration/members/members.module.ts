@@ -11,7 +11,6 @@ import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {CardModule} from "primeng/card";
-import {MemberActivationComponent} from './member-activation/member-activation.component';
 import {MessagesModule} from "primeng/messages";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
@@ -34,7 +33,7 @@ import {DialogModule} from "primeng/dialog";
         DialogModule,
 
     ],
-    declarations: [MembersComponent, MemberDetailsComponent, MemberActivationComponent]
+    declarations: [MembersComponent, MemberDetailsComponent]
 })
 export class MembersModule {
 }

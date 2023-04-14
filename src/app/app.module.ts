@@ -24,9 +24,11 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PaginatorModule} from "primeng/paginator";
 import {FileUploadModule} from "primeng/fileupload";
 import {ButtonModule} from 'primeng/button';
+import {MemberActivationComponent} from "./member-activation/member-activation.component";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent],
+    declarations: [AppComponent, AllBooksComponent, MemberActivationComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -50,7 +52,8 @@ import {ButtonModule} from 'primeng/button';
         ConfirmDialogModule,
         PaginatorModule,
         FileUploadModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ProgressSpinnerModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
