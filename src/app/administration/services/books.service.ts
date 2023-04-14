@@ -126,9 +126,6 @@ export class BooksService implements OnInit {
     }
 
     getNewBooks(): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
         return this.ApiService.get<IBooksResponse>(
             `/books/new/`
         );

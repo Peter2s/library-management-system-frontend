@@ -7,6 +7,7 @@ import {AllBooksComponent} from "../../_test/books/all-books/all-books.component
 import {AuthorsComponent} from "./authors/authors.component";
 import {PublishersComponent} from "./publishers/publishers.component";
 import {ReportComponent} from "../dashboard/report/report.component";
+import {NewComponent} from "./new/new.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: "report", component: ReportComponent
     },
+    {
+        path: "new", component: NewComponent
+    },
+
 
     {
         path: "authors/:title",
