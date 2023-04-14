@@ -4,17 +4,13 @@ import {MembersComponent} from './members.component';
 import {MembersRoute} from "./members.routing";
 import {PaginatorModule} from "primeng/paginator";
 import {SkeletonModule} from "primeng/skeleton";
-import {MembersItemComponent} from './members-item/members-item.component';
 import {MemberDetailsComponent} from './member-details/member-details.component';
-import {MemberAddComponent} from './member-add/member-add.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {CardModule} from "primeng/card";
-import {MemberDeleteComponent} from './member-delete/member-delete.component';
-import {MemberUpdateComponent} from './member-update/member-update.component';
 import {MemberActivationComponent} from './member-activation/member-activation.component';
 import {MessagesModule} from "primeng/messages";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
@@ -38,7 +34,7 @@ import {DialogModule} from "primeng/dialog";
         DialogModule,
 
     ],
-    declarations: [MembersComponent, MembersItemComponent, MemberDetailsComponent, MemberAddComponent, MemberDeleteComponent, MemberUpdateComponent, MemberActivationComponent]
+    declarations: [MembersComponent, MemberDetailsComponent, MemberActivationComponent]
 })
 export class MembersModule {
 }

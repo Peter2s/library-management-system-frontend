@@ -4,14 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="Changed Member Main Page">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Added Edit Member&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-details/member-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/member-details/member-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-add/member-add.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-add/member-add.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-add/member-add.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-add/member-add.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-delete/member-delete.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-delete/member-delete.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-delete/member-delete.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-delete/member-delete.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-update/member-update.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members-item/members-item.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members-item/members-item.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members-item/members-item.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members-item/members-item.component.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/services/members.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/members.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/IMembers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/IMembers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.routing.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681415420663</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="&quot;Added Edit Member&quot;">
+      <created>1681433869981</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681433869981</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +137,8 @@
     <MESSAGE value="Layout" />
     <MESSAGE value="Merge Main into Members" />
     <MESSAGE value="Changed Member Main Page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed Member Main Page" />
+    <MESSAGE value="&quot;Added Edit Member&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Added Edit Member&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
