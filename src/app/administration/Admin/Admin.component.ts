@@ -188,8 +188,6 @@ export class AdminComponent implements OnInit {
 
   showEditDialog(admin: IManagers) {
     // @ts-ignore
-    // admin.hireDate = this.datePipe.transform(admin.hireDate, "yyyy-MM-dd");
-    // @ts-ignore
     admin.birthDate = this.datePipe.transform(admin.birthDate, "yyyy-MM-dd");
     console.log(admin);
     this.editForm.patchValue(admin);
