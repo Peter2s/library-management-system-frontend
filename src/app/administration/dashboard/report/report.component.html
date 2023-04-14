@@ -17,14 +17,15 @@
             <td>{{i + 1 }}</td>
             <td>{{log.member?.full_name}}</td>
             <td>{{log.book?.title}}</td>
-            <td>{{log.emp?.firstName + ' ' + log.emp?.lastName}}</td>
+            <td><span *ngIf="log.emp">{{log.emp?.firstName + ' ' + log.emp?.lastName}}</span></td>
             <td>{{log.status}}</td>
             <td>{{log.createdAt | date}}</td>
             <td>{{log.expected_date | date}}</td>
             <td>{{log.returned_date | date}}</td>
             <td>
-                <!--                <button (click)="edit(log)" icon="pi pi-pencil" pButton type="button"></button>-->
-                <!--                <button (click)="delete(log)" icon="pi pi-trash" pButton type="button"></button>-->
+                <button (click)="return(log._id,log.status)" *ngIf="(log.status=='borrow' && !log.returned_date)"
+                        class="ui-button-success" icon="pi pi-sync" pButton
+                        type="button"></button>
             </td>
 
         </tr>

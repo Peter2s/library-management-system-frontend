@@ -29,4 +29,23 @@ export class ReportComponent {
             this.messagesService.add({severity: 'error', summary: 'Error', detail: error.error.message});
         });
     }
+
+    return(id: number, status: string) {
+        /*if (status === 'borrow') {
+            this.booksService.returnBorrowBook(id).subscribe((response: BorrowedBook) => {
+                console.log(response);
+                this.messagesService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Borrowed Book returned successfully'
+                });
+                this.ngOnInit();
+            }, error => {
+                console.log(error);
+                this.messagesService.add({severity: 'error', summary: 'Error', detail: error.error.message});
+            });
+
+        }*/
+
+    }
 }
