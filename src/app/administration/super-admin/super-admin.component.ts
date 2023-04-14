@@ -116,7 +116,7 @@ export class SuperAdminComponent {
           return date < today ? null : { invalidDate: true };
         },
       ]),
-      password: new FormControl("", [
+      password: new FormControl(null, [
         Validators.minLength(8),
         Validators.maxLength(20),
       ]),
@@ -220,8 +220,8 @@ export class SuperAdminComponent {
       superAdmin.birthDate,
       "yyyy-MM-dd"
     );
-    console.log(superAdmin);
     this.editForm.patchValue(superAdmin);
+    this.editForm.patchValue({ image: superAdmin.image });
     this.editDialog = true;
   }
 
@@ -246,13 +246,14 @@ export class SuperAdminComponent {
   }
 
   update() {
-    Object.keys(this.editForm.value).forEach((key) => {
-      if (this.editForm.value[key] === "") {
-        delete this.editForm.value[key];
+    this.superAdmin = this.editForm.value;
+    Object.keys(this.superAdmin).forEach((key) => {
+      // @ts-ignore
+      if (this.superAdmin[key] === "" || this.superAdmin[key] === null) {
+        // @ts-ignore
+        delete this.superAdmin[key];
       }
     });
-    this.superAdmin = this.editForm.value;
-    console.log(this.superAdmin);
     this.superAdminsService.updateSuperAdmin(this.superAdmin).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Updated Successfully");
@@ -267,6 +268,4 @@ export class SuperAdminComponent {
       }
     );
   }
-
-  //   Class End
 }

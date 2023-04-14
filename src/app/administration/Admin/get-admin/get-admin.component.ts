@@ -19,17 +19,19 @@ export class GetAdminComponent {
         private adminsService: AdminsService,
         public loadingService: LoadingService,
         public route: ActivatedRoute,
-        public router: Router
+        public router: Router,
     ) {
     }
 
     ngOnInit() {
+        this.loadingService.showLoading();
         const id = this.route.snapshot.params["id"];
         const url = `/admin/${id}`;
         const sub = this.adminsService.getAdminById(url).subscribe((data) => {
             this.admin = data.data;
             this.fullName = `${this?.admin.firstName[0]}.${this.admin?.lastName}` || "";
             this.subscription.push(sub);
+            this.loadingService.hideLoading();
         });
     }
 

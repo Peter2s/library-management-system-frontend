@@ -219,6 +219,7 @@ export class AdminComponent implements OnInit {
   }
 
   onFileChange(event: Event) {
+
     const reader = new FileReader();
     // @ts-ignore
     if (event.target.files && event.target.files.length) {
@@ -235,7 +236,7 @@ export class AdminComponent implements OnInit {
   }
 
   update() {
-    this.admin = this.editForm.getRawValue();
+    this.admin = this.editForm.value;
     Object.keys(this.admin).forEach((key) => {
       // @ts-ignore
       if (this.admin[key] === "" || this.admin[key] === null) {
