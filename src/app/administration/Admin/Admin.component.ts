@@ -21,13 +21,16 @@ import { DatePipe } from "@angular/common";
 export class AdminComponent implements OnInit {
   admins: IManagers[];
   admin: IManagers;
+
   addForm: FormGroup;
   editForm: FormGroup;
+
   addDialog: boolean;
   editDialog: boolean;
+
   loading: boolean;
-  image: any;
   roles: string[];
+  image: any;
 
   constructor(
     private adminsService: AdminsService,
@@ -110,8 +113,8 @@ export class AdminComponent implements OnInit {
 
   showAddDialog() {
     this.admin = {} as IManagers;
-    this.addDialog = true;
     this.addForm.reset();
+    this.addDialog = true;
   }
 
   cancelAddDialog() {
@@ -119,7 +122,22 @@ export class AdminComponent implements OnInit {
   }
 
   Add() {
-    this.admin = this.addForm.value;
+    console.log(this.addForm.controls['firstName'].errors);
+    console.log(this.addForm.controls['lastName'].errors);
+    console.log(this.addForm.controls['email'].errors);
+    console.log(this.addForm.controls['hireDate'].errors);
+    console.log(this.addForm.controls['salary'].errors);
+
+    debugger;
+    this.admin = this.addForm.getRawValue();
+    Object.keys(this.admin).forEach((key) => {
+        // @ts-ignore
+      if (this.admin[key] === "") {
+            // @ts-ignore
+        delete this.admin[key];
+      }
+    });
+
     this.adminsService.addAdmin(this.admin).subscribe(
       (data: IManagerResponse) => {
         this.getAll();
@@ -131,7 +149,6 @@ export class AdminComponent implements OnInit {
         for (let key of keys) {
           this.toastService.showError(error.message[key]);
         }
-        this.toastService.showError(error.message);
       }
     );
   }
@@ -172,10 +189,7 @@ export class AdminComponent implements OnInit {
 
   showEditDialog(admin: IManagers) {
     // @ts-ignore
-    // admin.hireDate = this.datePipe.transform(admin.hireDate, "yyyy-MM-dd");
-    // @ts-ignore
     admin.birthDate = this.datePipe.transform(admin.birthDate, "yyyy-MM-dd");
-    console.log(admin);
     this.editForm.patchValue(admin);
     this.editDialog = true;
   }
@@ -201,8 +215,14 @@ export class AdminComponent implements OnInit {
   }
 
   update() {
-    this.admin = this.editForm.value;
-    console.log(this.admin);
+    this.admin = this.editForm.getRawValue();
+    Object.keys(this.admin).forEach((key) => {
+      // @ts-ignore
+      if (this.admin[key] === "") {
+        // @ts-ignore
+        delete this.admin[key];
+      }
+    });
     this.adminsService.updateAdminById(this.admin).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Updated Successfully");
@@ -214,7 +234,6 @@ export class AdminComponent implements OnInit {
         for (let key of keys) {
           this.toastService.showError(error.message[key]);
         }
-        this.toastService.showError(error.message);
       }
     );
   }
