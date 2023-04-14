@@ -6,9 +6,9 @@ body {
     margin: 0;
 }
 
-.p-error {
+.p-error > div {
     font-size: 16px;
-    margin-top: 5px;
+    margin-bottom: 3px;
 }
 
 .p-slidemenu,

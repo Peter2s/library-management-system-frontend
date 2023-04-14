@@ -78,9 +78,8 @@ export class AdminComponent implements OnInit {
       ]),
     });
 
-    // @ts-ignore
     this.editForm = new FormGroup({
-      // ...this.addForm.controls,
+      _id: new FormControl("", [Validators.required]),
       firstName: new FormControl("", [
         Validators.required,
         Validators.pattern("^[a-zA-Z]*$"),
@@ -109,7 +108,6 @@ export class AdminComponent implements OnInit {
           return salary > 2500 ? null : { invalidSalary: true };
         },
       ]),
-      _id: new FormControl("", [Validators.required]),
       birthDate: new FormControl("", [
         Validators.required,
         (value) => {
@@ -118,7 +116,7 @@ export class AdminComponent implements OnInit {
           return date < today ? null : { invalidDate: true };
         },
       ]),
-      password: new FormControl("", [
+      password: new FormControl(null, [
         Validators.minLength(8),
         Validators.maxLength(20),
       ]),
@@ -130,7 +128,6 @@ export class AdminComponent implements OnInit {
           return this.roles.includes(role) ? null : { invalidRole: true };
         },
       ]),
-
       image: new FormControl(null),
     });
   }
@@ -148,14 +145,18 @@ export class AdminComponent implements OnInit {
   cancelAddDialog() {
     this.addDialog = false;
   }
+
   Add() {
-    Object.keys(this.addForm.value).forEach((key) => {
-      if (this.addForm.value[key] === "") {
-        delete this.addForm.value[key];
+    this.admin = this.addForm.value;
+
+    Object.keys(this.admin).forEach((key) => {
+        // @ts-ignore
+      if (this.admin[key] === "") {
+            // @ts-ignore
+        delete this.admin[key];
       }
     });
-    console.log(this.addForm.value);
-    this.admin = this.addForm.value;
+
     this.adminsService.addAdmin(this.admin).subscribe(
       (data: IManagerResponse) => {
         this.getAll();
@@ -209,6 +210,7 @@ export class AdminComponent implements OnInit {
     // @ts-ignore
     admin.birthDate = this.datePipe.transform(admin.birthDate, "yyyy-MM-dd");
     this.editForm.patchValue(admin);
+    this.editForm.patchValue({ image: admin.image });
     this.editDialog = true;
   }
 
@@ -217,6 +219,7 @@ export class AdminComponent implements OnInit {
   }
 
   onFileChange(event: Event) {
+
     const reader = new FileReader();
     // @ts-ignore
     if (event.target.files && event.target.files.length) {
@@ -233,10 +236,10 @@ export class AdminComponent implements OnInit {
   }
 
   update() {
-    this.admin = this.editForm.getRawValue();
+    this.admin = this.editForm.value;
     Object.keys(this.admin).forEach((key) => {
       // @ts-ignore
-      if (this.admin[key] === "") {
+      if (this.admin[key] === "" || this.admin[key] === null) {
         // @ts-ignore
         delete this.admin[key];
       }

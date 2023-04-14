@@ -36,5 +36,7 @@ export class AuthService {
 
   public logout(): void {
     this._isLogin = false;
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   }
 }

@@ -116,7 +116,7 @@ export class EmployeesComponent implements OnInit {
           return date < today ? null : { invalidDate: true };
         },
       ]),
-      password: new FormControl("", [
+      password: new FormControl(null, [
         Validators.minLength(8),
         Validators.maxLength(20),
       ]),
@@ -165,7 +165,6 @@ export class EmployeesComponent implements OnInit {
         delete this.addForm.value[key];
       }
     });
-    console.log(this.addForm.value);
     this.employee = this.addForm.value;
     this.employeesService.addEmployee(this.employee).subscribe(
       (data: IManagerResponse) => {
@@ -223,6 +222,7 @@ export class EmployeesComponent implements OnInit {
       "yyyy-MM-dd"
     );
     this.editForm.patchValue(employee);
+    this.editForm.patchValue({ image: employee.image });
     this.editDialog = true;
   }
 
@@ -247,12 +247,14 @@ export class EmployeesComponent implements OnInit {
   }
 
   update() {
-    Object.keys(this.editForm.value).forEach((key) => {
-      if (this.editForm.value[key] === "") {
-        delete this.editForm.value[key];
+    this.employee = this.editForm.value;
+    Object.keys(this.employee).forEach((key) => {
+      // @ts-ignore
+      if (this.employee[key] === "" || this.employee[key] === null) {
+        // @ts-ignore
+        delete this.employee[key];
       }
     });
-    this.employee = this.editForm.value;
     this.employeesService.updateEmployeeById(this.employee).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Updated Successfully");
