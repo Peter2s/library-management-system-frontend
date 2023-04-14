@@ -27,7 +27,6 @@ export class AdminComponent implements OnInit {
   editDialog: boolean;
   loading: boolean;
   image: any;
-  public validationErrors?: { [p: string]: string };
   roles: string[];
 
   constructor(
@@ -112,7 +111,6 @@ export class AdminComponent implements OnInit {
   showAddDialog() {
     this.admin = {} as IManagers;
     this.addDialog = true;
-    this.validationErrors = {};
     this.addForm.reset();
   }
 
@@ -121,8 +119,6 @@ export class AdminComponent implements OnInit {
   }
 
   Add() {
-    this.validationErrors = {};
-    console.log(this.addForm.value);
     this.admin = this.addForm.value;
     this.adminsService.addAdmin(this.admin).subscribe(
       (data: IManagerResponse) => {
@@ -131,10 +127,9 @@ export class AdminComponent implements OnInit {
         this.addDialog = false;
       },
       (error) => {
-        this.validationErrors = this.formatError(error.message);
-        let keys = Object.keys(this.validationErrors);
+        let keys = Object.keys(error.message);
         for (let key of keys) {
-          this.toastService.showError(this.validationErrors[key]);
+          this.toastService.showError(error.message[key]);
         }
         this.toastService.showError(error.message);
       }
@@ -175,17 +170,6 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  formatError(error: string): { [key: string]: string } {
-    const errors: { [key: string]: string } = {};
-    error = error.replace("Error: ", "");
-    error.split(",").forEach((error) => {
-      let [key, ...value] = error.split(":");
-      key = key.substring(key.indexOf("[") + 1, key.indexOf("]"));
-      errors[key.trim()] = value.join(":").split("==>")[1].trim();
-    });
-    return errors;
-  }
-
   showEditDialog(admin: IManagers) {
     // @ts-ignore
     // admin.hireDate = this.datePipe.transform(admin.hireDate, "yyyy-MM-dd");
@@ -217,11 +201,6 @@ export class AdminComponent implements OnInit {
   }
 
   update() {
-    Object.keys(this.editForm.value).forEach((key) => {
-      if (this.editForm.value[key] === "") {
-        delete this.editForm.value[key];
-      }
-    });
     this.admin = this.editForm.value;
     console.log(this.admin);
     this.adminsService.updateAdminById(this.admin).subscribe(
@@ -231,7 +210,11 @@ export class AdminComponent implements OnInit {
         this.getAll();
       },
       (error) => {
-        this.toastService.showError("Admin Not Updated");
+        let keys = Object.keys(error.message);
+        for (let key of keys) {
+          this.toastService.showError(error.message[key]);
+        }
+        this.toastService.showError(error.message);
       }
     );
   }
