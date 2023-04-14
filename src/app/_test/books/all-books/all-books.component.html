@@ -36,7 +36,9 @@
             <td>
                 <img *ngIf="book.image" [src]="book.image" height="50" width="50">
             </td>
-            <td>{{book.title}}</td>
+            <td>
+                <a [routerLink]="['/admin','books',book._id]"> {{book.title}}</a>
+            </td>
             <td>{{book.edition}}</td>
             <td>{{book.category}}</td>
             <td>{{book.author}}</td>

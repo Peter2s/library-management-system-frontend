@@ -1,31 +1,31 @@
 <div class="container-fluid">
-  <!-- loading -->
-  <ng-container *ngFor="let number of getNumbersArray(1, 12); index as i">
-    <p-skeleton
-      *ngIf="loadingService.isLoading$.value"
-      width="25rm"
-      height="50rem"
-      borderRadius="16px"
-      styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
-    ></p-skeleton>
-  </ng-container>
-  <!-- end loading -->
-  <ng-container *ngFor="let book of books; index as i">
-    <app-bookItem
-      class="col-s-6 col-sm-6 col-md-4 col-xl-3"
-      [bookItem]="book"
-    ></app-bookItem>
-  </ng-container>
+    <!-- loading -->
+    <ng-container *ngFor="let number of getNumbersArray(1, 12); index as i">
+        <p-skeleton
+                *ngIf="loadingService.isLoading$.value"
+                borderRadius="16px"
+                height="50rem"
+                styleClass="col-s-5 col-sm-5 col-md-3 col-xl-2 p-6 m-4 "
+                width="25rm"
+        ></p-skeleton>
+    </ng-container>
+    <!-- end loading -->
+    <ng-container *ngFor="let book of books; index as i">
+        <app-bookItem
+                [bookItem]="book"
+                class="col-s-6 col-sm-6 col-md-3 col-xl-2"
+        ></app-bookItem>
+    </ng-container>
 </div>
 <div class="row">
-  <div class="card flex justify-content-center col-12">
-    <p-paginator
-      (onPageChange)="onPageChange($event)"
-      [first]="first"
-      [rows]="rows"
-      [totalRecords]="totalRecords"
-      [rowsPerPageOptions]="rowsPerPageOptions"
-    ></p-paginator>
-  </div>
+    <div class="card flex justify-content-center col-12">
+        <p-paginator
+                (onPageChange)="onPageChange($event)"
+                [first]="first"
+                [rowsPerPageOptions]="rowsPerPageOptions"
+                [rows]="rows"
+                [totalRecords]="totalRecords"
+        ></p-paginator>
+    </div>
 </div>
 <router-outlet></router-outlet>
