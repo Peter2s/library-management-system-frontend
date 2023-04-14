@@ -5,10 +5,7 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="tg-postbook">
             <figure class="tg-featureimg">
-              <img
-                src="{{bookItem.image}}"
-                alt="image description"
-              />
+              <img src="{{ bookItem.image }}" alt="image description" />
             </figure>
             <div class="tg-postbookcontent">
               <span class="tg-bookprice">
@@ -17,7 +14,6 @@
               </span>
               <!-- <span class="tg-bookwriter">You save $4.02</span> -->
               <ul class="tg-delevrystock">
-         
                 <li>
                   <i class="icon-store"></i
                   ><span
@@ -39,16 +35,37 @@
                   </span>
                 </li>
               </ul>
-   
-              <button class="tg-btn tg-active tg-btn-lg" (click)="showBorrowForm()"
-                >Borrow</button>
-             
-            <p-dialog header="Borrow Book" [(visible)]="borrowModalVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-               <app-bookBorrow></app-bookBorrow>
-            </p-dialog>
-              <a class="tg-btnaddtowishlist" href="javascript:void(0);">
+
+              <button
+                class="tg-btn tg-active tg-btn-lg"
+                (click)="showBorrowForm()"
+              >
+                Borrow
+              </button>
+
+              <p-dialog
+                header="Borrow Book"
+                [(visible)]="borrowModalVisible"
+                [modal]="true"
+                [style]="{ width: '50vw' }"
+                [draggable]="false"
+                [resizable]="false"
+              >
+                <app-bookBorrow></app-bookBorrow>
+              </p-dialog>
+              <button class="tg-btnaddtowishlist" (click)="showReadForm()">
                 <span>Read</span>
-              </a>
+              </button>
+              <p-dialog
+                header="Read Book"
+                [(visible)]="readModalVisible"
+                [modal]="true"
+                [style]="{ width: '50vw', height:'25vw' }"
+                [draggable]="false"
+                [resizable]="false"
+              >
+                <app-bookRead></app-bookRead>
+              </p-dialog>
             </div>
           </div>
         </div>

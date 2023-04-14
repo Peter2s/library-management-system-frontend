@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BookDetailsComponent implements OnInit {
   @Input() public bookItem!: IBooks;
   borrowModalVisible: boolean = false;
+  readModalVisible: boolean = false;
 
   constructor(private bookApi: BooksService, private link: ActivatedRoute) {}
   ngOnInit() {
@@ -22,6 +23,9 @@ export class BookDetailsComponent implements OnInit {
   }
   showBorrowForm() {
     this.borrowModalVisible = true;
-    console.log(this.borrowModalVisible);
+  }
+  showReadForm() { 
+    this.readModalVisible = true;
+
   }
 }

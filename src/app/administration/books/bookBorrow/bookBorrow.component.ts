@@ -18,8 +18,6 @@ import { MessageService } from 'primeng/api';
   providers:[MessageService]
 })
 export class BookBorrowComponent implements OnInit {
-  @Input("book") book: any;
-  visible: boolean = false;
   borrowBook: FormGroup;
   filteredMembers: IMembers[] = [];
   member: any;

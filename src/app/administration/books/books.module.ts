@@ -20,6 +20,7 @@ import { ButtonModule } from "primeng/button";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
+import { BookReadComponent } from "./bookRead/bookRead.component";
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { MessageService } from "primeng/api";
     SearchBookComponent,
     NewComponent,
     BookBorrowComponent,
+    BookReadComponent,
     AuthorsComponent,
     PublishersComponent,
   ],
