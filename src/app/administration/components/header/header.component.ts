@@ -25,10 +25,14 @@ export class HeaderComponent implements OnInit {
     this.toggleSidebarEvent.emit(this.sidebarVisible);
   }
 
+  getEmail(){
+    return JSON.parse(localStorage.getItem('user') || '{}').email;
+  }
+
   ngOnInit() {
     this.items = [
       {
-        label: 'Users',
+        label: this.getEmail(),
         icon: 'pi pi-fw pi-user',
         items: [
           {
@@ -36,7 +40,6 @@ export class HeaderComponent implements OnInit {
             icon: 'pi pi-fw pi-user-minus',
             command: () => {
                 this.authService.logout();
-                this.router.navigate(['/admin/login']);
             }
           }
         ]
