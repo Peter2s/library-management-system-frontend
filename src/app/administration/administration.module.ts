@@ -24,7 +24,7 @@ import { ReportComponent } from './dashboard/report/report.component';
     imports: [
         CommonModule,
         AdminRoutingModule,
-        CloudinaryModule
+   //     CloudinaryModule
 
     ],
     declarations: [
