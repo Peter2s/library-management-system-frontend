@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule, NgOptimizedImage } from "@angular/common";
-
-import { EmployeesRoutingModule } from "./employees-routing.module";
-import { GetEmployeeComponent } from "./get-employee/get-employee.component";
+import { SuperAdminRoute } from "./super-admin.routing";
+import { GetSuperAdminComponent } from "./get-super-admin/get-super-admin.component";
+import { SuperAdminComponent } from "./super-admin.component";
 import { PaginatorModule } from "primeng/paginator";
 import { SkeletonModule } from "primeng/skeleton";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
@@ -14,13 +14,12 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import { InputTextModule } from "primeng/inputtext";
 import { ToastModule } from "primeng/toast";
-import { EmployeesComponent } from "./employees.component";
 
 @NgModule({
-  declarations: [EmployeesComponent, GetEmployeeComponent],
+  declarations: [SuperAdminComponent, GetSuperAdminComponent],
   imports: [
     CommonModule,
-    EmployeesRoutingModule,
+    SuperAdminRoute,
     PaginatorModule,
     SkeletonModule,
     NgOptimizedImage,
@@ -35,4 +34,4 @@ import { EmployeesComponent } from "./employees.component";
     ToastModule,
   ],
 })
-export class EmployeesModule {}
+export class SuperAdminModule {}

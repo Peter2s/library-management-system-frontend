@@ -12,9 +12,7 @@ import {MessageService} from 'primeng/api';
     styleUrls: ["books-list.component.css"],
 })
 export class BooksListComponent implements OnInit, OnDestroy {
-    /** book model */
     books: IBooks[] = [];
-    /** Pagination */
     currentPage: number;
     itemsPerPage: number;
     totalRecords: number;
@@ -91,6 +89,7 @@ export class BooksListComponent implements OnInit, OnDestroy {
     }
 
     openNew() {
+        
     }
 
     ngOnDestroy(): void {

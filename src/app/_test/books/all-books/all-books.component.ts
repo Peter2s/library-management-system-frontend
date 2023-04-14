@@ -5,6 +5,7 @@ import {IBooks} from '../../../models/IBooks';
 import {BooksService} from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
+import {ApiService} from "../../../administration/services/api.service";
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AllBooksComponent implements OnInit {
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
+    image: string;
 
     constructor(private booksService: BooksService,
                 public confirmationService: ConfirmationService,
@@ -158,9 +160,28 @@ export class AllBooksComponent implements OnInit {
 
     }
 
+    onFileChange(event: Event) {
+        const reader = new FileReader();
+        // @ts-ignore
+        if(event.target.files && event.target.files.length) {
+            // @ts-ignore
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.image = reader.result as string;
+                this.book.image = reader.result as string;
+                this.bookForm.patchValue({
+                    image: reader.result
+                });
+            };
+        }
+    }
+
     saveBook(): void {
         this.validationErros = {};
         if (this.book._id) {
+            console.log('updateBook')
+            console.log(this.bookForm.value.image)
             this.booksService.updateBook(this.book).subscribe(
                 (response: IBooks) => {
                     this.book = response;
@@ -170,9 +191,8 @@ export class AllBooksComponent implements OnInit {
                         detail: 'Book updated.',
                         life: 5000
                     });
-                    this.getBooks();
-                    //   this.books[this.findIndexById(this.book._id)] = this.book;
-                    this.displayDialog = false;
+                    //this.getBooks();
+                   //this.displayDialog = false;
                 },
                 (error) => {
                     // console.log(error.message)
@@ -237,7 +257,7 @@ export class AllBooksComponent implements OnInit {
                 }
             );
         }
-        this.getBooks();
+        //this.getBooks();
     }
 
     deleteBook(): void {

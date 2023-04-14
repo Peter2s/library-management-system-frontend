@@ -1,3 +1,3 @@
 export interface IUpdateMessage {
-    message: string
+  message: string;
 }

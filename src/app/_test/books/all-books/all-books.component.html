@@ -31,8 +31,6 @@
     <ng-template let-book let-i="index" pTemplate="body">
         <tr>
             <td>{{i + 1}}</td>
-
-
             <td>
                 <img *ngIf="book.image" [src]="book.image" height="50">
             </td>
@@ -54,7 +52,6 @@
     </ng-template>
 </p-table>
 
-<!-- Dialog for adding/editing books -->
 <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
           header="Add/Edit Book">
 
@@ -157,10 +154,16 @@
                     <p-messages key="shelfNo"></p-messages>
                 </div>
                 <div class="p-col-12">
-                    <label for="image">Image URL</label>
-                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"
-                           type="file">
-                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>
+                    <img [src]="image" alt="book image" width="100" height="100">
+                        <input
+                            (change)="onFileChange($event)"
+                            class="form-control"
+                            formControlName="file"
+                            id="file"
+                            type="file">
+<!--                    <input #image="ngModel" [(ngModel)]="book.image" accept="image/*" id="image" name="image"-->
+<!--                           type="file">-->
+<!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                     <!--                    <p-fileUpload  name="image" id="image" [multiple]="false" accept="image/*"></p-fileUpload>-->
                     <!--                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required</div>-->
                     <p-messages key="image"></p-messages>

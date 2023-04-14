@@ -6,55 +6,51 @@ import { AuthService } from "./auth.service";
 import { IManagersResponse } from "../../models/IManagersResponse";
 import { IManagers } from "../../models/IManagers";
 import { IManagerResponse } from "src/app/models/IManagerResponse";
-
 @Injectable({
   providedIn: "root",
 })
-export class EmployeesService implements OnInit {
+export class SuperSuperAdminService {
   httpHeaders: any = {};
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService
   ) {}
-
-  ngOnInit() {}
-
-  getEmployees(): Observable<IManagersResponse> {
+  getSuperAdmins(): Observable<IManagersResponse> {
     const options: HttpOptions = {
       headers: this.httpHeaders,
     };
-    let endpoint = "/employee";
+    let endpoint = "/superAdmin";
     return this.apiService.get<IManagersResponse>(endpoint, options);
   }
 
-  //   Add Employee
-  addEmployee(employee: IManagers): Observable<IManagerResponse> {
+  //   Add SuperAdmin
+  addSuperAdmin(SuperAdmin: IManagers): Observable<IManagerResponse> {
     const options: HttpOptions = {
       headers: this.httpHeaders,
     };
     return this.apiService.post<IManagerResponse>(
-      "/Employee",
-      employee,
+      "/superAdmin",
+      SuperAdmin,
       options
     );
   }
 
-  //   Get Employee by id
-  getEmployeeById(id: string | null): Observable<IManagerResponse> {
+  //   Get SuperAdmin by id
+  getSuperAdminById(id: string | null): Observable<IManagerResponse> {
     return this.apiService.get<IManagerResponse>(`${id}`);
   }
 
-  //  Update Employee by id
-  updateEmployeeById(employee: IManagers): Observable<IManagers> {
+  //  Update SuperAdmin by id
+  updateSuperAdmin(superAdmin: IManagers): Observable<IManagers> {
     return this.apiService.patch<IManagers>(
-      `/employee/${employee._id}`,
-      employee
+      `/superAdmin/${superAdmin._id}`,
+      superAdmin
     );
   }
 
-  //   Delete Employee by id
-  deleteEmployeeById(id: number | null): Observable<IManagers> {
-    return this.apiService.delete<IManagers>(`/employee/${id}`);
+  //   Delete SuperAdmin by id
+  deleteSuperAdminById(id: number | null): Observable<IManagers> {
+    return this.apiService.delete<IManagers>(`/superAdmin/${id}`);
   }
 }

@@ -6,42 +6,40 @@ import {
   Validators,
 } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { AdminsService } from "../services/admins.service";
+import { SuperSuperAdminService } from "../services/super-admin.service";
 import { IManagers } from "../../models/IManagers";
 import { IManagerResponse } from "../../models/IManagerResponse";
 import { ToastService } from "../services/toast.service";
 import { DatePipe } from "@angular/common";
 
 @Component({
-  selector: "app-Admin",
-  templateUrl: "./Admin.component.html",
-  styleUrls: ["./Admin.component.css"],
+  selector: "app-super-admin",
+  templateUrl: "./super-admin.component.html",
+  styleUrls: ["./super-admin.component.css"],
   providers: [MessageService, ConfirmationService, ToastService, DatePipe],
 })
-export class AdminComponent implements OnInit {
-  admins: IManagers[];
-  admin: IManagers;
-
+export class SuperAdminComponent {
+  superAdmins: IManagers[];
+  superAdmin: IManagers;
   addForm: FormGroup;
   editForm: FormGroup;
-
   addDialog: boolean;
   editDialog: boolean;
-
   loading: boolean;
-  roles: string[];
   image: any;
+  public validationErrors?: { [p: string]: string };
+  roles: string[];
 
   constructor(
-    private adminsService: AdminsService,
+    private superAdminsService: SuperSuperAdminService,
     private messageService: MessageService,
     public confirmationService: ConfirmationService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private datePipe: DatePipe
   ) {
-    this.admins = [];
-    this.admin = {} as IManagers;
+    this.superAdmins = [];
+    this.superAdmin = {} as IManagers;
     this.addDialog = false;
     this.editDialog = false;
     this.loading = false;
@@ -78,8 +76,9 @@ export class AdminComponent implements OnInit {
       ]),
     });
 
+    // @ts-ignore
     this.editForm = new FormGroup({
-      _id: new FormControl("", [Validators.required]),
+      // ...this.addForm.controls,
       firstName: new FormControl("", [
         Validators.required,
         Validators.pattern("^[a-zA-Z]*$"),
@@ -108,6 +107,7 @@ export class AdminComponent implements OnInit {
           return salary > 2500 ? null : { invalidSalary: true };
         },
       ]),
+      _id: new FormControl("", [Validators.required]),
       birthDate: new FormControl("", [
         Validators.required,
         (value) => {
@@ -128,6 +128,7 @@ export class AdminComponent implements OnInit {
           return this.roles.includes(role) ? null : { invalidRole: true };
         },
       ]),
+
       image: new FormControl(null),
     });
   }
@@ -136,10 +137,24 @@ export class AdminComponent implements OnInit {
     this.getAll();
   }
 
+  private getAll() {
+    this.loading = true;
+    this.superAdminsService.getSuperAdmins().subscribe(
+      (data) => {
+        this.superAdmins = data.data;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.toastService.showError("Error Loading Admins");
+      }
+    );
+  }
   showAddDialog() {
-    this.admin = {} as IManagers;
-    this.addForm.reset();
+    this.superAdmin = {} as IManagers;
     this.addDialog = true;
+    this.validationErrors = {};
+    this.addForm.reset();
   }
 
   cancelAddDialog() {
@@ -147,17 +162,10 @@ export class AdminComponent implements OnInit {
   }
 
   Add() {
-    this.admin = this.addForm.value;
-
-    Object.keys(this.admin).forEach((key) => {
-        // @ts-ignore
-      if (this.admin[key] === "") {
-            // @ts-ignore
-        delete this.admin[key];
-      }
-    });
-
-    this.adminsService.addAdmin(this.admin).subscribe(
+    this.validationErrors = {};
+    console.log(this.addForm.value);
+    this.superAdmin = this.addForm.value;
+    this.superAdminsService.addSuperAdmin(this.superAdmin).subscribe(
       (data: IManagerResponse) => {
         this.getAll();
         this.toastService.showSuccess("Admin Added Successfully");
@@ -173,7 +181,7 @@ export class AdminComponent implements OnInit {
   }
 
   confirmDelete(admin: IManagers) {
-    this.admin = admin;
+    this.superAdmin = admin;
     this.confirmationService.confirm({
       message:
         "Are you sure that you want to delete " +
@@ -195,7 +203,7 @@ export class AdminComponent implements OnInit {
   }
 
   delete() {
-    this.adminsService.deleteAdminById(this.admin._id).subscribe(
+    this.superAdminsService.deleteSuperAdminById(this.superAdmin._id).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Deleted Successfully");
         this.getAll();
@@ -206,11 +214,14 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  showEditDialog(admin: IManagers) {
+  showEditDialog(superAdmin: IManagers) {
     // @ts-ignore
-    admin.birthDate = this.datePipe.transform(admin.birthDate, "yyyy-MM-dd");
-    this.editForm.patchValue(admin);
-    this.editForm.patchValue({ image: admin.image });
+    superAdmin.birthDate = this.datePipe.transform(
+      superAdmin.birthDate,
+      "yyyy-MM-dd"
+    );
+    this.editForm.patchValue(superAdmin);
+    this.editForm.patchValue({ image: superAdmin.image });
     this.editDialog = true;
   }
 
@@ -219,7 +230,6 @@ export class AdminComponent implements OnInit {
   }
 
   onFileChange(event: Event) {
-
     const reader = new FileReader();
     // @ts-ignore
     if (event.target.files && event.target.files.length) {
@@ -236,15 +246,15 @@ export class AdminComponent implements OnInit {
   }
 
   update() {
-    this.admin = this.editForm.value;
-    Object.keys(this.admin).forEach((key) => {
+    this.superAdmin = this.editForm.value;
+    Object.keys(this.superAdmin).forEach((key) => {
       // @ts-ignore
-      if (this.admin[key] === "" || this.admin[key] === null) {
+      if (this.superAdmin[key] === "" || this.superAdmin[key] === null) {
         // @ts-ignore
-        delete this.admin[key];
+        delete this.superAdmin[key];
       }
     });
-    this.adminsService.updateAdminById(this.admin).subscribe(
+    this.superAdminsService.updateSuperAdmin(this.superAdmin).subscribe(
       (data) => {
         this.toastService.showSuccess("Admin Updated Successfully");
         this.editDialog = false;
@@ -255,20 +265,6 @@ export class AdminComponent implements OnInit {
         for (let key of keys) {
           this.toastService.showError(error.message[key]);
         }
-      }
-    );
-  }
-
-  private getAll() {
-    this.loading = true;
-    this.adminsService.getAdmins().subscribe(
-      (data) => {
-        this.admins = data.data;
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-        this.toastService.showError("Error Loading Admins");
       }
     );
   }
