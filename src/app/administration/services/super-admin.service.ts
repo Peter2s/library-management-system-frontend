@@ -42,11 +42,11 @@ export class SuperSuperAdminService {
   }
 
   //  Update SuperAdmin by id
-  updateSuperAdminById(
-    id: number | undefined,
-    SuperAdmin: IManagers
-  ): Observable<IManagers> {
-    return this.apiService.patch<IManagers>(`/superAdmin/${id}`, SuperAdmin);
+  updateSuperAdmin(superAdmin: IManagers): Observable<IManagers> {
+    return this.apiService.patch<IManagers>(
+      `/superAdmin/${superAdmin._id}`,
+      superAdmin
+    );
   }
 
   //   Delete SuperAdmin by id
