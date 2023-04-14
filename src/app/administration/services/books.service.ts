@@ -76,7 +76,7 @@ export class BooksService implements OnInit {
             headers: this.httpHeaders,
         }
 
-        return this.ApiService.patch<IBooks>(`/books/${book._id}`, book);
+        return this.ApiService.patch<IBooks>(`/books/${book._id}`, book, options);
     }
 
     deleteBook(id: number): Observable<IBooks> {

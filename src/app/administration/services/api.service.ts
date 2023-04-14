@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {
     HttpClient,
-    HttpErrorResponse,
+    HttpErrorResponse, HttpHeaders,
     HttpInterceptor,
     HttpParams,
 } from "@angular/common/http";
@@ -36,12 +36,20 @@ export class ApiService {
     patch<T>(endpoint: string, data: any, options?: HttpOptions): Observable<T> {
         const url = this.baseUrl + endpoint
         console.log(url);
+        console.log(options);
         if (data.image) {
+            console.log('data.image');
             console.log(data.image);
+
+            options!.headers = new HttpHeaders({
+                'Content-Type': 'multipart/form-data',
+                ...options!.headers
+            })
             // data.image = data.image.image
         }
         console.log(data);
-        console.log(data);
+        console.log(options);
+        // console.log(data);
 
         return this.http
             .patch<T>(url, data, (options = {}))

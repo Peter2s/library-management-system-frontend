@@ -206,17 +206,18 @@ export class AllBooksComponent implements OnInit {
                 },
                 (error) => {
                     // console.log(error.message)
-                    this.validationErros = this.formatError(error.message)
+                    // this.validationErros = this.formatError(error.message)
                     // console.log(this.formatError(error.message));
                     // console.log(this.validationErros['title']);
-                    let keys = Object.keys(this.validationErros);
+                    // let keys = Object.keys(this.validationErros);
+                    let keys = Object.keys(error.message);
                     for (let key of keys) {
                         console.log(key);
                         this.messageService.add({
                             key: key,
                             severity: 'error',
                             summary: 'Error',
-                            detail: this.validationErros[key],
+                            detail: error.message[key],
                             // life: 5000
                         });
                     }
