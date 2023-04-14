@@ -17,6 +17,8 @@ export class MembersComponent implements OnInit {
     memberForm: FormGroup = {} as FormGroup;
     members: IMembers[];
     member: IMembers;
+    maxBirthDate = new Date('2009-01-01 00:00:00').getDate();
+    egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
     editMemberFlag: boolean = false;
     displayDialog: boolean;
     loading: boolean;
@@ -44,12 +46,12 @@ export class MembersComponent implements OnInit {
         const trim = (str: string) => str.trim();
         this.loadMembers();
         this.memberForm = this.formBuilder.group({
-            full_name: [trim, Validators.required],
-            email: ['', Validators.required],
-            password: ['', Validators.required],
+            full_name: [trim, Validators.required, Validators.minLength(3)],
+            email: ['', Validators.required, Validators.email],
+            password: ['', Validators.required, Validators.minLength(8)],
             image: ['', Validators.required],
-            phone_number: ['', Validators.required],
-            birth_date: ['', Validators.required],
+            phone_number: ['', Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(this.egyptianPhoneRegex)],
+            birth_date: ['', Validators.required, Validators.max(this.maxBirthDate)],
             address: {
                 city: ['', Validators.required],
                 street: ['', Validators.required],
@@ -167,6 +169,7 @@ export class MembersComponent implements OnInit {
         const errors: { [key: string]: string } = {};
         error = error.replace("Error: ", "");
         error.split(",").forEach((error) => {
+            console.log("This Error", error);
             if (error) {
                 let [key, ...value] = error.split(":");
                 key = key.substring(key.indexOf("[") + 1, key.indexOf("]"))

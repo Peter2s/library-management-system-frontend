@@ -11,7 +11,7 @@ import {HttpOptions} from "src/app/models/IHttp-options";
     providedIn: "root",
 })
 export class ApiService {
-    private baseUrl = "http://www.randomiizer.ninja";
+    private baseUrl = "http://www.nader-mo.tech";
 
     constructor(private http: HttpClient) {
     }

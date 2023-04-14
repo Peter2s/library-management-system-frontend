@@ -50,16 +50,15 @@
                     <label for="full_name">Full Name</label>
                     <input #full_name="ngModel" [(ngModel)]="member.full_name" id="full_name" name="full_name" required
                            type="text">
-                    <div *ngIf="full_name.invalid && (full_name.dirty || full_name.touched)" class="p-error">Full Name
-                        is required and
-                        should be at least 3 characters
+                    <div *ngIf="full_name.invalid && (full_name.dirty || full_name.touched)" class="p-error">full name
+                        min Length must 3 or more
                     </div>
                     <p-messages key="full_name"></p-messages>
                 </div>
                 <div class="p-col-12">
                     <label for="email">Email</label>
                     <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Email is required
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Email is Invalid
                     </div>
                     <p-messages key="email"></p-messages>
                     <p-messages key="MongoServerError"></p-messages>
@@ -68,9 +67,8 @@
                     <label for="password">Password</label>
                     <input #password="ngModel" [(ngModel)]="member.password" id="password" name="password" required
                            type="password">
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">Password
-                        is
-                        required
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">
+                        Password is Required and Must be More than 8 Characters
                     </div>
                     <p-messages key="password"></p-messages>
                 </div>
@@ -96,8 +94,7 @@
                     <input #birth_date="ngModel" [(ngModel)]="member.birth_date" id="birth_date" name="birth_date"
                            required type="date">
                     <div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)" class="p-error">
-                        Birth is
-                        required
+                        Birth is required
                     </div>
                     <p-messages key="birth_date"></p-messages>
                 </div>

@@ -1,16 +1,16 @@
 <div class="container">
-    <div class="h1 text-center text-capitalize text-secondary"> Activate Member </div>
-    <form class="col-8 offset-2" [formGroup]="activateMember" (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value">
-
+    <div class="h1 text-center text-capitalize text-secondary"> Activate Member</div>
+    <form (ngSubmit)="onSubmit()" *ngIf="!loadingService.isLoading$.value" [formGroup]="activateMember"
+          class="col-8 offset-2">
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
+            <label class="form-label" for="email">Email</label>
             <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    formControlName="email"
                     [class.is-valid]="email?.valueChanges && email?.valid"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
                     required
+                    type="email"
             />
             <ng-container *ngIf="email?.errors && email?.touched">
                 <div *ngIf="email?.hasError('required')">
@@ -18,21 +18,19 @@
                         Please Enter Your Email
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
 
-
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label class="form-label" for="password">Password</label>
             <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    formControlName="password"
                     [class.is-valid]="password?.valueChanges && password?.valid"
+                    class="form-control"
+                    formControlName="password"
+                    id="password"
                     required
+                    type="password"
             />
             <ng-container *ngIf="password?.errors && password?.touched">
                 <div *ngIf="password?.hasError('required')">
@@ -40,19 +38,18 @@
                         Please Enter Your Password
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
         <div class="mb-3">
-            <label for="newpassword" class="form-label">New Password</label>
+            <label class="form-label" for="newpassword">New Password</label>
             <input
-                    type="password"
-                    class="form-control"
-                    id="newpassword"
-                    formControlName="newpassword"
                     [class.is-valid]="newpassword?.valueChanges && newpassword?.valid"
+                    class="form-control"
+                    formControlName="newpassword"
+                    id="newpassword"
                     required
+                    type="password"
             />
             <ng-container *ngIf="newpassword?.errors && newpassword?.touched">
                 <div *ngIf="newpassword?.hasError('required')">
@@ -60,19 +57,18 @@
                         Please Enter Your New Password
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
+            <label class="form-label" for="image">Image</label>
             <input
-                    type="file"
-                    class="form-control"
-                    id="image"
-                    formControlName="image"
                     [class.is-valid]="image?.valueChanges && image?.valid"
+                    class="form-control"
+                    formControlName="image"
+                    id="image"
                     required
+                    type="file"
             />
             <ng-container *ngIf="image?.errors && image?.touched">
                 <div *ngIf="image?.hasError('required')">
@@ -80,19 +76,18 @@
                         Please Upload Your Image
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
         <div class="mb-3">
-            <label for="phone_number" class="form-label">Phone Number</label>
+            <label class="form-label" for="phone_number">Phone Number</label>
             <input
-                    type="string"
-                    class="form-control"
-                    id="phone_number"
-                    formControlName="phone_number"
                     [class.is-valid]="phone_number?.valueChanges && phone_number?.valid"
+                    class="form-control"
+                    formControlName="phone_number"
+                    id="phone_number"
                     required
+                    type="string"
             />
             <ng-container *ngIf="phone_number?.errors && phone_number?.touched">
                 <div *ngIf="phone_number?.hasError('required')">
@@ -100,20 +95,19 @@
                         Please Enter Phone Number
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
         <div class="mb-3">
-            <label for="birth_date" class="form-label">Birth Date</label>
+            <label class="form-label" for="birth_date">Birth Date</label>
             <input
-                    type="date"
+                    [class.is-valid]="birth_date?.valueChanges && birth_date?.valid"
                     class="form-control"
+                    formControlName="birth_date"
                     id="birth_date"
                     max='2008-01-01'
-                    formControlName="birth_date"
-                    [class.is-valid]="birth_date?.valueChanges && birth_date?.valid"
                     required
+                    type="date"
             />
             <ng-container *ngIf="birth_date?.errors && birth_date?.touched">
                 <div *ngIf="birth_date?.hasError('required')">
@@ -121,20 +115,19 @@
                         Please Choose Your Birth Date
                     </div>
                 </div>
-
             </ng-container>
         </div>
 
 
         <div class="mb-3" formGroupName="address">
-            <label for="city" class="form-label">City</label>
+            <label class="form-label" for="city">City</label>
             <input
-                    type="text"
-                    class="form-control"
-                    id="city"
-                    formControlName="city"
                     [class.is-valid]="city?.valueChanges && city?.valid"
+                    class="form-control"
+                    formControlName="city"
+                    id="city"
                     required
+                    type="text"
             />
 
             <ng-container *ngIf="city?.errors && city?.touched">
@@ -145,14 +138,14 @@
                 </div>
             </ng-container>
 
-            <label for="street" class="form-label">Street</label>
+            <label class="form-label" for="street">Street</label>
             <input
-                    type="text"
-                    class="form-control"
-                    id="street"
-                    formControlName="street"
                     [class.is-valid]="street?.valueChanges && street?.valid"
+                    class="form-control"
+                    formControlName="street"
+                    id="street"
                     required
+                    type="text"
             />
 
             <ng-container *ngIf="street?.errors && street?.touched">
@@ -163,19 +156,19 @@
                 </div>
             </ng-container>
 
-            <label for="building" class="form-label">Building</label>
+            <label class="form-label" for="building">Building</label>
             <input
-                    type="number"
-                    class="form-control"
-                    id="building"
-                    formControlName="building"
                     [class.is-valid]="building?.valueChanges && building?.valid"
+                    class="form-control"
+                    formControlName="building"
+                    id="building"
                     required
+                    type="number"
             />
             <ng-container *ngIf="building?.errors && building?.touched">
                 <div *ngIf="building?.hasError('required')">
                     <div class="alert alert-danger mt-1" role="alert">
-                        Choose Your Birth Date
+                        Enter Building Number
                     </div>
                 </div>
             </ng-container>
@@ -183,10 +176,10 @@
 
         <div class="mb-3">
             <input
-                    type="submit"
+                    [disabled]="activateMember.invalid"
                     class="btn btn-success"
                     id="submit"
-                    [disabled]="activateMember.invalid"
+                    type="submit"
             />
         </div>
     </form>

@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Cleaning Folders&quot;">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Member Show Details Added&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-activation/member-activation.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-activation/member-activation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-activation/member-activation.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-activation/member-activation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/member-details/member-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/member-details/member-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.routing.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,27 +38,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "members",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "ts.external.directory.path": "/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;members&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/media/hossam/4670E5FB70E5F21B/ITI/Projects/library-management-system-frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app" />
@@ -102,6 +96,7 @@
       <workItem from="1681257580354" duration="2979000" />
       <workItem from="1681308477449" duration="12872000" />
       <workItem from="1681327241002" duration="7480000" />
+      <workItem from="1681459734090" duration="10325000" />
     </task>
     <task id="LOCAL-00001" summary="Merge Main into Members">
       <created>1681396584861</created>
@@ -131,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681434296381</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="&quot;Member Show Details Added&quot;">
+      <created>1681438579273</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681438579273</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +145,8 @@
     <MESSAGE value="Changed Member Main Page" />
     <MESSAGE value="&quot;Added Edit Member&quot;" />
     <MESSAGE value="&quot;Cleaning Folders&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Cleaning Folders&quot;" />
+    <MESSAGE value="&quot;Member Show Details Added&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Member Show Details Added&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

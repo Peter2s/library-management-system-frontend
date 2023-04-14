@@ -4,20 +4,25 @@ import {MembersService} from "../administration/services/members.service";
 import {FormService} from "../shared/services/Form.service";
 import {LoadingService} from "../shared/services/loading.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-member-activation',
     templateUrl: './member-activation.component.html',
-    styleUrls: ['./member-activation.component.css']
+    styleUrls: ['./member-activation.component.css'],
+    providers: [MessageService]
 })
 export class MemberActivationComponent {
     activateMember: FormGroup;
+    public validationErros?: { [p: string]: string };
+
 
     constructor(
         private fb: FormBuilder,
         private membersService: MembersService,
         private formService: FormService,
         public loadingService: LoadingService,
+        public messageService: MessageService,
         private router: Router
     ) {
         this.activateMember = this.fb.group({
@@ -74,10 +79,46 @@ export class MemberActivationComponent {
     onSubmit() {
         if (this.activateMember.valid) {
             this.membersService.activateMember(this.activateMember.value).subscribe((message) => {
-                this.router.navigateByUrl('admin/members');
-            });
+                    this.router.navigateByUrl('admin/members');
+                }, (error) => {
+                    console.log("This", error)
+                    try {
+                        this.validationErros = this.formatError(error.message)
+                        let keys = Object.keys(this.validationErros);
+                        for (let key of keys) {
+                            this.messageService.add({
+                                key: key,
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: this.validationErros[key],
+                            });
+                        }
+                    } catch (e: any) {
+                    }
+                    this.messageService.add({
+                        key: 'MongoServerError',
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message,
+                    });
+                }
+            );
         } else {
             this.formService.handelError(this.activateMember);
         }
+    }
+
+    formatError(error: string): { [key: string]: string } {
+        const errors: { [key: string]: string } = {};
+        error = error.replace("Error: ", "");
+        error.split(",").forEach((error) => {
+            console.log("This Error", error);
+            if (error) {
+                let [key, ...value] = error.split(":");
+                key = key.substring(key.indexOf("[") + 1, key.indexOf("]"))
+                errors[key.trim()] = value.join(":").split("==>")[1].trim();
+            }
+        });
+        return errors;
     }
 }
