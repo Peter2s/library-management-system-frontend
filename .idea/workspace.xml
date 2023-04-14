@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Member Show Details Added&quot;">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/members/members.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/api.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/member-activation/member-activation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +95,7 @@
       <workItem from="1681308477449" duration="12872000" />
       <workItem from="1681327241002" duration="7480000" />
       <workItem from="1681459734090" duration="10325000" />
+      <workItem from="1681477934492" duration="1503000" />
     </task>
     <task id="LOCAL-00001" summary="Merge Main into Members">
       <created>1681396584861</created>
@@ -133,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681438579273</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;">
+      <created>1681478320663</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681478320663</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +152,8 @@
     <MESSAGE value="&quot;Added Edit Member&quot;" />
     <MESSAGE value="&quot;Cleaning Folders&quot;" />
     <MESSAGE value="&quot;Member Show Details Added&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Member Show Details Added&quot;" />
+    <MESSAGE value="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

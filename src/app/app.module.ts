@@ -26,9 +26,11 @@ import {FileUploadModule} from "primeng/fileupload";
 import {ButtonModule} from 'primeng/button';
 import {MemberActivationComponent} from "./member-activation/member-activation.component";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {MemberLoginComponent} from './member-login/member-login.component';
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent, MemberActivationComponent],
+    declarations: [AppComponent, AllBooksComponent, MemberActivationComponent, MemberLoginComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -53,7 +55,8 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
         PaginatorModule,
         FileUploadModule,
         ReactiveFormsModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        ToastModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
