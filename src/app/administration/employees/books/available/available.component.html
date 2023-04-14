@@ -1,1 +1,29 @@
-<p>available works!</p>
+<!--<p>available works!</p>-->
+<!--{{books|json}}-->
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="books">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Edition</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Publishing Date</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+        <tr>
+            <td>{{book._id}}</td>
+            <td><img src="{{book.image}}" width="50" height="50"></td>
+            <td>{{book.title}}</td>
+            <td>{{book.edition}}</td>
+            <td>{{book.category}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.publisher}}</td>
+            <td>{{book.publishingDate}}</td>
+        </tr>
+    </ng-template>
+
+</p-table>
