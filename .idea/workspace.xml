@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;">
+    <list default="true" id="a2412a44-f410-4d84-954e-0186ffdbfaea" name="Changes" comment="&quot;Added Login Member&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/administration/services/auth.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
@@ -95,7 +95,7 @@
       <workItem from="1681308477449" duration="12872000" />
       <workItem from="1681327241002" duration="7480000" />
       <workItem from="1681459734090" duration="10325000" />
-      <workItem from="1681477934492" duration="1503000" />
+      <workItem from="1681477934492" duration="2138000" />
     </task>
     <task id="LOCAL-00001" summary="Merge Main into Members">
       <created>1681396584861</created>
@@ -139,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681478320663</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="&quot;Added Login Member&quot;">
+      <created>1681507614894</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681507614894</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +160,8 @@
     <MESSAGE value="&quot;Cleaning Folders&quot;" />
     <MESSAGE value="&quot;Member Show Details Added&quot;" />
     <MESSAGE value="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fixed Activation Form &amp;&amp; Added Validation to update Form&quot;" />
+    <MESSAGE value="&quot;Added Login Member&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Added Login Member&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
