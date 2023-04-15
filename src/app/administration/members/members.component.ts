@@ -22,11 +22,7 @@ export class MembersComponent implements OnInit {
     editMemberFlag: boolean = false;
     displayDialog: boolean;
     loading: boolean;
-    totalMembersCount: number = 0;
-    first: number = 0;
-    currentPage: number = 1;
-    membersPerPage: number = 10;
-    rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
+
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
 
@@ -58,11 +54,6 @@ export class MembersComponent implements OnInit {
                 building: ['', Validators.required],
             },
         });
-    }
-
-    onPageChange(event: any): void {
-        this.currentPage = event.page + 1;
-        this.membersPerPage = event.rows;
         this.loadMembers();
     }
 
@@ -229,11 +220,10 @@ export class MembersComponent implements OnInit {
 
     private loadMembers() {
         this.loading = true;
-        this.membersService.getMembers(this.currentPage, this.membersPerPage).subscribe(
+        this.membersService.getMembers().subscribe(
             (response: IMembersResponse) => {
                 this.members = response.data;
                 this.loading = false;
-                this.totalMembersCount = response.pagination.total_members_count;
             }, (error) => {
                 this.messageService.add(
                     {
