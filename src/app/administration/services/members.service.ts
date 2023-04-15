@@ -59,6 +59,6 @@ export class MembersService implements OnInit {
         return this.apiService.post<IUpdateMessage>(`/activation`, member)
     }
     search(data:any){
-    return this.apiService.post<IMembersResponse>("/search", data)
+    return this.apiService.post<IMembersResponse>("/members/search", data)
     }
 }

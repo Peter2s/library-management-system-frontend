@@ -20,6 +20,10 @@ import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
 import { BookReadComponent } from "./bookRead/bookRead.component";
 import {ToolbarModule} from "primeng/toolbar";
+import {BorrowingComponent} from "./emp-books/borrowing/borrowing.component";
+import {LateComponent} from "./emp-books/late/late.component";
+import {ReadingComponent} from "./emp-books/reading/reading.component";
+import {AvailableComponent} from "./emp-books/available/available.component";
 
 
 @NgModule({
@@ -46,6 +50,11 @@ import {ToolbarModule} from "primeng/toolbar";
     BookReadComponent,
     AuthorsComponent,
     PublishersComponent,
+      BorrowingComponent,
+      LateComponent,
+      ReadingComponent,
+      AvailableComponent,
+
   ],
 })
 export class BooksModule {}

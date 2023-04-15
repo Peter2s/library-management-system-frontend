@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {IBooks} from '../../../models/IBooks';
-import {BooksService} from '../../../administration/services/books.service';
+import {BooksService} from '../../services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
 import {Cloudinary, CloudinaryImage} from '@cloudinary/url-gen';
 
 
 @Component({
-    selector: 'app-books',
+    selector: 'app-emp-books',
     templateUrl: './all-books.component.html',
     styleUrls: ['./all-books.component.css'],
     providers: [ConfirmationService, MessageService]
@@ -88,7 +88,7 @@ export class AllBooksComponent implements OnInit {
                     {
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'Failed to get books.'
+                        detail: 'Failed to get emp-books.'
                     });
                 this.loading = false;
             }
@@ -201,7 +201,7 @@ export class AllBooksComponent implements OnInit {
                         life: 5000
                     });
                     this.getBooks();
-                    //   this.books[this.findIndexById(this.book._id)] = this.book;
+                    //   this.emp-books[this.findIndexById(this.book._id)] = this.book;
                     this.displayDialog = false;
                 },
                 (error) => {

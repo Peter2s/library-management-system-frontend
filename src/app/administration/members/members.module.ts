@@ -14,6 +14,9 @@ import {CardModule} from "primeng/card";
 import {MessagesModule} from "primeng/messages";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
+import {CurrentBorrowedComponent} from "./member-books/current-borrowed/current-borrowed.component";
+import {ListBorrowedComponent} from "./member-books/list-borrowed/list-borrowed.component";
+import {ListReadingComponent} from "./member-books/list-reading/list-reading.component";
 
 @NgModule({
     imports: [
@@ -33,7 +36,7 @@ import {DialogModule} from "primeng/dialog";
         DialogModule,
 
     ],
-    declarations: [MembersComponent, MemberDetailsComponent]
+    declarations: [MembersComponent, MemberDetailsComponent,CurrentBorrowedComponent,ListBorrowedComponent,ListReadingComponent,]
 })
 export class MembersModule {
 }

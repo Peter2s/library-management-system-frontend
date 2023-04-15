@@ -24,11 +24,11 @@ export class AuthService {
     return this._isLogin;
   }
 
-  // public get_user(): Observable<any> {
-  // }
-
   public login(credentials: ILogin): Observable<IAuthResponse> {
     return this.api.post("/login/administration", credentials);
+  }
+  public memberLogin(credentials: ILogin): Observable<IAuthResponse> {
+    return this.api.post("/login", credentials);
   }
 
   public activationAdministration(credentials: IActivationAdministration): Observable<IAuthResponse> {

@@ -9,7 +9,7 @@ import {Action} from "rxjs/internal/scheduler/Action";
 import {AuthorizationService} from './../services/Authorization.service';
 
 @Component({
-    selector: "app-books",
+    selector: "app-emp-books",
     templateUrl: "./books.component.html",
     styleUrls: ["./books.component.css"],
 })
@@ -48,7 +48,7 @@ export class BooksComponent implements OnInit, OnDestroy {
     }
 
     loadBooks() {
-        // const url = `/books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
+        // const url = `/emp-books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
         const sub = this.booksService.getBooks(this.currentPage, this.itemsPerPage).subscribe((data) => {
             this.books = data.data;
             this.subscription.push(sub);

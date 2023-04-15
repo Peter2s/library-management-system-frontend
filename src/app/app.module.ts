@@ -8,7 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {LoadingInterceptor} from "./shared/services/LoadingInterceptor";
 import {AuthInterceptor} from "./shared/services/authInterceptor.service";
-import {AllBooksComponent} from './_test/books/all-books/all-books.component';
+import {AllBooksComponent} from './administration/books/all-books/all-books.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';

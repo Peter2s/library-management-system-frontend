@@ -48,7 +48,7 @@ export class BooksListComponent implements OnInit, OnDestroy {
     }
 
     loadBooks() {
-        // const url = `/books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
+        // const url = `/emp-books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
         const sub = this.booksService.getBooks(this.currentPage, this.itemsPerPage).subscribe((data) => {
             this.books = data.data;
             this.subscription.push(sub);

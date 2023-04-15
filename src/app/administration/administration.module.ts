@@ -43,7 +43,6 @@ import {CardModule} from "primeng/card";
         Error404Component,
         DashboardComponent,
         AdministrationMainLayoutComponent,
-        ReportComponent,
     ],
 })
 export class administrationModule {

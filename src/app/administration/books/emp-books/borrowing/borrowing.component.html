@@ -1,5 +1,5 @@
 <!--<p>borrowing works!</p>-->
-<!--{{books|json}}-->
+<!--{{emp-books|json}}-->
 <p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="books">
     <ng-template pTemplate="header">
         <tr>
@@ -10,7 +10,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-book>
-<!--        {{console.log(book)}}-->
+        {{console.log(book)}}
         <tr>
             <td>{{book.member?.full_name}}</td>
             <td>{{book.book.title}}</td>
