@@ -1,3 +1,92 @@
-<p>
-  activation works!
-</p>
+<p-toast></p-toast>
+<div class="text-center my-5 pt-5 w-25 mx-auto">
+  <form [formGroup]="activeForm" (submit)="onSubmit()">
+    <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
+    <h1 class="h3 mb-3 fs-3 fw-normal">Please Activate</h1>
+    <!-- Email -->
+    <div class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="email"
+               required type="text">
+        <label>Email</label>
+      </div>
+      <div class="p-error" *ngIf="activeForm.controls['email']?.invalid && (activeForm.controls['email'].dirty || activeForm.controls['email'].touched)">
+        <div *ngIf="activeForm.controls['email'].errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="activeForm.controls['email'].errors.pattern">
+          Email is not valid.
+        </div>
+      </div>
+    </div>
+
+    <!-- password -->
+    <div  class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="password"
+               required
+               type="password">
+        <label>Password</label>
+      </div>
+      <div class="p-error" *ngIf="activeForm.controls['password']?.invalid && (activeForm.controls['password'].dirty || activeForm.controls['password'].touched)">
+        <div *ngIf="activeForm.controls['password'].errors.minLength">
+          Password must be at least 8 characters.
+        </div>
+        <div *ngIf="activeForm.controls['password'].errors.maxLength">
+          Password must be at most 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <div  class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="newpassword"
+               required
+               type="password">
+        <label>Password</label>
+      </div>
+      <div class="p-error" *ngIf="activeForm.controls['newpassword']?.invalid && (activeForm.controls['newpassword'].dirty || activeForm.controls['password'].touched)">
+        <div *ngIf="activeForm.controls['newpassword'].errors.minLength">
+          New Password must be at least 8 characters.
+        </div>
+        <div *ngIf="activeForm.controls['newpassword'].errors.maxLength">
+          New Password must be at most 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Birth date -->
+    <div class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="birthDate"
+               required type="date">
+        <label>Birth Date</label>
+      </div>
+      <div class="p-error" *ngIf="activeForm.controls['birthDate']?.invalid && (activeForm.controls['birthDate'].dirty || activeForm.controls['birthDate'].touched)">
+        <div *ngIf="activeForm.controls['birthDate'].errors.required">
+          Birth Date is required.
+        </div>
+        <div *ngIf="activeForm.controls['birthDate'].errors.invalidDate">
+          Birth Date is not valid.
+        </div>
+      </div>
+    </div>
+
+    <button
+            class="w-100 btn btn-lg btn-primary"
+            type="submit"
+            [disabled]="activeForm.invalid"
+    >
+      Activate
+    </button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+  </form>
+</div>

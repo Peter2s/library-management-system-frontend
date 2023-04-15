@@ -1,21 +1,27 @@
 import { Injectable } from "@angular/core";
 import { Roles } from "src/app/models/Roles";
 import jwt_decode from "jwt-decode";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthorizationService {
   private currentUserRole: Roles;
-  constructor() {
+  constructor(
+    private authService: AuthService,
+  ) {
     this.currentUserRole = this.getLoggedInUserRole();
   }
 
   // Method to get the role of the logged-in user
   getLoggedInUserRole(): any {
     const token = localStorage.getItem("accessToken");
+    // @ts-ignore
+    if(jwt_decode(token).ext > Date.now() / 1000) {
+        this.authService.logout();
+    }
     const decoded = this.getRoleFromToken(token!);
-    console.log("role", decoded);
     this.currentUserRole === decoded;
     if (this.isValidRole(decoded!, Roles))
         return this.currentUserRole;

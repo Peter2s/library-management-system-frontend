@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from "primeng/api";
 import { MessagesModule } from 'primeng/messages';
+import {InputTextModule} from "primeng/inputtext";
 
 
 
@@ -18,6 +19,7 @@ import { MessagesModule } from 'primeng/messages';
         ReactiveFormsModule,
         ToastModule,
         MessagesModule,
+        InputTextModule,
     ],
   declarations: [ActivationComponent, LoginComponent],
   providers: [MessageService],
