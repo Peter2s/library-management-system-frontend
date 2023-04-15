@@ -3,12 +3,18 @@
 
 <p-table #dt [paginator]="false" [responsive]="true" [rows]="10" [value]="books">
     <ng-template pTemplate="caption">
-        <div class="d-flex align-items-center justify-content-between" style="line-height: 1.87em">
+        <div  class="flex" style="line-height: 1.87em">
 
-            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+            <button (click)="showDialogToAdd()" class="p-button-success p-pull-lef" icon="pi pi-plus" label="Add"
                     pButton
                     type="button">
             </button>
+            <span class="p-input-icon-left ml-auto  p-pull-right">
+                    <i class="pi pi-search"></i>
+                    <input #srch pInputText type="text" (input)="search($event)" placeholder="Search keyword" />
+            </span>
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-trash" (click)="srch.value='';getBooks()"></button>
+
             <h3 class="mb-0 mx-auto">Books: {{ totalBooksCount }}</h3>
             <br>
 

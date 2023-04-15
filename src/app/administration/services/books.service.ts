@@ -226,10 +226,8 @@ export class BooksService implements OnInit {
     }
 
     search(searchBy: String, value: String | number | boolean): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
-        return this.ApiService.get(`/books/search?searchBy=${searchBy}&value=${value}`);
+
+        return this.ApiService.get(`/books/search?${searchBy}=${value}`);
     }
 
     borrowHistory(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {

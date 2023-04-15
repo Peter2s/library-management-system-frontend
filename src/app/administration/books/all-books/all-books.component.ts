@@ -6,6 +6,7 @@ import {BooksService} from '../../services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
 import {Cloudinary, CloudinaryImage} from '@cloudinary/url-gen';
+import {Table} from "primeng/table";
 
 
 @Component({
@@ -331,6 +332,26 @@ export class AllBooksComponent implements OnInit {
             errors[key.trim()] = value.join(":").split("==>")[1].trim();
         });
         return errors;
+    }
+    clear(table: Table) {
+        table.clear();
+        this.getBooks();
+    }
+    search($event: any) {
+        console.log($event);
+        let value = $event.target.value;
+        if (value == '') {
+            this.getBooks();
+            return;
+        }
+        this.booksService.search("title",value).subscribe(
+            (response: IBooksResponse) => {
+                this.books = response.data;
+                this.loading = false;
+                this.totalBooksCount = response.pagination.total_books_count;
+
+            },
+        );
     }
 
 }
