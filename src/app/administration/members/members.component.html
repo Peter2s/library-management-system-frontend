@@ -180,62 +180,63 @@
             </div>
 
             <!-- City -->
-            <div class="col-md-12 mb-3">
-                <div class="form-floating mb-3">
-                    <input class="form-control"
-                           pInputText
-                           formControlName="address.city"
-                           required type="text">
-                    <label>City</label>
-                </div>
-                <div class="p-error" *ngIf="editForm.controls['address.city']?.invalid && (editForm.controls['address.city'].dirty || editForm.controls['address.city'].touched)">
-                    <div *ngIf="editForm.controls['address.city'].errors.required">
-                       City is required.
+            <div class="col-md-12 mb-3" formGroupName="address">
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <input class="form-control"
+                               pInputText
+                               formControlName="city"
+                               required type="text">
+                        <label>City</label>
                     </div>
-                    <div *ngIf="editForm.controls['address.city'].errors.pattern">
-                        City Must be Letters Only
+                    <div class="p-error" *ngIf="editForm.controls['city']?.invalid && (editForm.controls['city'].dirty || editForm.controls['city'].touched)">
+                        <div *ngIf="editForm.controls['city'].errors.required">
+                           City is required.
+                        </div>
+                        <div *ngIf="editForm.controls['city'].errors.pattern">
+                            City Must be Letters Only
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Street -->
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <input class="form-control"
+                               pInputText
+                               formControlName="street"
+                               required type="text">
+                        <label>Street</label>
+                    </div>
+                    <div class="p-error" *ngIf="editForm.controls['street']?.invalid && (editForm.controls['street'].dirty || editForm.controls['street'].touched)">
+                        <div *ngIf="editForm.controls['street'].errors.required">
+                            Street is required.
+                        </div>
+                        <div *ngIf="editForm.controls['street'].errors.pattern">
+                            Street Must be Letters Only
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Building -->
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating mb-3">
+                        <input class="form-control"
+                               pInputText
+                               formControlName="building"
+                               required type="text">
+                        <label>Building</label>
+                    </div>
+                    <div class="p-error" *ngIf="editForm.controls['building']?.invalid && (editForm.controls['building'].dirty || editForm.controls['building'].touched)">
+                        <div *ngIf="editForm.controls['building'].errors.required">
+                            Building is required.
+                        </div>
+                        <div *ngIf="editForm.controls['building'].errors.pattern">
+                            Building Must be a Number
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Street -->
-            <div class="col-md-12 mb-3">
-                <div class="form-floating mb-3">
-                    <input class="form-control"
-                           pInputText
-                           formControlName="address.street"
-                           required type="text">
-                    <label>Street</label>
-                </div>
-                <div class="p-error" *ngIf="editForm.controls['address.street']?.invalid && (editForm.controls['address.street'].dirty || editForm.controls['address.street'].touched)">
-                    <div *ngIf="editForm.controls['address.street'].errors.required">
-                        Street is required.
-                    </div>
-                    <div *ngIf="editForm.controls['address.street'].errors.pattern">
-                        Street Must be Letters Only
-                    </div>
-                </div>
-            </div>
-
-            <!-- Building -->
-            <div class="col-md-12 mb-3">
-                <div class="form-floating mb-3">
-                    <input class="form-control"
-                           pInputText
-                           formControlName="address.building"
-                           required type="text">
-                    <label>Building</label>
-                </div>
-                <div class="p-error" *ngIf="editForm.controls['address.building']?.invalid && (editForm.controls['address.building'].dirty || editForm.controls['address.building'].touched)">
-                    <div *ngIf="editForm.controls['address.building'].errors.required">
-                        Building is required.
-                    </div>
-                    <div *ngIf="editForm.controls['address.building'].errors.pattern">
-                        Building Must be a Number
-                    </div>
-                </div>
-            </div>
-
 <!--            image-->
             <div class="col-md-12 mb-3">
                 <div class="mb-3">

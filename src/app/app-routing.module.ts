@@ -13,6 +13,7 @@ import {PublishersComponent} from "./administration/books/publishers/publishers.
 import {BookDetailsComponent} from "./administration/books/book-details/book-details.component";
 import {ReportComponent} from "./administration/dashboard/report/report.component";
 import {LoginGuard} from "./administration/guards/login.guard";
+import {MemberEditComponent} from "./member-edit/member-edit.component";
 
 
 const routes: Routes = [
@@ -63,6 +64,10 @@ const routes: Routes = [
     {
         path: "home",
         component: AllBooksComponent
+    },
+    {
+        path: "edit",
+        component: MemberEditComponent
     },
 
   { path: "**", component: Error404Component },

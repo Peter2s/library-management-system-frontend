@@ -29,10 +29,11 @@ import {MemberActivationComponent} from "./member-activation/member-activation.c
 import {MemberLoginComponent} from "./member-login/member-login.component";
 import {ToastModule} from "primeng/toast";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent,MemberActivationComponent,MemberLoginComponent],
+    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent,MemberActivationComponent,MemberLoginComponent, MemberEditComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

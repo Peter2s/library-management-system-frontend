@@ -1,0 +1,95 @@
+<p-toast></p-toast>
+<div class="container d-flex justify-content-center">
+
+    <form [formGroup]="editMember" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <h1>Edit Profile</h1>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">Full Name</label>
+                    <input id="full_name" type="text" class="form-control" formControlName="full_name" required>
+                    <div class="p-error" *ngIf="editMember.controls['full_name']?.invalid && (editMember.controls['full_name'].dirty || editMember.controls['full_name'].touched)">
+                        <div *ngIf="editMember.controls['full_name'].errors.required">
+                            Full Name is required.
+                        </div>
+                        <div *ngIf="editMember.controls['full_name'].errors.pattern">
+                            Full Name Must be Letters Only
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <input id="phone_number" type="text" class="form-control" formControlName="phone_number" required>
+                    <div class="p-error" *ngIf="editMember.controls['phone_number']?.invalid && (editMember.controls['phone_number'].dirty || editMember.controls['phone_number'].touched)">
+                        <div *ngIf="editMember.controls['phone_number'].errors.required">
+                            Phone Number is required.
+                        </div>
+                        <div *ngIf="editMember.controls['phone_number'].errors.pattern">
+                            Phone Number is Invalid.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="birth_date" class="form-label">Birth Date</label>
+                    <input id="birth_date" type="date" class="form-control" formControlName="birth_date" required>
+                    <div class="p-error" *ngIf="editMember.controls['birth_date']?.invalid && (editMember.controls['birth_date'].dirty || editMember.controls['birth_date'].touched)">
+                        <div *ngIf="editMember.controls['birth_date'].errors.required">
+                            Birth Date is required.
+                        </div>
+                        <div *ngIf="editMember.controls['birth_date'].errors.invalidDate">
+                            Birth Date is not valid.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3" formGroupName="address">
+
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input id="city" type="text" class="form-control" formControlName="city" required>
+                        <div class="p-error" *ngIf="editMember.controls['city']?.invalid && (editMember.controls['city'].dirty || editMember.controls['city'].touched)">
+                            <div *ngIf="editMember.controls['city'].errors.required">
+                                City is required.
+                            </div>
+                            <div *ngIf="editMember.controls['city'].errors.pattern">
+                                City Must be Letters Only
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="street" class="form-label">Street</label>
+                        <input id="street" type="text" class="form-control" formControlName="street" required>
+                        <div class="p-error" *ngIf="editMember.controls['street']?.invalid && (editMember.controls['street'].dirty || editMember.controls['street'].touched)">
+                            <div *ngIf="editMember.controls['street'].errors.required">
+                                Street is required.
+                            </div>
+                            <div *ngIf="editMember.controls['street'].errors.pattern">
+                                Street Must be Letters Only
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="building" class="form-label">Building</label>
+                        <input id="building" type="number" class="form-control" formControlName="building" required>
+                        <div class="p-error" *ngIf="editMember.controls['building']?.invalid && (editMember.controls['building'].dirty || editMember.controls['building'].touched)">
+                            <div *ngIf="editMember.controls['building'].errors.required">
+                                Building is required.
+                            </div>
+                            <div *ngIf="editMember.controls['building'].errors.pattern">
+                                Building Must be a Number
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" [disabled]="editMember.invalid" class="btn btn-primary">Submit</button>
+
+            </div>
+        </div>
+    </form>
+</div>
