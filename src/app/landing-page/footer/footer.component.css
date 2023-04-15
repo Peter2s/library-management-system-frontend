@@ -12,6 +12,10 @@ footer {
     margin: 0;
     padding: 0;
   }
+
+  h3{
+    color: #fff;
+  }
   
   .contact h3,
   .social h3,

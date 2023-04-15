@@ -30,12 +30,15 @@ import { HeaderComponent } from './landing-page/header/header.component';
 import { FooterComponent } from './landing-page/footer/footer.component';
 import { BestBooksComponent } from './landing-page/best-books/best-books.component';
 import { NewBooksComponent } from './landing-page/new-books/new-books.component';
-
-
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { CarouselModule } from 'primeng/carousel';
+import { BestReadingBooksComponent } from './landing-page/best-reading-books/best-reading-books.component';
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent, LandingPageComponent, HeaderComponent, FooterComponent, BestBooksComponent, NewBooksComponent],
+    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent, LandingPageComponent, HeaderComponent, FooterComponent, BestBooksComponent, NewBooksComponent, BestReadingBooksComponent],
     imports: [
+        CarouselModule,
+        SlickCarouselModule,
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
@@ -58,7 +61,7 @@ import { NewBooksComponent } from './landing-page/new-books/new-books.component'
         ConfirmDialogModule,
         PaginatorModule,
         FileUploadModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},

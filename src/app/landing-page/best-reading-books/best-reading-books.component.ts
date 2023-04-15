@@ -4,11 +4,11 @@ import { IBooks } from "src/app/models/IBooks";
 import {IBooksResponse} from "../../models/IBooksResponse";
 
 @Component({
-  selector: 'app-best-books',
-  templateUrl: './best-books.component.html',
-  styleUrls: ['./best-books.component.css']
+  selector: 'app-best-reading-books',
+  templateUrl: './best-reading-books.component.html',
+  styleUrls: ['./best-reading-books.component.css']
 })
-export class BestBooksComponent implements OnInit{
+export class BestReadingBooksComponent implements OnInit{
   books: IBooks[] = [];
 
   sliderConfig = {
@@ -26,9 +26,9 @@ export class BestBooksComponent implements OnInit{
   }
 
   ngOnInit() {
-      this.booksService.getMostBorrowed().subscribe((response: IBooksResponse) => {
-          this.books = response.data;
-          console.log(this.books);
-      });
+    this.booksService.getMostReading().subscribe((response: IBooksResponse) => {
+        this.books = response.data;
+        console.log(this.books);
+    });
   }
 }
