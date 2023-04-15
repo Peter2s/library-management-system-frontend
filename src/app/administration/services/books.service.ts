@@ -124,6 +124,14 @@ export class BooksService implements OnInit {
             `/books/borrowing/`
         );
     }
+    getReadingBooks(): Observable<IBooksResponse> {
+        let options: HttpOptions = {
+            headers: this.httpHeaders,
+        }
+        return this.ApiService.get<IBooksResponse>(
+            `/books/reading/`
+        );
+    }
 
     getNewBooks(): Observable<IBooksResponse> {
         return this.ApiService.get<IBooksResponse>(

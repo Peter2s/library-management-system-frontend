@@ -14,8 +14,12 @@ export class ReadingComponent {
   constructor(private booksService: BooksService) {}
 
   ngOnInit() {
-    this.booksService.getBooks().subscribe((response: IBooksResponse) => {
-      this.books = response.data;
-    });
+    this.booksService
+        .getReadingBooks()
+        .subscribe((response: IBooksResponse) => {
+          this.books = response.data;
+        });
   }
+
+  protected readonly console = console;
 }
