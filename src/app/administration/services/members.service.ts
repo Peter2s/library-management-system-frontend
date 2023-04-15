@@ -58,4 +58,7 @@ export class MembersService implements OnInit {
     activateMember(member: IMemberActivation): Observable<IUpdateMessage> {
         return this.apiService.post<IUpdateMessage>(`/activation`, member)
     }
+    search(data:any){
+    return this.apiService.post<IMembersResponse>("/search", data)
+    }
 }

@@ -21,9 +21,9 @@
     <div class="card flex justify-content-center col-12">
         <p-paginator
                 (onPageChange)="onPageChange($event)"
-                [first]="first"
+                [first]="currentPage"
                 [rowsPerPageOptions]="rowsPerPageOptions"
-                [rows]="rows"
+                [rows]="itemsPerPage"
                 [totalRecords]="totalRecords"
         ></p-paginator>
     </div>

@@ -18,6 +18,9 @@ import {ButtonModule} from "primeng/button";
 import {MessagesModule} from "primeng/messages";
 import {SharedModule} from "primeng/api";
 import {TableModule} from "primeng/table";
+import {SlideMenuModule} from "primeng/slidemenu";
+import {MenubarModule} from "primeng/menubar";
+import {CardModule} from "primeng/card";
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import {TableModule} from "primeng/table";
         MessagesModule,
         SharedModule,
         TableModule,
+        SlideMenuModule,
+        MenubarModule,
+        CardModule,
 
     ],
     declarations: [

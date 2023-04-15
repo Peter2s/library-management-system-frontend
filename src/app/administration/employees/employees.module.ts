@@ -8,6 +8,12 @@ import { BorrowingComponent } from "./books/borrowing/borrowing.component";
 import { ReadingComponent } from "./books/reading/reading.component";
 import { SharedModule } from "primeng/api";
 import { TableModule } from "primeng/table";
+import {EmployeesComponent} from "./employees.component";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {DropdownModule} from "primeng/dropdown";
+import {DialogModule} from "primeng/dialog";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -15,7 +21,8 @@ import { TableModule } from "primeng/table";
     AvailableComponent,
     BorrowingComponent,
     ReadingComponent,
+    EmployeesComponent
   ],
-  imports: [CommonModule, EmployeesRoutingModule, SharedModule, TableModule],
+  imports: [CommonModule, EmployeesRoutingModule, SharedModule, TableModule, ConfirmDialogModule, DropdownModule, DialogModule, ReactiveFormsModule, ToastModule],
 })
 export class EmployeesModule {}

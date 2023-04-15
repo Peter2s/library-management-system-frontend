@@ -25,10 +25,14 @@ import {FileUploadModule} from "primeng/fileupload";
 import {LatestComponent} from './books/latest/latest.component';
 import { MostBorrowedComponent } from './books/most-borrowed/most-borrowed.component';
 import { MostReadingComponent } from './books/most-reading/most-reading.component';
+import {MemberActivationComponent} from "./member-activation/member-activation.component";
+import {MemberLoginComponent} from "./member-login/member-login.component";
+import {ToastModule} from "primeng/toast";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
 @NgModule({
-    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent],
+    declarations: [AppComponent, AllBooksComponent, LatestComponent, MostBorrowedComponent, MostReadingComponent,MemberActivationComponent,MemberLoginComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -52,7 +56,9 @@ import { MostReadingComponent } from './books/most-reading/most-reading.componen
         ConfirmDialogModule,
         PaginatorModule,
         FileUploadModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ToastModule,
+        ProgressSpinnerModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
