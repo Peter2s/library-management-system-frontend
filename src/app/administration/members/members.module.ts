@@ -14,6 +14,7 @@ import {CardModule} from "primeng/card";
 import {MessagesModule} from "primeng/messages";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import {DialogModule} from "primeng/dialog";
         MessagesModule,
         ConfirmDialogModule,
         DialogModule,
+        InputTextModule,
 
     ],
     declarations: [MembersComponent, MemberDetailsComponent]

@@ -21,17 +21,12 @@ export class MembersService implements OnInit {
     ngOnInit() {
     }
 
-    getMembers(page?: number, limit?: number): Observable<IMembersResponse> {
+    getMembers(): Observable<IMembersResponse> {
         const options: HttpOptions = {
             headers: this.httpHeaders,
-            params: {
-                page: page?.toString() ?? "",
-                limit: limit?.toString() ?? "",
-            },
+
         };
-        let endpoint = "/members?"
-        if (page) endpoint += `&page=${page}`
-        if (limit) endpoint += `&limit=${limit}`
+        let endpoint = "/members"
         return this.apiService.get<IMembersResponse>(endpoint, options);
     }
 

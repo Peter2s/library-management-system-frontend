@@ -1,7 +1,7 @@
 <!-- Import PrimeNG components -->
 
 
-<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="members">
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="8" [value]="members">
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
             <p-messages key="ativationError"></p-messages>
@@ -15,7 +15,6 @@
     >
     <ng-template pTemplate="header">
         <tr>
-            <th>#</th>
             <th>ID</th>
             <th>Full Name</th>
             <th>Email</th>
@@ -25,7 +24,6 @@
     </ng-template>
     <ng-template let-i="rowIndex" let-member pTemplate="body">
         <tr>
-            <td>{{i + 1 + (membersPerPage * (currentPage - 1))}}</td>
             <td>{{member._id}}</td>
             <td><a routerLink='{{member._id}}'>{{member.full_name}}</a></td>
             <td>{{member.email}}</td>
@@ -141,17 +139,6 @@
 
 </p-dialog>
 
-
-<p-paginator
-        (onPageChange)="onPageChange($event)"
-        [first]="first"
-        [rowsPerPageOptions]="rowsPerPageOptions"
-        [rows]="membersPerPage"
-        [showCurrentPageReport]="true"
-        [totalRecords]="totalMembersCount"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
->
-</p-paginator>
 <!-- Dialog for confirming member deletion -->
 <p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
     <p-footer>
@@ -162,5 +149,4 @@
                 type="button"></button>
     </p-footer>
 </p-confirmDialog>
-
 

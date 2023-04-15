@@ -22,11 +22,6 @@ export class MembersComponent implements OnInit {
     editMemberFlag: boolean = false;
     displayDialog: boolean;
     loading: boolean;
-    totalMembersCount: number = 0;
-    first: number = 0;
-    currentPage: number = 1;
-    membersPerPage: number = 10;
-    rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
 
@@ -61,8 +56,6 @@ export class MembersComponent implements OnInit {
     }
 
     onPageChange(event: any): void {
-        this.currentPage = event.page + 1;
-        this.membersPerPage = event.rows;
         this.loadMembers();
     }
 
@@ -188,7 +181,6 @@ export class MembersComponent implements OnInit {
         if (this.member._id) {
             this.membersService.deleteMemberById(this.member._id).subscribe(
                 () => {
-                    this.members.splice(this.findIndexById(this.member._id), 1);
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Success',
@@ -229,11 +221,10 @@ export class MembersComponent implements OnInit {
 
     private loadMembers() {
         this.loading = true;
-        this.membersService.getMembers(this.currentPage, this.membersPerPage).subscribe(
+        this.membersService.getMembers().subscribe(
             (response: IMembersResponse) => {
                 this.members = response.data;
                 this.loading = false;
-                this.totalMembersCount = response.pagination.total_members_count;
             }, (error) => {
                 this.messageService.add(
                     {
@@ -246,14 +237,5 @@ export class MembersComponent implements OnInit {
         )
     }
 
-    private findIndexById(id: number) {
-        let index = -1;
-        for (let i = 0; i < this.members.length; i++) {
-            if (this.members[i]._id === id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
+
 }
