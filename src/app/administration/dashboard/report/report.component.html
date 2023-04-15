@@ -1,1 +1,33 @@
-<p>report works!</p>
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="logs">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Member</th>
+            <th>Book</th>
+            <th>Emp</th>
+            <th>status</th>
+            <th>Date</th>
+            <th>Expected Date</th>
+            <th>returned_date</th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template let-i="rowIndex" let-log pTemplate="body">
+        <tr>
+            <td>{{i + 1 }}</td>
+            <td>{{log.member?.full_name}}</td>
+            <td>{{log.book?.title}}</td>
+            <td><span *ngIf="log.emp">{{log.emp?.firstName + ' ' + log.emp?.lastName}}</span></td>
+            <td>{{log.status}}</td>
+            <td>{{log.createdAt | date}}</td>
+            <td>{{log.expected_date | date}}</td>
+            <td>{{log.returned_date | date}}</td>
+            <td>
+                <button (click)="return(log._id,log.status)" *ngIf="(log.status=='borrow' && !log.returned_date)"
+                        class="ui-button-success" icon="pi pi-sync" pButton
+                        type="button"></button>
+            </td>
+
+        </tr>
+    </ng-template>
+</p-table>

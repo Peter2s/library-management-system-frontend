@@ -6,7 +6,7 @@ import {HttpOptions} from 'src/app/models/IHttp-options';
 import {IBooks} from 'src/app/models/IBooks';
 import {AuthService} from './auth.service';
 import {HttpHeaders} from '@angular/common/http';
-import {BookResponse} from 'src/app/models/book-response';
+import {BookResponse, BorrowedBooks} from 'src/app/models/book-response';
 
 @Injectable({
     providedIn: "root",
@@ -31,7 +31,7 @@ export class BooksService implements OnInit {
         return this.ApiService.get('/categories');
     }
 
-    getReports() {
+    getReports(): Observable<BorrowedBooks> {
         return this.ApiService.get('/reports');
     }
 
@@ -87,10 +87,8 @@ export class BooksService implements OnInit {
     }
 
     getBooksByAuthor(author: string): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
-        return this.ApiService.get<IBooksResponse>(`/books/author/${author}`);
+
+        return this.ApiService.get<IBooksResponse>(`/author/${author}`);
     }
 
     getBooksByPublisher(publisher: string): Observable<IBooksResponse> {
@@ -98,7 +96,7 @@ export class BooksService implements OnInit {
             headers: this.httpHeaders,
         }
         return this.ApiService.get<IBooksResponse>(
-            `/books/publisher/${publisher}`
+            `/publisher/${publisher}`
         );
     }
 
@@ -106,7 +104,7 @@ export class BooksService implements OnInit {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        return this.ApiService.get<IBooksResponse>(`/books/title/${title}`);
+        return this.ApiService.get<IBooksResponse>(`/title/${title}`);
     }
 
     getAvailabileBooks(): Observable<IBooksResponse> {
@@ -128,9 +126,6 @@ export class BooksService implements OnInit {
     }
 
     getNewBooks(): Observable<IBooksResponse> {
-        let options: HttpOptions = {
-            headers: this.httpHeaders,
-        }
         return this.ApiService.get<IBooksResponse>(
             `/books/new/`
         );
@@ -144,7 +139,7 @@ export class BooksService implements OnInit {
 
 
     getMostBorrowed(year: number | string = ''): Observable<IBooksResponse> {
-        
+
         let url = '';
         if (Number(year))
             url = `/most/borrowed/${year}`;
@@ -162,6 +157,31 @@ export class BooksService implements OnInit {
             url = `/most/read/`;
         return this.ApiService.get<IBooksResponse>(url);
     }
+
+    getListBorrowed(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
+
+        let url = '';
+        if (Number(year)) {
+            url = `/books/history/borrowed/${year}`;
+            if (Number(month))
+                url += `/${month}`;
+        } else
+            url = `/books/history/borrowed/`;
+        return this.ApiService.get<IBooksResponse>(url);
+    }
+
+    getListRead(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
+
+        let url = '';
+        if (Number(year)) {
+            url = `/books/history/reading/${year}`;
+            if (Number(month))
+                url += `/${month}`;
+        } else
+            url = `/books/history/reading/`;
+        return this.ApiService.get<IBooksResponse>(url);
+    }
+
 
     borrowBook(data: any) {
         let options: HttpOptions = {
@@ -205,11 +225,11 @@ export class BooksService implements OnInit {
         return this.ApiService.get(`/books/currentborrow`);
     }
 
-    search(): Observable<IBooksResponse> {
+    search(searchBy: String, value: String | number | boolean): Observable<IBooksResponse> {
         let options: HttpOptions = {
             headers: this.httpHeaders,
         }
-        return this.ApiService.get('/books/search');
+        return this.ApiService.get(`/books/search?searchBy=${searchBy}&value=${value}`);
     }
 
     borrowHistory(year: number | string = '', month: number | string = ''): Observable<IBooksResponse> {
