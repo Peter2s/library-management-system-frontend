@@ -1,5 +1,9 @@
 <p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="logs">
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="caption">
+        <div class="d-flex align-items-center justify-content-between" style="line-height: 1.87em">
+            <h3 class="mb-0 mx-auto">Report</h3>
+        </div>
+    </ng-template>    <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
             <th>Member</th>
