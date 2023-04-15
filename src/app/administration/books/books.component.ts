@@ -1,62 +1,74 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ApiService } from "../services/api.service";
-import { IBooks } from "src/app/models/IBooks";
-import { BooksService } from "../services/books.service";
-import { Subscription } from 'rxjs';
-import { LoadingService } from '../../shared/services/loading.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ApiService} from "../services/api.service";
+import {IBooks} from "src/app/models/IBooks";
+import {BooksService} from "../services/books.service";
+import {Subscription} from "rxjs";
+import {LoadingService} from "../../shared/services/loading.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Action} from "rxjs/internal/scheduler/Action";
+import {AuthorizationService} from './../services/Authorization.service';
 
 @Component({
-  selector: "app-books",
-  templateUrl: "./books.component.html",
-  styleUrls: ["./books.component.css"],
+    selector: "app-books",
+    templateUrl: "./books.component.html",
+    styleUrls: ["./books.component.css"],
 })
 export class BooksComponent implements OnInit, OnDestroy {
-  /** book model */
-  books: IBooks[] = [];
-  /** Pagination */
-  first: number;
-  rows: number;
-  totalRecords: number;
-  rowsPerPageOptions: number[];
-  /** Observable */
-  subscription: Subscription[] = [];
-  constructor(
-    private booksService: BooksService,
-    public loadingService: LoadingService
-  ) {
-    this.first = 1;
-    this.rows = 8;
-    this.totalRecords = 0;
-    this.rowsPerPageOptions = [
-      this.rows,
-      this.rows * 2,
-      this.rows * 5,
-      this.rows * 10,
-    ];
-  }
+    /** book model */
+    books: IBooks[] = [];
+    /** Pagination */
+    currentPage: number;
+    itemsPerPage: number;
+    totalRecords: number;
+    rowsPerPageOptions: number[];
+    /** Observable */
+    subscription: Subscription[] = [];
 
-  ngOnInit() {
-    const sub = this.booksService.getBooks().subscribe((data) => {
-      this.books = data.data;
-      this.subscription.push(sub);
-      this.totalRecords = data.pagination.total_books_count;
-      console.log(data);
-    });
-  }
+    constructor(
+        private booksService: BooksService,
+        public loadingService: LoadingService,
+        public route: ActivatedRoute,
+        private authorization: AuthorizationService
+    ) {
+        this.currentPage = 1;
+        this.itemsPerPage = 8;
+        this.totalRecords = 0;
+        this.rowsPerPageOptions = [
+            this.itemsPerPage,
+            this.itemsPerPage * 2,
+            this.itemsPerPage * 5,
+            this.itemsPerPage * 10,
+        ];
+    }
 
-  onPageChange(event: any) {
-    console.log(event);
-    this.booksService.getBooks(event.page+1,this.rows).subscribe((books) => {
-      this.books = books.data;
-      console.log(books);
-    });
-  }
+    ngOnInit() {
+        this.currentPage = this.route.snapshot.queryParams["page"] || 1;
+        this.itemsPerPage = this.route.snapshot.queryParams["limit"] || 8;
+        this.loadBooks();
+    }
 
-  getNumbersArray(start: number, end: number): number[] {
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-  }
+    loadBooks() {
+        // const url = `/books?page=${this.currentPage}&limit=${this.itemsPerPage}`;
+        const sub = this.booksService.getBooks(this.currentPage, this.itemsPerPage).subscribe((data) => {
+            this.books = data.data;
+            this.subscription.push(sub);
+            this.totalRecords = data.pagination.total_books_count;
+            console.log(data);
+        });
+    }
 
-  ngOnDestroy(): void {
-    this.subscription.forEach((sub) => sub.unsubscribe());
-  }
+    onPageChange(event: any) {
+        console.log(event);
+        this.currentPage = event.page + 1;
+        this.itemsPerPage = event.rows;
+        this.loadBooks();
+    }
+
+    getNumbersArray(start: number, end: number): number[] {
+        return Array.from({length: end - start + 1}, (_, i) => start + i);
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.forEach((sub) => sub.unsubscribe());
+    }
 }

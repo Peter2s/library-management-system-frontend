@@ -9,4 +9,10 @@ export class AdministrationMainLayoutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  sidebarVisible = false;
+
+  toggleSidebar(event: boolean) {
+    this.sidebarVisible = event;
+  }
 }

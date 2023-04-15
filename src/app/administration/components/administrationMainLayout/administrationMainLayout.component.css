@@ -1,0 +1,14 @@
+.main-content {
+    min-height: calc(100vh - 140px);
+    width: 100%;
+}
+
+.main-content.open-sidebar {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+}
+
+.open-sidebar {
+
+}
+

@@ -1,0 +1,69 @@
+<div class="text-center mt-5">
+    <div class="form-signin">
+        <form (submit)="onSubmit()" [formGroup]="loginForm">
+            <fa-icon [icon]="faBookOpenReader" animation="bounce" size="4x"></fa-icon>
+            <h1 class="h3 mb-3 fs-3 fw-normal">Please Sign In</h1>
+            <!-- email input -->
+            <div class="form-floating">
+                <input
+                        [class.is-valid]="email?.valueChanges && email?.valid"
+                        class="form-control ng-dirty ng-invalid"
+                        formControlName="email"
+                        id="floatingInput"
+                        name="email"
+                        placeholder="email"
+                        type="email"
+                />
+
+                <ng-container *ngIf="email?.invalid && email?.touched">
+
+                    <p-messages [enableService]="false" [value]="validationErrors" key="email"
+                                showTransitionOptions="500ms"></p-messages>
+                </ng-container>
+                -->
+                <label for="floatingInput">Email address</label>
+            </div>
+            <!-- password input -->
+            <div class="form-floating">
+                <input
+                    #passwordInput
+                    [class.is-valid]="password?.valueChanges && password?.valid"
+                    class="form-control"
+                    formControlName="password"
+                    id="floatingPassword"
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                />
+                <!-- password validation -->
+                <ng-container *ngIf="password?.invalid && password?.touched">
+                    <ng-container *ngIf="password?.errors?.['required']">
+                        <div class="alert alert-danger fade show">Password is required</div>
+                    </ng-container>
+                    <ng-container *ngIf="password?.errors?.['minlength']">
+                        <div class="alert alert-danger fade show">
+                            Password must be 8 or more characters
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <p-toast position="top-left"></p-toast>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"/> Remember me
+                </label>
+            </div>
+            <button
+                    [disabled]="loginForm.invalid"
+                    class="w-100 btn btn-lg btn-primary"
+                    type="submit"
+            >
+                Sign in
+            </button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+        </form>
+    </div>
+</div>
