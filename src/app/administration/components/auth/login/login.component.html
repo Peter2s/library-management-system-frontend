@@ -1,74 +1,54 @@
-
-
-<div class="text-center mt-5">
-  <div class="form-signin">
-    <form [formGroup]="loginForm" (submit)="onSubmit()">
-      <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
-      <h1 class="h3 mb-3 fs-3 fw-normal">Please sign in</h1>
-      <!-- email input -->
-      <div class="form-floating">
-        <input
-          type="email"
-          name="email"
-          formControlName="email"
-          class="form-control ng-dirty ng-invalid"
-          id="floatingInput"
-          placeholder="email"
-          [class.is-valid]="email?.valueChanges && email?.valid"
-        />
-
-        {{validationErrors |json}}
-        <ng-container *ngIf="email?.invalid && email?.touched">
-
-          <p-messages key="email" showTransitionOptions="500ms"[value]="validationErrors" [enableService]="false" ></p-messages>
-
-        </ng-container> -->
-        <label for="floatingInput">Email address</label>
+<p-toast></p-toast>
+<div class="text-center my-5 pt-5 w-25 mx-auto">
+  <form [formGroup]="loginForm" (submit)="onSubmit()">
+    <fa-icon [icon]="faBookOpenReader" size="4x" animation="bounce"></fa-icon>
+    <h1 class="h3 mb-3 fs-3 fw-normal">Please sign in</h1>
+    <!-- Email -->
+    <div class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="email"
+               required type="text">
+        <label>Email</label>
       </div>
-      <!-- password input -->
-      <div class="form-floating">
-        <input
-        #passwordInput
-          type="password"
-          class="form-control"
-          formControlName="password"
-          name="password"
-          id="floatingPassword"
-          placeholder="Password"
-          [class.is-valid]="password?.valueChanges && password?.valid"
-        />
-        <!-- password validation -->
-        <ng-container *ngIf="password?.invalid && password?.touched">
-          <ng-container *ngIf="password?.errors?.['required']">
-            <div class="alert alert-danger fade show">Password is required</div>
-          </ng-container>
-          <ng-container *ngIf="password?.errors?.['minlength']">
-            <div class="alert alert-danger fade show">
-              Password must be 8 or more characters
-            </div>
-          </ng-container>
-        </ng-container>
-
-        <label for="floatingPassword">Password</label>
+      <div class="p-error" *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+        <div *ngIf="loginForm.controls['email'].errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="loginForm.controls['email'].errors.pattern">
+          Email is not valid.
+        </div>
       </div>
+    </div>
 
-        <p-toast position="top-left"  >   </p-toast>
-
-
-
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
+    <!-- password -->
+    <div  class="col-md-12 mb-3">
+      <div class="form-floating mb-3">
+        <input class="form-control"
+               pInputText
+               formControlName="password"
+               required
+               type="password">
+        <label>Password</label>
       </div>
-      <button
-        class="w-100 btn btn-lg btn-primary"
-        type="submit"
-         [disabled]="loginForm.invalid"
-      >
-        Sign in
-      </button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
-    </form>
-  </div>
+      <div class="p-error" *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+        <div *ngIf="loginForm.controls['password'].errors.minLength">
+          Password must be at least 8 characters.
+        </div>
+        <div *ngIf="loginForm.controls['password'].errors.maxLength">
+          Password must be at most 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="w-100 btn btn-lg btn-primary"
+      type="submit"
+       [disabled]="loginForm.invalid"
+    >
+      Sign in
+    </button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+  </form>
 </div>

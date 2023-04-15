@@ -1,0 +1,38 @@
+<form [formGroup]="borrowBook" (ngSubmit)="onSubmit()">
+  <label for="text" class="control-label"> Member </label>
+  <p-autoComplete
+    formControlName="member"
+    styleClass="d-block w-100"
+    [suggestions]="filteredMembers"
+    (completeMethod)="Autocomplete($event)"
+    field="full_name"
+    [showClear]="true"
+    [showEmptyMessage]="true"
+    [required]="true"
+  ></p-autoComplete>
+  <div class="alert alert-danger mt-2" *ngIf="borrowBook.get('member')?.errors && borrowBook.get('member')?.touched">
+    Member is required  
+  </div>
+  <label for="returnDate" class="control-label mt-2"> Book return date</label>
+  <input
+    type="date"
+    formControlName="returnDate"
+    id="returnDate"
+    class="form-control mt-2"
+  />
+  {{borrowBook.get('member')?.errors | json}}
+    <div class="alert alert-danger mt-2" *ngIf="borrowBook.get('returnDate')?.errors && borrowBook.get('returnDate')?.touched">
+    required incoming date  Return Date    
+    </div>
+  <p-button
+    icon="pi pi-check"
+    (click)="onSubmit()"
+    label="Borrow Book"
+    styleClass="p-button-text mt-2"
+    [disabled]="borrowBook.invalid"
+  ></p-button>
+  
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+</div>
+</form>

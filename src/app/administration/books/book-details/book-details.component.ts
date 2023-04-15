@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { BooksService } from "../../services/books.service";
-import { IBooks } from "src/app/models/IBooks";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { BooksService } from '../../services/books.service';
+import { IBooks } from 'src/app/models/IBooks';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-book-details",
@@ -10,18 +10,22 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class BookDetailsComponent implements OnInit {
   @Input() public bookItem!: IBooks;
+  borrowModalVisible: boolean = false;
+  readModalVisible: boolean = false;
 
-  constructor(
-    private bookApi: BooksService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private bookApi: BooksService, private link: ActivatedRoute) {}
   ngOnInit() {
-    const id = this.route.snapshot.params["id"];
-    this.bookApi.getBookById(id).subscribe((data) => {
-      this.bookItem = data.data;
-      if (this.bookItem == null) this.router.navigateByUrl("/admin/books");
-      console.log(this.bookItem);
-    });
+    this.bookApi
+      .getBookById(this.link.snapshot.params["id"])
+      .subscribe((data) => {
+        this.bookItem = data.data;
+      });
+  }
+  showBorrowForm() {
+    this.borrowModalVisible = true;
+  }
+  showReadForm() { 
+    this.readModalVisible = true;
+
   }
 }

@@ -5,10 +5,7 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="tg-postbook">
             <figure class="tg-featureimg">
-              <img
-                src="http://localhost:4200/assets/images/books/img-01.jpg"
-                alt="image description"
-              />
+              <img src="{{ bookItem.image }}" alt="image description" />
             </figure>
             <div class="tg-postbookcontent">
               <span class="tg-bookprice">
@@ -17,13 +14,12 @@
               </span>
               <!-- <span class="tg-bookwriter">You save $4.02</span> -->
               <ul class="tg-delevrystock">
-        
                 <li>
                   <i class="icon-store"></i
                   ><span
                     >Read Status:
                     <em>{{
-                      bookItem!.available > 0 ? "Available" : "Not Available"
+                      bookItem.available > 0 ? "Available" : "Not Available"
                     }}</em></span
                   >
                 </li>
@@ -33,29 +29,43 @@
                     >Borrow Status:
                     <em>
                       {{
-                        bookItem!.available > 1 ? "Available" : "Not Available"
+                        bookItem.available > 1 ? "Available" : "Not Available"
                       }}
                     </em>
                   </span>
                 </li>
               </ul>
-              <!-- <div class="tg-quantityholder">
-                <em class="minus">-</em>
-                <input
-                  type="text"
-                  class="result"
-                  value="0"
-                  id="quantity1"
-                  name="quantity"
-                />
-                <em class="plus">+</em>
-              </div> -->
-              <a class="tg-btn tg-active tg-btn-lg" href="javascript:void(0);"
-                >Borrow</a
+
+              <button
+                class="tg-btn tg-active tg-btn-lg"
+                (click)="showBorrowForm()"
               >
-              <a class="tg-btnaddtowishlist" href="javascript:void(0);">
+                Borrow
+              </button>
+
+              <p-dialog
+                header="Borrow Book"
+                [(visible)]="borrowModalVisible"
+                [modal]="true"
+                [style]="{ width: '50vw' }"
+                [draggable]="false"
+                [resizable]="false"
+              >
+                <app-bookBorrow></app-bookBorrow>
+              </p-dialog>
+              <button class="tg-btnaddtowishlist" (click)="showReadForm()">
                 <span>Read</span>
-              </a>
+              </button>
+              <p-dialog
+                header="Read Book"
+                [(visible)]="readModalVisible"
+                [modal]="true"
+                [style]="{ width: '50vw', height:'25vw' }"
+                [draggable]="false"
+                [resizable]="false"
+              >
+                <app-bookRead></app-bookRead>
+              </p-dialog>
             </div>
           </div>
         </div>
@@ -63,17 +73,17 @@
           <div class="tg-productcontent">
             <ul class="tg-bookscategories">
               <li>
-                <a href="javascript:void(0);">{{ bookItem!.category }}</a>
+                <a href="javascript:void(0);">{{ bookItem.category }}</a>
               </li>
             </ul>
             <div class="tg-themetagbox">
-              <span class="tg-themetag" *ngIf="bookItem!.createdAt">New</span>
+              <span class="tg-themetag" *ngIf="bookItem.createdAt">New</span>
             </div>
             <div class="tg-booktitle">
               <h3>{{ bookItem.title }}</h3>
             </div>
             <span class="tg-bookwriter"
-              >By: <a href="javascript:void(0);">{{ bookItem!.author }}</a></span
+              >By: <a href="javascript:void(0);">{{ bookItem.author }}</a></span
             >
             <div class="tg-sectionhead">
               <h2>Product Details</h2>

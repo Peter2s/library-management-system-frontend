@@ -22,6 +22,7 @@ export class MembersComponent implements OnInit {
     editMemberFlag: boolean = false;
     displayDialog: boolean;
     loading: boolean;
+
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
 
@@ -53,9 +54,6 @@ export class MembersComponent implements OnInit {
                 building: ['', Validators.required],
             },
         });
-    }
-
-    onPageChange(event: any): void {
         this.loadMembers();
     }
 
@@ -181,6 +179,7 @@ export class MembersComponent implements OnInit {
         if (this.member._id) {
             this.membersService.deleteMemberById(this.member._id).subscribe(
                 () => {
+                    this.members.splice(this.findIndexById(this.member._id), 1);
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Success',
@@ -237,5 +236,14 @@ export class MembersComponent implements OnInit {
         )
     }
 
-
+    private findIndexById(id: number) {
+        let index = -1;
+        for (let i = 0; i < this.members.length; i++) {
+            if (this.members[i]._id === id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 }

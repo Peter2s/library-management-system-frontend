@@ -1,88 +1,68 @@
-import { Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
-import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
+import {Component} from "@angular/core";
+import {faBookOpenReader} from "@fortawesome/free-solid-svg-icons";
 
-import { FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "../../../services/auth.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
 import {} from "@angular/forms";
-import { ILogin } from "../../../../models/ILogin";
-import {  PartialObserver, Subscription } from "rxjs";
-import { Router } from "@angular/router";
-import { IAuthResponse } from "src/app/models/IAuthResponse";
-import { Message, MessageService } from "primeng/api";
+import {ILogin} from "../../../../models/ILogin";
+import {Router} from "@angular/router";
+import {IAuthResponse} from "src/app/models/IAuthResponse";
+import {ToastService} from "../../../services/toast.service";
+import {MessageService} from "primeng/api";
+import {PartialObserver} from "rxjs";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
-  providers: [MessageService],
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.css"],
+    providers: [MessageService, ToastService],
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  // loginForm: FormGroup;
-  faBookOpenReader = faBookOpenReader;
-  loginForm: any;
-  serverError: any = null;
-  validationErrors: Message[] = [];
-  subscription: Subscription[] = [];
-  @ViewChild('passwordInput') passwordInput:ElementRef | null = null;
+export class LoginComponent {
+    faBookOpenReader = faBookOpenReader;
+    loginForm: FormGroup;
+    serverError: any = null;
+    private subscription: any;
 
-  constructor(
-    private AuthService: AuthService,
-    private router: Router,
-    private fb: FormBuilder,
-    private messageService: MessageService
-  ) { }
-
-
-
-  ngOnInit() {
-    this.loginForm = this.fb.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(8)]],
-    });
-  }
-
-
-
-  get email() {
-    return this.loginForm.get("email");
-  }
-
-  get password() {
-    return this.loginForm.get("password");
-  }
-
-  onSubmit() {
-    let email = this.email?.value;
-    let password = this.password?.value;
-
-    if (email && password) {
-      let LoginCredentials: ILogin = { email, password };
-
-      let loginObserver: PartialObserver<IAuthResponse> = {
-        next: (result) => {
-          console.log(result);
-          this.AuthService.storeTokens(result);
-          this.router.navigate(["/admin/dashboard"]);
-        },
-        error: (err) => {
-          this.serverError = err;
-          this.messageService.add({
-            severity: "error",
-            summary: "Error",
-            detail: err.message,
-            life: 5000,
-          });
-        },
-      };
-      if (this.loginForm.valid) {
-        const sub =
-          this.AuthService.login(LoginCredentials).subscribe(loginObserver);
-        this.subscription.push(sub);
-      }
+    constructor(
+        private AuthService: AuthService,
+        private router: Router,
+        private messageService: MessageService,
+        private toastService: ToastService
+    ) {
+        this.loginForm = new FormGroup({
+            email: new FormControl("", [
+                Validators.required,
+                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+            ]),
+            password: new FormControl("", [
+                Validators.required,
+                Validators.minLength(8),
+                Validators.maxLength(20),
+            ]),
+        });
     }
-  }
 
-  ngOnDestroy(): void {
-    this.subscription.forEach((sub) => sub.unsubscribe());
-  }
+    onSubmit() {
+        let LoginCredentials: ILogin = { 'email': this.loginForm.controls['email'].value, 'password': this.loginForm.controls['password'].value};
+        let loginObserver: PartialObserver<IAuthResponse> = {
+            next: (result) => {
+                this.AuthService.storeTokens(result);
+                this.router.navigate(["/admin/admins"]);
+            },
+            error: (error) => {
+                if(typeof error.message === 'string') {
+                    this.toastService.showError(error.message);
+                    this.router.navigate(["/admin/activation"])
+                }else{
+                    let keys = Object.keys(error.message);
+                    for (let key of keys) {
+                        this.toastService.showError(error.message[key]);
+                    }
+                }
+            },
+        };
+        const sub = this.AuthService.login(LoginCredentials).subscribe(loginObserver);
+        this.subscription.push(sub);
+    }
+
 }

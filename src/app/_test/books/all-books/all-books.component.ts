@@ -5,7 +5,7 @@ import {IBooks} from '../../../models/IBooks';
 import {BooksService} from '../../../administration/services/books.service';
 import {IBooksResponse} from "../../../models/IBooksResponse";
 import {BookResponse} from "../../../models/book-response";
-import {ApiService} from "../../../administration/services/api.service";
+import {Cloudinary, CloudinaryImage} from '@cloudinary/url-gen';
 
 
 @Component({
@@ -16,6 +16,7 @@ import {ApiService} from "../../../administration/services/api.service";
 })
 
 export class AllBooksComponent implements OnInit {
+    img!: CloudinaryImage;
     bookForm: FormGroup = {} as FormGroup;
     books: IBooks[];
     categories: String[] = [];
@@ -25,11 +26,10 @@ export class AllBooksComponent implements OnInit {
     totalBooksCount: number = 0;
     first: number = 0;
     currentPage: number = 1;
-    booksPerPage: number = 10;
+    booksPerPage: number = 8;
     rowsPerPageOptions: number[] = [8, 2 * 8, 4 * 8];
     public validationErros?: { [p: string]: string };
     protected readonly console = console;
-    image: string;
 
     constructor(private booksService: BooksService,
                 public confirmationService: ConfirmationService,
@@ -69,7 +69,7 @@ export class AllBooksComponent implements OnInit {
             pages: ['', Validators.compose([Validators.required, Validators.min(1)])],
             noOfCopies: ['', Validators.compose([Validators.required, Validators.min(1)])],
             shelfNo: ['', Validators.compose([Validators.required, Validators.min(1)])],
-            // image: ['', Validators.required],
+            image: ['', Validators.required],
         });
     }
 
@@ -160,28 +160,37 @@ export class AllBooksComponent implements OnInit {
 
     }
 
-    onFileChange(event: Event) {
-        const reader = new FileReader();
-        // @ts-ignore
-        if(event.target.files && event.target.files.length) {
-            // @ts-ignore
-            const [file] = event.target.files;
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                this.image = reader.result as string;
-                this.book.image = reader.result as string;
-                this.bookForm.patchValue({
-                    image: reader.result
-                });
-            };
+    upload(event: any) {
+        console.log(event);
+        const file = event.target.files[0];
+        console.log(file);
+        this.bookForm.patchValue({
+            image: file
+        });
+        console.log(this.bookForm);
+        this.bookForm.get('image')?.updateValueAndValidity();
+        console.log(this.bookForm);
+    }
+
+    onFileChange(event: any) {
+
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.bookForm.patchValue({
+                image: file
+            });
         }
     }
 
     saveBook(): void {
+        console.log(this.bookForm.value);
+        console.log(this.book);
+        if (this.bookForm.value.image) {
+            this.book.image = this.bookForm.value.image;
+        }
+
         this.validationErros = {};
         if (this.book._id) {
-            console.log('updateBook')
-            console.log(this.bookForm.value.image)
             this.booksService.updateBook(this.book).subscribe(
                 (response: IBooks) => {
                     this.book = response;
@@ -191,22 +200,24 @@ export class AllBooksComponent implements OnInit {
                         detail: 'Book updated.',
                         life: 5000
                     });
-                    //this.getBooks();
-                   //this.displayDialog = false;
+                    this.getBooks();
+                    //   this.books[this.findIndexById(this.book._id)] = this.book;
+                    this.displayDialog = false;
                 },
                 (error) => {
                     // console.log(error.message)
-                    this.validationErros = this.formatError(error.message)
+                    // this.validationErros = this.formatError(error.message)
                     // console.log(this.formatError(error.message));
                     // console.log(this.validationErros['title']);
-                    let keys = Object.keys(this.validationErros);
+                    // let keys = Object.keys(this.validationErros);
+                    let keys = Object.keys(error.message);
                     for (let key of keys) {
                         console.log(key);
                         this.messageService.add({
                             key: key,
                             severity: 'error',
                             summary: 'Error',
-                            detail: this.validationErros[key],
+                            detail: error.message[key],
                             // life: 5000
                         });
                     }
@@ -257,7 +268,7 @@ export class AllBooksComponent implements OnInit {
                 }
             );
         }
-        //this.getBooks();
+        this.getBooks();
     }
 
     deleteBook(): void {

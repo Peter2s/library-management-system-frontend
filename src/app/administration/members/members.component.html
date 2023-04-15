@@ -1,7 +1,4 @@
-<!-- Import PrimeNG components -->
-
-
-<p-table #dt [paginator]="true" [responsive]="true" [rows]="8" [value]="members">
+<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="members">
     <ng-template pTemplate="caption">
         <div class="p-clearfix" style="line-height: 1.87em">
             <p-messages key="ativationError"></p-messages>
@@ -138,7 +135,6 @@
 
 
 </p-dialog>
-
 <!-- Dialog for confirming member deletion -->
 <p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
     <p-footer>
@@ -149,4 +145,5 @@
                 type="button"></button>
     </p-footer>
 </p-confirmDialog>
+
 
