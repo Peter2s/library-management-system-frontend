@@ -52,9 +52,8 @@ export class MemberLoginComponent implements OnInit {
             let LoginCredentials: ILogin = {email, password};
             let loginObserver: PartialObserver<IAuthResponse> = {
                 next: (result) => {
-                    console.log(result);
                     this.AuthService.storeTokens(result);
-                    this.router.navigate(["/admin/members"]);
+                    this.router.navigate(["/"]);
                 },
                 error: (err) => {
                     this.serverError = err;

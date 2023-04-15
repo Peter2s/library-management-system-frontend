@@ -31,6 +31,10 @@ export class AuthService {
     return this.api.post("/login/administration", credentials);
   }
 
+  public memberLogin(credentials: ILogin): Observable<IAuthResponse> {
+    return this.api.post("/login", credentials);
+  }
+
   public activationAdministration(credentials: IActivationAdministration): Observable<IAuthResponse> {
     return this.api.post("/activation/administration", credentials);
   }

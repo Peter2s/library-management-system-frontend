@@ -1,149 +1,268 @@
-<p-table #dt [paginator]="true" [responsive]="true" [rows]="10" [value]="members">
+<p-toast></p-toast>
+<p-table [paginator]="true" [responsive]="true" [rows]="5" [value]="members">
     <ng-template pTemplate="caption">
-        <div class="p-clearfix" style="line-height: 1.87em">
-            <p-messages key="ativationError"></p-messages>
-            <p-messages [hideTransitionOptions]="'1500ms'" [showTransitionOptions]="'1500ms'"></p-messages>
-            <button (click)="showDialogToAdd()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
+        <div class="d-flex align-items-center justify-content-between" >
+            <h3 class="mb-0">Members: {{ members.length }}</h3>
+            <button (click)="showAddDialog()" class="p-button-success p-pull-right" icon="pi pi-plus" label="Add"
                     pButton
                     type="button"></button>
-
         </div>
-    </ng-template
-    >
+    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Activated</th>
-            <th>Actions</th>
+            <th>Action</th>
         </tr>
     </ng-template>
-    <ng-template let-i="rowIndex" let-member pTemplate="body">
+
+    <ng-template let-member pTemplate="body">
         <tr>
-            <td>{{member._id}}</td>
-            <td><a routerLink='{{member._id}}'>{{member.full_name}}</a></td>
-            <td>{{member.email}}</td>
-            <td>{{member.activated}}</td>
+            <td>{{member["_id"]}}</td>
+            <td><a routerLink="{{member._id}}">{{member["full_name"]}}</a></td>
+            <td>{{member["email"]}}</td>
+            <td>{{member["activated"]}}</td>
             <td>
-                <button (click)="editMember(member)" icon="pi pi-pencil" pButton type="button"></button>
-                <button (click)="confirmDeleteMember(member)" class="p-button-danger" icon="pi pi-trash" pButton
-                        type="button"></button>
+                <div class="input-group">
+
+                    <button (click)="showEditDialog(member)"
+                            class="p-button-warning"
+                            icon="pi pi-pencil" label="Edit"
+                            pButton
+                            type="button"></button>
+                    <button (click)="confirmDelete(member)" class="p-button-danger" icon="pi pi-trash" label="Delete"
+                            pButton
+                            type="button"></button>
+                </div>
             </td>
         </tr>
     </ng-template>
 </p-table>
+<!--Add Member Form-->
+<p-dialog [(visible)]="addDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+          header="Add Member">
+    <form [formGroup]="addForm" enctype="multipart/form-data">
+        <div class="row">
 
-<!-- Dialog for adding members -->
-<p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
-          header="Add/Edit Member">
-
-    <ng-container *ngIf="member">
-        <form #memberForm="ngForm" enctype="multipart/form-data">
-            <div class="p-grid">
-                <div class="p-col-12">
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="full_name"
+                           pInputText
+                           formControlName="full_name"
+                           required type="text">
                     <label for="full_name">Full Name</label>
-                    <input #full_name="ngModel" [(ngModel)]="member.full_name" id="full_name" name="full_name" required
-                           type="text">
-                    <div *ngIf="full_name.invalid && (full_name.dirty || full_name.touched)" class="p-error">full name
-                        min Length must 3 or more
-                    </div>
-                    <p-messages key="full_name"></p-messages>
                 </div>
-                <div class="p-col-12">
-                    <label for="email">Email</label>
-                    <input #email="ngModel" [(ngModel)]="member.email" id="email" name="email" required type="email">
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-error">Email is Invalid
+                <div class="p-error" *ngIf="addForm.controls['full_name']?.invalid && (addForm.controls['full_name'].dirty || addForm.controls['full_name'].touched)">
+                    <div *ngIf="addForm.controls['full_name'].errors.required">
+                        Full Name is required.
                     </div>
-                    <p-messages key="email"></p-messages>
-                    <p-messages key="MongoServerError"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="password">Password</label>
-                    <input #password="ngModel" [(ngModel)]="member.password" id="password" name="password" required
-                           type="password">
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="p-error">
-                        Password is Required and Must be More than 8 Characters
+                    <div *ngIf="addForm.controls['full_name'].errors.pattern">
+                        Full Name is not valid (letter only).
                     </div>
-                    <p-messages key="password"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="image">Image</label>
-                    <input #image="ngModel" [(ngModel)]="member.image" id="image" name="image" required type="file">
-                    <div *ngIf="image.invalid && (image.dirty || image.touched)" class="p-error">Image is required
-                    </div>
-                    <p-messages key="image"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="phone_number">Phone Number</label>
-                    <input #phone_number="ngModel" [(ngModel)]="member.phone_number" id="phone_number"
-                           name="phone_number" required type="string">
-                    <div *ngIf="phone_number.invalid && (phone_number.dirty || phone_number.touched)"
-                         class="p-error">
-                        Phone is required
-                    </div>
-                    <p-messages key="phone_number"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="birth_date">Birth Date</label>
-                    <input #birth_date="ngModel" [(ngModel)]="member.birth_date" id="birth_date" name="birth_date"
-                           required type="date">
-                    <div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)" class="p-error">
-                        Birth is required
-                    </div>
-                    <p-messages key="birth_date"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="city">City</label>
-                    <input #city="ngModel" [(ngModel)]="member.address.city" id="city" name="city" required
-                           type="text">
-                    <div *ngIf="city.invalid && (city.dirty || city.touched)" class="p-error">city is required
-                    </div>
-                    <p-messages key="city"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="street">Street</label>
-                    <input #street="ngModel" [(ngModel)]="member.address.street" id="street" name="street"
-                           required
-                           type="text">
-                    <div *ngIf="street.invalid && (street.dirty || street.touched)" class="p-error">street is
-                        required
-                    </div>
-                    <p-messages key="street"></p-messages>
-                </div>
-                <div *ngIf="editMemberFlag && member.activated" class="p-col-12">
-                    <label for="building">Building</label>
-                    <input #building="ngModel" [(ngModel)]="member.address.building" id="building"
-                           name="building"
-                           required type="number">
-                    <div *ngIf="building.invalid && (building.dirty || building.touched)" class="p-error">
-                        building
-                        is required
-                    </div>
-                    <p-messages key="building"></p-messages>
-                </div>
-
-                <div class="p-dialog-footer">
-                    <button (click)="saveMember()" [disabled]="!memberForm.valid" label="save" pButton
-                            type="button"></button>
-                    <button (click)="cancel()" label="Cancel" pButton type="button"></button>
                 </div>
             </div>
 
-        </form>
-    </ng-container>
 
 
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="email"
+                           pInputText
+                           formControlName="email"
+                           required type="text">
+                    <label for="email">Email</label>
+                </div>
+                <div class="p-error" *ngIf="addForm.controls['email']?.invalid && (addForm.controls['email'].dirty || addForm.controls['email'].touched)">
+                    <div *ngIf="addForm.controls['email'].errors.required">
+                        Email is required.
+                    </div>
+                    <div *ngIf="addForm.controls['email'].errors.pattern">
+                        Email is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="p-dialog-footer">
+                <button (click)="Add()"
+                        label="Save"
+                        class="p-button-success"
+                        [disabled]="addForm.invalid"
+                        pButton type="button"></button>
+                <button (click)="cancelAddDialog()" label="Cancel" pButton type="button"></button>
+            </div>
+        </div>
+
+    </form>
 </p-dialog>
-<!-- Dialog for confirming member deletion -->
+
+
+<!-- Edit Member Form -->
+<p-dialog [(visible)]="editDialog" [modal]="true" [responsive]="true" [style]="{'width': '500px'}"
+          header="Edit Member">
+    <form [formGroup]="editForm" (ngSubmit)="update()" enctype="multipart/form-data">
+        <div class="row">
+
+            <!-- Full Name -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="full_name"
+                           required type="text">
+                    <label>Full Name</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['full_name']?.invalid && (editForm.controls['full_name'].dirty || editForm.controls['full_name'].touched)">
+                    <div *ngIf="editForm.controls['full_name'].errors.required">
+                        Full Name is required.
+                    </div>
+                    <div *ngIf="editForm.controls['full_name'].errors.pattern">
+                        Full Name Must be Letters Only
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="email"
+                           required type="text">
+                    <label>Email</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['email']?.invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)">
+                    <div *ngIf="editForm.controls['email'].errors.required">
+                        Email is required.
+                    </div>
+                    <div *ngIf="editForm.controls['email'].errors.pattern">
+                        Email is not valid.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birth date -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="birth_date"
+                           required type="date">
+                    <label>Birth Date</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['birth_date']?.invalid && (editForm.controls['birth_date'].dirty || editForm.controls['birth_date'].touched)">
+                    <div *ngIf="editForm.controls['birth_date'].errors.required">
+                        Birth Date is required.
+                    </div>
+                    <div *ngIf="editForm.controls['birth_date'].errors.invalidDate">
+                        Birth Date is not valid.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="phone_number"
+                           required type="string">
+                    <label>Phone Number</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['phone_number']?.invalid && (editForm.controls['phone_number'].dirty || editForm.controls['phone_number'].touched)">
+                    <div *ngIf="editForm.controls['phone_number'].errors.required">
+                        Phone Number is required.
+                    </div>
+                    <div *ngIf="editForm.controls['phone_number'].errors.pattern">
+                        Phone Number is Invalid.
+                    </div>
+                </div>
+            </div>
+
+            <!-- City -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="address.city"
+                           required type="text">
+                    <label>City</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['address.city']?.invalid && (editForm.controls['address.city'].dirty || editForm.controls['address.city'].touched)">
+                    <div *ngIf="editForm.controls['address.city'].errors.required">
+                       City is required.
+                    </div>
+                    <div *ngIf="editForm.controls['address.city'].errors.pattern">
+                        City Must be Letters Only
+                    </div>
+                </div>
+            </div>
+
+            <!-- Street -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="address.street"
+                           required type="text">
+                    <label>Street</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['address.street']?.invalid && (editForm.controls['address.street'].dirty || editForm.controls['address.street'].touched)">
+                    <div *ngIf="editForm.controls['address.street'].errors.required">
+                        Street is required.
+                    </div>
+                    <div *ngIf="editForm.controls['address.street'].errors.pattern">
+                        Street Must be Letters Only
+                    </div>
+                </div>
+            </div>
+
+            <!-- Building -->
+            <div class="col-md-12 mb-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control"
+                           pInputText
+                           formControlName="address.building"
+                           required type="text">
+                    <label>Building</label>
+                </div>
+                <div class="p-error" *ngIf="editForm.controls['address.building']?.invalid && (editForm.controls['address.building'].dirty || editForm.controls['address.building'].touched)">
+                    <div *ngIf="editForm.controls['address.building'].errors.required">
+                        Building is required.
+                    </div>
+                    <div *ngIf="editForm.controls['address.building'].errors.pattern">
+                        Building Must be a Number
+                    </div>
+                </div>
+            </div>
+
+<!--            image-->
+            <div class="col-md-12 mb-3">
+                <div class="mb-3">
+                    <img [src]="this.image" class="w-50 d-block mx-auto">
+                    <label class="form-label">Image</label>
+                    <input class="form-control"
+                           (change)="onFileChange($event)"
+                           type="file">
+                </div>
+            </div>
+            <div class="p-dialog-footer">
+                <button (click)="update()" label="Save" pButton class="p-button-success"
+
+                        type="button"></button>
+                <button (click)="cancelEditDialog()" label="Cancel" pButton type="button"></button>
+            </div>
+        </div>
+
+    </form>
+</p-dialog>
+
+
 <p-confirmDialog [closable]="true" header="Confirmation" icon="pi pi-exclamation-triangle">
     <p-footer>
-        <!--        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-text" (click)="messageService.clear('deleteMember')"></button>-->
         <button (click)="confirmationService.close()" class="p-button-text" icon="pi pi-times" label="No" pButton
                 type="button"></button>
         <button (click)="deleteConfirmed()" class="p-button-text" icon="pi pi-check" label="Yes" pButton
                 type="button"></button>
     </p-footer>
 </p-confirmDialog>
-
-

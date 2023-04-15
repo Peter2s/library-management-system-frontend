@@ -1,249 +1,243 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from "@angular/forms";
+import { ConfirmationService, MessageService } from "primeng/api";
 import {IMembers} from "../../models/IMembers";
 import {MembersService} from "../services/members.service";
-import {ConfirmationService, MessageService} from "primeng/api";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IMembersResponse} from "../../models/IMembersResponse";
 import {IMemberResponse} from "../../models/IMemberResponse";
-import {IUpdateMessage} from "../../models/IUpdateMessage";
+import { ToastService } from "../services/toast.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-members',
     templateUrl: './members.component.html',
     styleUrls: ['./members.component.css'],
-    providers: [ConfirmationService, MessageService]
+    providers: [MessageService, ConfirmationService, ToastService, DatePipe],
 })
 export class MembersComponent implements OnInit {
-    memberForm: FormGroup = {} as FormGroup;
     members: IMembers[];
     member: IMembers;
-    maxBirthDate = new Date('2009-01-01 00:00:00').getDate();
-    egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
-    editMemberFlag: boolean = false;
-    displayDialog: boolean;
-    loading: boolean;
 
-    public validationErros?: { [p: string]: string };
-    protected readonly console = console;
+    addForm: FormGroup;
+    editForm: FormGroup;
+
+    addDialog: boolean;
+    editDialog: boolean;
+
+    loading: boolean;
+    image: any;
+
+
+    egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
 
     constructor(
         private membersService: MembersService,
+        private messageService: MessageService,
         public confirmationService: ConfirmationService,
-        public messageService: MessageService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private toastService: ToastService,
+        private datePipe: DatePipe
     ) {
         this.members = [];
         this.member = {} as IMembers;
-        this.displayDialog = false;
+        this.addDialog = false;
+        this.editDialog = false;
         this.loading = false;
+
+        this.addForm = new FormGroup({
+            full_name: new FormControl("", [
+                Validators.required,
+                Validators.pattern("^[a-zA-Z]*$"),]),
+            email: new FormControl("", [
+                Validators.required,
+                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+            ]),
+        });
+
+        this.editForm = new FormGroup({
+            _id: new FormControl("", [Validators.required]),
+            full_name: new FormControl("", [
+                Validators.required,
+                Validators.pattern("^[a-zA-Z]*$"),]),
+            email: new FormControl("", [
+                Validators.required,
+                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+            ]),
+            image: new FormControl(null),
+            phone_number: new FormControl("",[
+                Validators.required,
+                Validators.pattern(this.egyptianPhoneRegex)
+            ]),
+            birth_date: new FormControl("", [
+                Validators.required,
+                (value) => {
+                    const date = new Date(value.value).getDate();
+                    const maxBirthDate = new Date('2009-01-01 00:00:00').getDate();
+                    return date < maxBirthDate ? null : { invalidDate: true };
+                },
+            ]),
+            address: new FormGroup({
+                city: new FormControl("", [
+                    Validators.required,
+                    Validators.pattern("^[a-zA-Z]*$"),]),
+                street: new FormControl("", [
+                    Validators.required,
+                    Validators.pattern("^[a-zA-Z]*$"),]),
+                building: new FormControl("", [
+                    Validators.required,
+                    Validators.pattern("^[0-9]*$"),]),
+            })
+        })
     }
 
     ngOnInit() {
-        const trim = (str: string) => str.trim();
-        this.loadMembers();
-        this.memberForm = this.formBuilder.group({
-            full_name: [trim, Validators.required, Validators.minLength(3)],
-            email: ['', Validators.required, Validators.email],
-            password: ['', Validators.required, Validators.minLength(8)],
-            image: ['', Validators.required],
-            phone_number: ['', Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern(this.egyptianPhoneRegex)],
-            birth_date: ['', Validators.required, Validators.max(this.maxBirthDate)],
-            address: {
-                city: ['', Validators.required],
-                street: ['', Validators.required],
-                building: ['', Validators.required],
-            },
-        });
         this.loadMembers();
     }
 
 
-    showDialogToAdd() {
+    showAddDialog() {
         this.member = {} as IMembers;
-        this.displayDialog = true
+        this.addForm.reset();
+        this.addDialog = true;
     }
 
-    deleteConfirmed() {
-        this.deleteMember();
-        this.confirmationService.close();
-        this.loadMembers();
+    cancelAddDialog() {
+        this.addDialog = false;
     }
 
-    confirmDeleteMember(member: IMembers) {
+    Add() {
+        this.member = this.addForm.value;
+
+        Object.keys(this.member).forEach((key) => {
+            // @ts-ignore
+            if (this.member[key] === "") {
+                // @ts-ignore
+                delete this.member[key];
+            }
+        });
+
+        this.membersService.addMember(this.member).subscribe(
+            (data: IMemberResponse) => {
+                this.loadMembers();
+                this.toastService.showSuccess("Member Added Successfully");
+                this.addDialog = false;
+            },
+            (error) => {
+                let keys = Object.keys(error.message);
+                for (let key of keys) {
+                    this.toastService.showError(error.message[key]);
+                }
+            }
+        );
+    }
+
+
+    confirmDelete(member: IMembers) {
         this.member = member;
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete this Member?',
-            header: 'Delete Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
+            message:
+                "Are you sure that you want to delete " +
+                member.full_name +
+                " ?",
+            header: "Delete Confirmation",
             accept: () => {
                 this.deleteConfirmed();
             },
         });
     }
 
-    saveMember() {
-        this.validationErros = {};
-        if (this.member._id) {
-            this.membersService.updateMember(this.member).subscribe(
-                (response: IUpdateMessage) => {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Success',
-                        detail: 'Member updated.',
-                        life: 5000
-                    });
-                    this.displayDialog = false;
-                    this.editMemberFlag = false;
-                    this.loadMembers();
-                },
-                (error) => {
-                    try {
-                        this.validationErros = this.formatError(error.message)
-                        let keys = Object.keys(this.validationErros);
-                        for (let key of keys) {
-                            this.messageService.add({
-                                key: key,
-                                severity: 'error',
-                                summary: 'Error',
-                                detail: this.validationErros[key],
-                            });
-                        }
-                    } catch (e: any) {
-                    }
-                    this.messageService.add({
-                        key: 'MongoServerError',
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: error.message,
-                    });
-                }
-            );
+    deleteConfirmed() {
+        this.delete();
+        this.confirmationService.close();
+        this.loadMembers();
+    }
+
+    delete() {
+        this.membersService.deleteMemberById(this.member._id).subscribe(
+            (data) => {
+                this.toastService.showSuccess("Member Deleted Successfully");
+                this.loadMembers();
+            },
+            (error) => {
+                this.toastService.showError("Member Not Deleted");
+            }
+        );
+    }
+
+    showEditDialog(member: IMembers) {
+        if(member.activated){
+            // @ts-ignore
+            member.birth_date = this.datePipe.transform(member.birth_date, "yyyy-MM-dd");
+            this.editForm.patchValue(member);
+            this.editForm.patchValue({ image: member.image });
+            this.editDialog = true;
         } else {
-            this.membersService.addMember(this.member).subscribe(
-                (response: IMemberResponse) => {
-                    this.members.push(response.data);
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Success',
-                        detail: 'Member added.',
-                        life: 5000
-                    });
-                    this.displayDialog = false;
-                },
-                (error) => {
-                    try {
-                        this.validationErros = this.formatError(error.message)
-                        let keys = Object.keys(this.validationErros);
-                        for (let key of keys) {
-                            this.messageService.add({
-                                key: key,
-                                severity: 'error',
-                                summary: 'Error',
-                                detail: this.validationErros[key],
-                            });
-                        }
-                    } catch (e: any) {
-                    }
-                    this.messageService.add({
-                        key: 'MongoServerError',
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: error.message,
-                    });
-                })
+            this.editDialog = false;
+            this.toastService.showError("Member Not Activated");
         }
     }
 
-    formatError(error: string): { [key: string]: string } {
-        const errors: { [key: string]: string } = {};
-        error = error.replace("Error: ", "");
-        error.split(",").forEach((error) => {
-            console.log("This Error", error);
-            if (error) {
-                let [key, ...value] = error.split(":");
-                key = key.substring(key.indexOf("[") + 1, key.indexOf("]"))
-                errors[key.trim()] = value.join(":").split("==>")[1].trim();
+
+    cancelEditDialog() {
+        this.editDialog = false;
+    }
+
+    onFileChange(event: Event) {
+
+        const reader = new FileReader();
+        // @ts-ignore
+        if (event.target.files && event.target.files.length) {
+            // @ts-ignore
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.image = reader.result as string;
+                this.editForm.patchValue({
+                    image: reader.result,
+                });
+            };
+        }
+    }
+
+    update() {
+        this.member = this.editForm.value;
+        Object.keys(this.member).forEach((key) => {
+            // @ts-ignore
+            if (this.member[key] === "" || this.member[key] === null) {
+                // @ts-ignore
+                delete this.member[key];
             }
         });
-        return errors;
-    }
-
-    cancel() {
-        this.displayDialog = false;
-    }
-
-    deleteMember() {
-        this.displayDialog = false;
-        if (this.member._id) {
-            this.membersService.deleteMemberById(this.member._id).subscribe(
-                () => {
-                    this.members.splice(this.findIndexById(this.member._id), 1);
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Success',
-                        detail: 'Member deleted.',
-                        life: 5000
-                    });
-                    this.loadMembers();
-                },
-                (error) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: 'Failed to delete Member.',
-                        life: 5000
-                    });
+        this.membersService.updateMember(this.member).subscribe(
+            (data) => {
+                this.toastService.showSuccess("Member Updated Successfully");
+                this.editDialog = false;
+                this.loadMembers();
+            },
+            (error) => {
+                let keys = Object.keys(error.message);
+                for (let key of keys) {
+                    this.toastService.showError(error.message[key]);
                 }
-            );
-        }
-    }
-
-    editMember(member: IMembers): void {
-        if (member.activated) {
-            this.member = {...member};
-            this.displayDialog = true;
-            this.editMemberFlag = true;
-        } else {
-            this.messageService.add({
-                key: 'ativationError',
-                severity: 'warn',
-                summary: 'Warning',
-                detail: 'Member Is Not Activated',
-                life: 5000, // message will be visible for 5 seconds
-                closable: true, // user can close the message
-                sticky: false // message will not stay visible until closed
-            });
-        }
+            }
+        );
     }
 
     private loadMembers() {
         this.loading = true;
         this.membersService.getMembers().subscribe(
-            (response: IMembersResponse) => {
-                this.members = response.data;
+            (data) => {
+                this.members = data.data;
                 this.loading = false;
-            }, (error) => {
-                this.messageService.add(
-                    {
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: 'Failed to get Members.'
-                    });
+            },
+            (error) => {
                 this.loading = false;
+                this.toastService.showError("Error Loading Members");
             }
-        )
-    }
-
-    private findIndexById(id: number) {
-        let index = -1;
-        for (let i = 0; i < this.members.length; i++) {
-            if (this.members[i]._id === id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+        );
     }
 }
