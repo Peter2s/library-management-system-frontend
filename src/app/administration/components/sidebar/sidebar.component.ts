@@ -11,12 +11,21 @@ export class SidebarComponent implements OnInit {
 
     items: MenuItem[];
 
+    checked: boolean;
+
     ngOnInit() {
+        if(localStorage.getItem('role') == 'Super Admin'){
+            this.checked = true;
+        }
+        else{
+            this.checked = false;
+        }
         this.items = [
             {
                 label: 'Super Admin',
                 icon: 'pi pi-fw pi-file',
                 routerLink: '/admin/superAdmins',
+                visible: this.checked
             },
             {
                 label: 'Admin',
